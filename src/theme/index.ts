@@ -8,6 +8,7 @@ export default {
     CARD: '#1F2430',
     ACTION: '#181D29',
     BACKGROUND: '#111720',
+    TAB_BAR: '#141923',
 
     GRAY: '#6C717B',
     GRAY_60: '#C2C6CA',
