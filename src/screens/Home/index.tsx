@@ -4,7 +4,7 @@ export function Home() {
   return (
     <Container>
       <Title>
-        Hello World!
+        Home
       </Title>
     </Container>
   )

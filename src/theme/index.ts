@@ -3,12 +3,15 @@ export default {
     PRIMARY: '#0085FF',
     PRIMARY_5:'#0085FF0D',
     PRIMARY_10: '#0085FF1A',
+    PRIMARY_ACTIVE: '#0055A4',
 
     CARD: '#1F2430',
     ACTION: '#181D29',
     BACKGROUND: '#111720',
 
     GRAY: '#6C717B',
+    GRAY_60: '#C2C6CA',
+
     WHITE: '#FBFFFF',
 
     FRONT_END: '#FDFA85',
@@ -35,4 +38,6 @@ export default {
   },
 
   BORDER_RADIUS: 8,
+
+  PADDING: 20
 }
