@@ -27,7 +27,7 @@ export const Title = styled.Text<TitleProps>`
   line-height: 20px;
 
   ${({ theme, disabled }) => css`
-  font-family: ${theme.FONTS.BOLD};
+    font-family: ${theme.FONTS.BOLD};
     color: ${disabled ? theme.COLORS.GRAY_60 : theme.COLORS.WHITE};
   `}
 `

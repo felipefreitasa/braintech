@@ -1,8 +1,14 @@
+import { useNavigation } from "@react-navigation/native"
+import { AppNavigatorRoutesProps } from "../../routes/app.routes"
+
 import { IconButton } from "@components/IconButton"
 
 import { Container, LeftContainer, TextContent, Salution, UserName, UserPhoto } from "./styles"
 
 export function HomeHeader() {
+
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>()
+
   return (
     <Container>
       <LeftContainer>
@@ -19,7 +25,10 @@ export function HomeHeader() {
         </TextContent>
       </LeftContainer>
 
-      <IconButton icon='search'/>
+      <IconButton 
+        icon='search'
+        onPress={() => navigate('search')}
+      />
     </Container>
   )
 }

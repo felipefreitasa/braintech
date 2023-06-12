@@ -4,11 +4,13 @@ import { useTheme } from 'styled-components/native'
 import { createBottomTabNavigator, BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 
 import { Home } from '@screens/Home'
+import { Search } from '@screens/Search'
 import { History } from '@screens/History'
 import { Profile } from '@screens/Profile'
 
 type AppRoutesTypeProps = {
   home: undefined;
+  search: undefined;
   history: undefined;
   profile: undefined;
 }
@@ -42,6 +44,12 @@ export function AppRoutes() {
           options={{
             tabBarIcon: ({ color }) => <Feather name='home' size={24} color={color}/>
           }}
+        />
+
+        <Screen
+          name='search'
+          component={Search}
+          options={{ tabBarButton: () => null }}
         />
 
         <Screen

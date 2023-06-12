@@ -2,15 +2,15 @@ import { NativeStackNavigationProp, createNativeStackNavigator } from "@react-na
 
 import { SignIn } from "@screens/SignIn"
 
-type AppRoutesTypeProps = {
+type AuthRoutesTypeProps = {
   signIn: undefined;
 }
 
-export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutesTypeProps>
+export type AuthNavigatorRoutesProps = NativeStackNavigationProp<AuthRoutesTypeProps>
 
 export function AuthRoutes() {
 
-  const { Navigator, Screen } = createNativeStackNavigator<AppRoutesTypeProps>()
+  const { Navigator, Screen } = createNativeStackNavigator<AuthRoutesTypeProps>()
 
   return (
     <Navigator
