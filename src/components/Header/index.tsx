@@ -1,19 +1,20 @@
+import { ViewProps } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
 import { IconButton } from '@components/IconButton'
 
 import { Container, Title } from './styles'
 
-type Props = {
+type Props = ViewProps & {
   title: string;
 }
 
-export function Header({ title }: Props) {
+export function Header({ title, ...rest }: Props) {
 
   const { goBack } = useNavigation()
 
   return (
-    <Container>
+    <Container {...rest}>
       <IconButton
         onPress={goBack}
         icon='arrow-left'
