@@ -1,9 +1,11 @@
+import { Platform } from "react-native"
 import styled, { css } from "styled-components/native"
 
 export const Container = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding-top: ${Platform.OS === 'ios' ? 40 : 0}px;
 `
 
 export const UserPhoto = styled.Image`
