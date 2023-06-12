@@ -3,15 +3,17 @@ import { PressableProps } from 'react-native'
 
 import { CategoryTypeProps } from '../../@types/categoryTypeProps'
 
+import { handleTechnologyIcon } from '@utils/handleTechnologyIcon'
+
 import { Container, IconContainer, Subtitle, Title } from './styles'
 
 type Props = PressableProps & {
-  title: string;
-  subtitle: string;
+  technology: string;
+  description: string;
   category: CategoryTypeProps;
 }
 
-export function CategoryButton({ title, subtitle, category, ...rest }: Props) {
+export function CategoryButton({ technology, description, category, ...rest }: Props) {
 
   const [isActive, setIsActive] = useState(false)
 
@@ -22,14 +24,16 @@ export function CategoryButton({ title, subtitle, category, ...rest }: Props) {
       onPressOut={() => setIsActive(false)}
       {...rest}
     >
-      <IconContainer category={category}/>
+      <IconContainer category={category}>
+        {handleTechnologyIcon(technology)}
+      </IconContainer>
 
       <Title>
-        {title}
+        {technology}
       </Title>
 
       <Subtitle>
-        {subtitle}
+        {description}
       </Subtitle>
     </Container>
   )

@@ -14,6 +14,7 @@ type IconContainerProps = {
 export const Container = styled.Pressable<ContainerProps>`
   width: 200px;
   height: 140px;
+  margin-right: 12px;
   border: 1px solid transparent;
   
   ${({ theme, isActive }) => css`
@@ -28,6 +29,8 @@ export const IconContainer = styled.View<IconContainerProps>`
   width: 37px;
   height: 37px;
   margin-bottom: 8px;
+  align-items: center;
+  justify-content: center;
   border-radius: ${({ theme }) => theme.BORDER_RADIUS}px;
 
   ${({ category }) => {

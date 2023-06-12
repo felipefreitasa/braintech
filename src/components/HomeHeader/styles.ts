@@ -5,7 +5,7 @@ export const Container = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding-top: ${Platform.OS === 'ios' ? 40 : 0}px;
+  padding: ${Platform.OS === 'ios' ? 50 : 20}px 20px 0 20px;
 `
 
 export const UserPhoto = styled.Image`

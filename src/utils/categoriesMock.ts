@@ -1,7 +1,8 @@
 import { CategoryTypeProps } from "../@types/categoryTypeProps"
 
 type CategoryTypes = {
-  name: string;
+  id: string,
+  technology: string;
   description: string;
 }
 
@@ -17,11 +18,13 @@ export const categoriesMock: Props[] = [
     category: 'MOBILE',
     technologies: [
       {
-        name: 'React Native',
+        id: '11',
+        technology: 'React Native',
         description: 'Desenvolva apps iOS e Android com Javascript'
       },
       {
-        name: 'Flutter',
+        id: '12',
+        technology: 'Flutter',
         description: 'Desenvolva apps iOS e Android com Dart'
       }
     ]
@@ -31,11 +34,13 @@ export const categoriesMock: Props[] = [
     category: 'FRONT-END',
     technologies: [
       {
-        name: 'React JS',
+        id: '13',
+        technology: 'React JS',
         description: 'Biblioteca JS para criação de páginas web reativas'
       },
       {
-        name: 'Vue JS',
+        id: '14',
+        technology: 'Vue JS',
         description: 'Framework JS para criação de páginas web escaláveis'
       }
     ]
@@ -45,11 +50,13 @@ export const categoriesMock: Props[] = [
     category: 'BACK-END',
     technologies: [
       {
-        name: 'Node JS',
+        id: '15',
+        technology: 'Node JS',
         description: 'Framework JS para criação de páginas web escaláveis'
       },
       {
-        name: 'Express',
+        id: '16',
+        technology: 'Go',
         description: 'Framework JS para criação de páginas web escaláveis'
       }
     ]
