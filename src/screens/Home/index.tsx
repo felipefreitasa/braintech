@@ -1,6 +1,9 @@
 import { FlatList } from "react-native"
+import { useNavigation } from "@react-navigation/native"
 
 import { categoriesMock } from "@utils/categoriesMock"
+
+import { QuizNavigatorRoutesProps } from "../../routes/quiz.routes"
 
 import { HomeHeader } from "@components/HomeHeader"
 import { CategoryButton } from "@components/CategoryButton"
@@ -9,6 +12,8 @@ import { CategorySectionTitle } from "@components/CategorySectionTitle"
 import { CategoryContainer, Container, Title } from "./styles"
 
 export function Home() {
+
+  const { navigate } = useNavigation<QuizNavigatorRoutesProps>()
 
   return (
     <Container>
@@ -40,6 +45,11 @@ export function Home() {
                     category={category}
                     technology={item.technology}
                     description={item.description}
+                    onPress={() => navigate('categoryQuizMenu', {
+                      category,
+                      technology: item.technology,
+                      description: item.description,
+                    })}
                   />
                 )}
               />
