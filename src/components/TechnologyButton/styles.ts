@@ -14,6 +14,7 @@ export const Container = styled.Pressable<ContainerProps>`
   flex: 1;
   min-height: 80px;
   max-height: 80px;
+  margin-bottom: 12px;
   flex-direction: row;
   align-items: center;
   border: 1px solid transparent;

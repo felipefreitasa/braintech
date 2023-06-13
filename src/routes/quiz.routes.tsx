@@ -1,5 +1,7 @@
 import { NativeStackNavigationProp, createNativeStackNavigator } from "@react-navigation/native-stack"
 
+import { QuizTypeProps } from "@utils/categoriesMock"
+
 import { Home } from "@screens/Home"
 import { Search } from "@screens/Search"
 import { CategoryQuizMenu } from "@screens/CategoryQuizMenu"
@@ -11,6 +13,7 @@ type QuizRoutesTypeProps = {
     category: string;
     technology: string;
     description: string;
+    options: QuizTypeProps[] 
   };
 }
 
@@ -24,22 +27,22 @@ export function QuizRoutes() {
     <Navigator
       screenOptions={{
         headerShown: false,
-        animation: 'slide_from_right'
+        animation: 'slide_from_right',
       }}
-    >
+    >   
       <Screen
         name='home'
         component={Home}
       />
 
       <Screen
-        name='search'
-        component={Search}
-      />
-      
-      <Screen
         name='categoryQuizMenu'
         component={CategoryQuizMenu}
+      />
+
+      <Screen
+        name='search'
+        component={Search}
       />
     </Navigator>
   )

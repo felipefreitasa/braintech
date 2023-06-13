@@ -8,6 +8,7 @@ type IconContainerProps = {
 
 export const Container = styled.View`
   flex: 1;
+  max-width: 85%;
   align-self: center;
   align-items: center;
   justify-content: center;

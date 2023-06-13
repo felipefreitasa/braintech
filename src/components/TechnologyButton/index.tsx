@@ -8,14 +8,16 @@ import { handleTechnologyIcon } from '@utils/handleTechnologyIcon'
 import { CategoryTypeProps } from '../../@types/categoryTypeProps'
 
 import { Container, ContentContainer, IconContainer, QuestionsQuantity, TextContainer, Title } from './styles'
+import { handleCategoryColor } from '@utils/handleCategoryColor'
 
 type Props = PressableProps & {
   title: string;
   questionsQuantity: number;
   category: CategoryTypeProps;
+  icon?: keyof typeof Feather.glyphMap;
 }
 
-export function TechnologyButton({ title, questionsQuantity, category }: Props) {
+export function TechnologyButton({ title, questionsQuantity, category, icon }: Props) {
 
   const { COLORS } = useTheme()
 
@@ -29,7 +31,15 @@ export function TechnologyButton({ title, questionsQuantity, category }: Props) 
     >
       <ContentContainer>
         <IconContainer category={category}>
-          {handleTechnologyIcon(title)}
+          {icon ? (
+            <Feather
+              size={22}
+              name={icon}
+              color={handleCategoryColor(category)}
+            />
+          ) : 
+            handleTechnologyIcon(title)
+          }
         </IconContainer>
 
         <TextContainer>

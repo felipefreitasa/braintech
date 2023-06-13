@@ -3,12 +3,12 @@ import { Feather } from '@expo/vector-icons'
 import { useTheme } from 'styled-components/native'
 import { createBottomTabNavigator, BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 
-import { QuizRoutes } from './quiz.routes'
-
 import { History } from '@screens/History'
 import { Profile } from '@screens/Profile'
+import { QuizRoutes } from './quiz.routes'
 
 type AppRoutesTypeProps = {
+  quizRoutes: undefined;
   search: undefined;
   history: undefined;
   profile: undefined;
@@ -35,15 +35,15 @@ export function AppRoutes() {
           borderTopWidth: 0,
           backgroundColor: COLORS.TAB_BAR,
           height: Platform.OS  === 'ios' ? 90 : 70,
-          paddingTop: Platform.OS === 'ios' ? 20 : 0
+          paddingTop: Platform.OS === 'ios' ? 20 : 0,
         } 
       }}
     >
         <Screen
-          name='quizNavigator'
+          name='quizRoutes'
           component={QuizRoutes}
           options={{
-            tabBarIcon: ({ color }) => <Feather name='home' size={24} color={color}/>
+            tabBarIcon: ({ color }) => <Feather name='home' size={24} color={color}/>,
           }}
         />
 

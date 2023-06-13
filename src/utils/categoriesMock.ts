@@ -1,15 +1,31 @@
+import { Feather } from "@expo/vector-icons";
 import { CategoryTypeProps } from "../@types/categoryTypeProps"
+
+type QuestionTypeProps = {
+  id: string;
+  question: string;
+  answers: string[];
+  correctAnswer: string;
+}
+
+export type QuizTypeProps = {
+  id: string;
+  title: string;
+  questions: QuestionTypeProps[]
+  icon: keyof typeof Feather.glyphMap;
+}
 
 type CategoryTypes = {
   id: string,
   technology: string;
   description: string;
+  quizOptions: QuizTypeProps[]
 }
 
 type Props = {
   id: string;
-  category: CategoryTypeProps,
-  technologies: CategoryTypes[]
+  category: CategoryTypeProps;
+  technologies: CategoryTypes[];
 }
 
 export const categoriesMock: Props[] = [
@@ -20,45 +36,47 @@ export const categoriesMock: Props[] = [
       {
         id: '11',
         technology: 'React Native',
-        description: 'Desenvolva apps iOS e Android com Javascript'
-      },
-      {
-        id: '12',
-        technology: 'Flutter',
-        description: 'Desenvolva apps iOS e Android com Dart'
+        description: 'Desenvolva apps iOS e Android com Javascript',
+        quizOptions: [
+          {
+            id: '111',
+            icon: 'toggle-left',
+            title: 'Componentes',
+            questions: [
+              {
+                id: '1111',
+                question: 'Qual componente no React Native é usado para criar um campo de entrada de texto?',
+                answers: ['<TextEntry/>', '<TextInput/>', '<Input/>', '<TextField/>'],
+                correctAnswer: '<TextInput/>'
+              },
+              {
+                id: '1112',
+                question: 'Qual componente no React Native é usado para exibir texto?',
+                answers: ['<p/>', '<Paragraph/>', '<Text/>', '<View/>'],
+                correctAnswer: '<Text/>'
+              },
+              {
+                id: '1113',
+                question: 'Qual componente no React Native é usado para exibir imagens?',
+                answers: ['<Image>', '<Img/>', '<Photo/>', '<Background/>'],
+                correctAnswer: '<Image/>'
+              },
+              {
+                id: '1114',
+                question: 'Qual componente no React Native é usado para indicar um carregamento?',
+                answers: ['<ProgressBar/>', '<ProgressIndicator/>', '<ActivityIndicator/>', '<Loader/>'],
+                correctAnswer: '<ActivityIndicator/>'
+              },
+              {
+                id: '1115',
+                question: 'Qual componente no React Native é usado para criar uma lista de itens otimizada para alto desempenho?',
+                answers: ['<VirtualizedList/>', '<FlatList/>', '<FastList/>', '<FlatList/>'],
+                correctAnswer: '<FlatList/>'
+              }
+            ]
+          }
+        ]
       }
     ]
   },
-  {
-    id: '2' ,
-    category: 'FRONT-END',
-    technologies: [
-      {
-        id: '13',
-        technology: 'React JS',
-        description: 'Biblioteca JS para criação de páginas web reativas'
-      },
-      {
-        id: '14',
-        technology: 'Vue JS',
-        description: 'Framework JS para criação de páginas web escaláveis'
-      }
-    ]
-  },
-  {
-    id: '3' ,
-    category: 'BACK-END',
-    technologies: [
-      {
-        id: '15',
-        technology: 'Node JS',
-        description: 'Framework JS para criação de páginas web escaláveis'
-      },
-      {
-        id: '16',
-        technology: 'Go',
-        description: 'Framework JS para criação de páginas web escaláveis'
-      }
-    ]
-  }
 ]

@@ -3,13 +3,12 @@ import { useNavigation } from "@react-navigation/native"
 
 import { categoriesMock } from "@utils/categoriesMock"
 
-import { QuizNavigatorRoutesProps } from "../../routes/quiz.routes"
-
 import { HomeHeader } from "@components/HomeHeader"
 import { CategoryButton } from "@components/CategoryButton"
 import { CategorySectionTitle } from "@components/CategorySectionTitle"
 
 import { CategoryContainer, Container, Title } from "./styles"
+import { QuizNavigatorRoutesProps } from "../../routes/quiz.routes"
 
 export function Home() {
 
@@ -47,6 +46,7 @@ export function Home() {
                     description={item.description}
                     onPress={() => navigate('categoryQuizMenu', {
                       category,
+                      options: item.quizOptions,
                       technology: item.technology,
                       description: item.description,
                     })}
