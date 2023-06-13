@@ -3,6 +3,7 @@ import { Keyboard } from 'react-native'
 
 import { Input } from '@components/Input'
 import { Header } from '@components/Header'
+import { SearchFeedback } from '@components/SearchFeedback'
 import { TechnologyButton } from '@components/TechnologyButton'
 
 import { Container, SearchResultTitle } from './styles'
@@ -24,7 +25,7 @@ export function Search() {
         placeholder='Busque uma tecnologia'
       />
 
-      {search.length > 0 && (
+      {search.length > 0 ? (
         <>
           <SearchResultTitle>
             Resultado da busca
@@ -36,6 +37,12 @@ export function Search() {
             questionsQuantity={10}
           />
         </>
+      ): (
+        <SearchFeedback
+          mode='default'
+          title='Pesquisa uma tecnologia'
+          subtitle='Descubra os melhores frameworks e linguagens de programação.'
+        />
       )}
     </Container>
   )

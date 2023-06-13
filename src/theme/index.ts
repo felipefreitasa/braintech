@@ -28,6 +28,7 @@ export default {
     SUCCESS_10: '#6CC2641A',
 
     ERROR: '#E32A2A',
+    ERROR_5: '#E32A2A0D',
     ERROR_10: '#E32A2A1A',
   },
 
