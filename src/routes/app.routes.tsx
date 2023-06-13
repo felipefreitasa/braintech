@@ -1,67 +1,50 @@
-import { Platform } from 'react-native'
-import { Feather } from '@expo/vector-icons'
-import { useTheme } from 'styled-components/native'
-import { createBottomTabNavigator, BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
+import { NativeStackNavigationProp, createNativeStackNavigator } from "@react-navigation/native-stack"
 
-import { History } from '@screens/History'
-import { Profile } from '@screens/Profile'
-import { QuizRoutes } from './quiz.routes'
+import { QuizTypeProps } from "@utils/categoriesMock"
+
+import { HomeTabsRoutes } from "./tabs.routes"
+
+import { Search } from "@screens/Search"
+import { CategoryQuizMenu } from "@screens/CategoryQuizMenu"
 
 type AppRoutesTypeProps = {
-  quizRoutes: undefined;
+  home: undefined;
   search: undefined;
-  history: undefined;
-  profile: undefined;
-  quizNavigator: undefined;
+  categoryQuizMenu: {
+    category: string;
+    technology: string;
+    description: string;
+    options: QuizTypeProps[] 
+  };
 }
 
-export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutesTypeProps>
+export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutesTypeProps>
 
 export function AppRoutes() {
 
-  const { COLORS } = useTheme()
+  const { Navigator, Screen } = createNativeStackNavigator<AppRoutesTypeProps>()
 
-  const { Navigator, Screen } = createBottomTabNavigator<AppRoutesTypeProps>()
-  
   return (
-    <Navigator 
-      screenOptions={{  
+    <Navigator
+      screenOptions={{
         headerShown: false,
-        tabBarShowLabel: false,
-        tabBarHideOnKeyboard: true,
-        tabBarInactiveTintColor: COLORS.GRAY,
-        tabBarActiveTintColor: COLORS.PRIMARY,
-        tabBarStyle: {
-          borderTopWidth: 0,
-          backgroundColor: COLORS.TAB_BAR,
-          height: Platform.OS  === 'ios' ? 90 : 70,
-          paddingTop: Platform.OS === 'ios' ? 20 : 0,
-        } 
+        animation: 'slide_from_right',
       }}
-    >
-        <Screen
-          name='quizRoutes'
-          component={QuizRoutes}
-          options={{
-            tabBarIcon: ({ color }) => <Feather name='home' size={24} color={color}/>,
-          }}
-        />
+    >   
+      <Screen
+        name='home'
+        component={HomeTabsRoutes}
+      />
 
-        <Screen
-          name='history'
-          component={History}
-          options={{
-            tabBarIcon: ({ color }) => <Feather name='clock' size={24} color={color}/>
-          }}
-        />
+      <Screen
+        name='categoryQuizMenu'
+        component={CategoryQuizMenu}
+      />
 
-        <Screen
-          name='profile'
-          component={Profile}
-          options={{
-            tabBarIcon: ({ color }) => <Feather name='user' size={24} color={color}/>
-          }}
-        />
+      <Screen
+        name='search'
+        component={Search}
+      />
     </Navigator>
   )
 }
