@@ -8,7 +8,7 @@ import { Search } from "@screens/Search"
 import { CategoryQuizMenu } from "@screens/CategoryQuizMenu"
 
 type AppRoutesTypeProps = {
-  home: undefined;
+  homeTabs: undefined;
   search: undefined;
   categoryQuizMenu: {
     category: string;
@@ -32,7 +32,7 @@ export function AppRoutes() {
       }}
     >   
       <Screen
-        name='home'
+        name='homeTabs'
         component={HomeTabsRoutes}
       />
 

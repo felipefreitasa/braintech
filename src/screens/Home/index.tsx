@@ -3,16 +3,17 @@ import { useNavigation } from "@react-navigation/native"
 
 import { categoriesMock } from "@utils/categoriesMock"
 
+import { AppNavigatorRoutesProps } from "../../routes/app.routes"
+
 import { HomeHeader } from "@components/HomeHeader"
 import { CategoryButton } from "@components/CategoryButton"
 import { CategorySectionTitle } from "@components/CategorySectionTitle"
 
 import { CategoryContainer, Container, Title } from "./styles"
-import { QuizNavigatorRoutesProps } from "../../routes/quiz.routes"
 
 export function Home() {
 
-  const { navigate } = useNavigation<QuizNavigatorRoutesProps>()
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>()
 
   return (
     <Container>

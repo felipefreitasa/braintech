@@ -11,9 +11,10 @@ import { Container, LeftContainer, Title } from './styles'
 type Props = ViewProps & {
   title: string;
   category?: CategoryTypeProps;
+  isGoBackButtonDisabled?: boolean;
 }
 
-export function Header({ title, category, ...rest }: Props) {
+export function Header({ title, category, isGoBackButtonDisabled = false,...rest }: Props) {
 
   const { goBack } = useNavigation()
 
@@ -23,6 +24,7 @@ export function Header({ title, category, ...rest }: Props) {
         <IconButton
           onPress={goBack}
           icon='arrow-left'
+          disabled={isGoBackButtonDisabled}
         />
 
         <Title>

@@ -19,3 +19,17 @@ export const Description = styled.Text`
     font-family: ${theme.FONTS.REGULAR};
   `}
 `
+
+export const ModalConfirmationDescription = styled.Text`
+  font-size: 16px;
+  margin-bottom: 24px;
+
+  ${({ theme }) => css`
+    color: ${theme.COLORS.GRAY};
+    font-family: ${theme.FONTS.REGULAR};
+  `}
+`
+
+export const ModalConfirmationDescriptionHighligth = styled(ModalConfirmationDescription)`
+  color: ${({ theme }) => theme.COLORS.PRIMARY};
+`

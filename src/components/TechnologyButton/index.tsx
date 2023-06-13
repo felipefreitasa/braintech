@@ -17,7 +17,7 @@ type Props = PressableProps & {
   icon?: keyof typeof Feather.glyphMap;
 }
 
-export function TechnologyButton({ title, questionsQuantity, category, icon }: Props) {
+export function TechnologyButton({ title, questionsQuantity, category, icon, ...rest }: Props) {
 
   const { COLORS } = useTheme()
 
@@ -28,6 +28,7 @@ export function TechnologyButton({ title, questionsQuantity, category, icon }: P
       isActive={isActive}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}
+      {...rest}
     >
       <ContentContainer>
         <IconContainer category={category}>

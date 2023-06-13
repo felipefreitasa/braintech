@@ -5,11 +5,10 @@ type Props = {
 }
 
 export const Container = styled.Pressable<Props>`
-  width: 40px;
-  height: 40px;
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
+  padding: 8px;
 
   ${({ theme, isActive }) => css`
     border-radius: ${theme.BORDER_RADIUS}px;

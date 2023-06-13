@@ -6,10 +6,11 @@ import { useTheme } from 'styled-components/native'
 import { Container } from './styles'
 
 type Props = PressableProps & {
-  icon: keyof typeof Feather.glyphMap
+  iconSize?: number;
+  icon: keyof typeof Feather.glyphMap;
 }
 
-export function IconButton({ icon, ...rest }: Props) {
+export function IconButton({ icon, iconSize = 20, ...rest }: Props) {
 
   const { COLORS } = useTheme()
 
@@ -24,7 +25,7 @@ export function IconButton({ icon, ...rest }: Props) {
     >
       <Feather 
         name={icon}
-        size={20} 
+        size={iconSize} 
         color={COLORS.PRIMARY} 
       />
     </Container>
