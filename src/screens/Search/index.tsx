@@ -3,8 +3,9 @@ import { Keyboard } from 'react-native'
 
 import { Input } from '@components/Input'
 import { Header } from '@components/Header'
+import { TechnologyButton } from '@components/TechnologyButton'
 
-import { Container } from './styles'
+import { Container, SearchResultTitle } from './styles'
 
 export function Search() {
 
@@ -22,6 +23,20 @@ export function Search() {
         onChangeText={setSearch}
         placeholder='Busque uma tecnologia'
       />
+
+      {search.length > 0 && (
+        <>
+          <SearchResultTitle>
+            Resultado da busca
+          </SearchResultTitle>
+
+          <TechnologyButton
+            title='React JS'
+            category='FRONT-END'
+            questionsQuantity={10}
+          />
+        </>
+      )}
     </Container>
   )
 }

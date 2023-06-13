@@ -8,3 +8,14 @@ export const Container = styled.Pressable`
     background-color: ${theme.COLORS.BACKGROUND};
   `}
 `;
+
+export const SearchResultTitle = styled.Text`
+  font-size: 12px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+
+  ${({ theme }) => css`
+    color: ${theme.COLORS.WHITE};
+    font-family: ${theme.FONTS.REGULAR};
+  `}
+`;

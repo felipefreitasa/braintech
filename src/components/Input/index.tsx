@@ -11,6 +11,8 @@ export function Input({ ...rest }: TextInputProps) {
 
   return (
     <Container 
+      autoCorrect={false}
+      autoCapitalize='none'
       isFocused={isFocused}
       placeholderTextColor={COLORS.GRAY}
       onFocus={() => setIsFocused(true)}
