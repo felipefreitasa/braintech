@@ -1,13 +1,15 @@
 import { useRoute } from '@react-navigation/native'
 
+import { CategoryTypeProps } from '../../@types/categoryTypeProps'
+
 import { Header } from '@components/Header'
 
 import { Container } from './styles'
 
 type RouteParams = {
-  category: string;
   technology: string;
   description: string;
+  category: CategoryTypeProps;
 }
 
 export function CategoryQuizMenu() {
@@ -19,6 +21,7 @@ export function CategoryQuizMenu() {
     <Container>
       <Header
         title={technology}
+        category={category}
       />
     </Container>
   )

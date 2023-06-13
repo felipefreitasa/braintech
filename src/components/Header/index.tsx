@@ -1,28 +1,36 @@
 import { ViewProps } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
-import { IconButton } from '@components/IconButton'
+import { CategoryTypeProps } from '../../@types/categoryTypeProps'
 
-import { Container, Title } from './styles'
+import { IconButton } from '@components/IconButton'
+import { ChipCategory } from '@components/ChipCategory'
+
+import { Container, LeftContainer, Title } from './styles'
 
 type Props = ViewProps & {
   title: string;
+  category?: CategoryTypeProps;
 }
 
-export function Header({ title, ...rest }: Props) {
+export function Header({ title, category, ...rest }: Props) {
 
   const { goBack } = useNavigation()
 
   return (
     <Container {...rest}>
-      <IconButton
-        onPress={goBack}
-        icon='arrow-left'
-      />
+      <LeftContainer>
+        <IconButton
+          onPress={goBack}
+          icon='arrow-left'
+        />
 
-      <Title>
-        {title}
-      </Title>
+        <Title>
+          {title}
+        </Title>
+      </LeftContainer>
+
+      {category && <ChipCategory category={category} />}
     </Container>
   )
 }
