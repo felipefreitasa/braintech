@@ -1,4 +1,5 @@
-import { Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons"
+
 import { CategoryTypeProps } from "../@types/categoryTypeProps"
 
 type QuestionTypeProps = {
@@ -70,7 +71,7 @@ export const categoriesMock: Props[] = [
               {
                 id: '1115',
                 question: 'Qual componente no React Native é usado para criar uma lista de itens otimizada para alto desempenho?',
-                answers: ['<VirtualizedList/>', '<FlatList/>', '<FastList/>', '<FlatList/>'],
+                answers: ['<VirtualizedList/>', '<FlatList/>', '<FastList/>', '<List/>'],
                 correctAnswer: '<FlatList/>'
               }
             ]

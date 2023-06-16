@@ -14,8 +14,18 @@ export const LeftContainer = styled.View`
   justify-content: center;
 `
 
+export const TitleHighlight = styled.Text`
+  font-size: 14px;
+  margin-left: 8px;
+
+  ${({ theme }) => css`
+    color: ${theme.COLORS.WHITE};
+    font-family: ${theme.FONTS.LIGHT};
+  `}
+`
+
 export const Title = styled.Text`
-  font-size: 16px;
+  font-size: 14px;
   margin-left: 8px;
 
   ${({ theme }) => css`

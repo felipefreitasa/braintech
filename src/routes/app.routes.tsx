@@ -4,6 +4,7 @@ import { QuizTypeProps } from "@utils/categoriesMock"
 
 import { HomeTabsRoutes } from "./tabs.routes"
 
+import { Quiz } from "@screens/Quiz"
 import { Search } from "@screens/Search"
 import { CategoryQuizMenu } from "@screens/CategoryQuizMenu"
 
@@ -14,7 +15,13 @@ type AppRoutesTypeProps = {
     category: string;
     technology: string;
     description: string;
-    options: QuizTypeProps[] 
+    options: QuizTypeProps[];
+  };
+  quiz: {
+    category: string;
+    technology: string;
+    subcategory: string;
+    options: QuizTypeProps[];
   };
 }
 
@@ -39,6 +46,11 @@ export function AppRoutes() {
       <Screen
         name='categoryQuizMenu'
         component={CategoryQuizMenu}
+      />
+
+      <Screen
+        name='quiz'
+        component={Quiz}
       />
 
       <Screen

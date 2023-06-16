@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { FlatList } from 'react-native'
-import { useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { useSharedValue, withTiming } from 'react-native-reanimated'
+
+import { AppNavigatorRoutesProps } from '../../routes/app.routes'
 
 import { CategoryTypeProps } from '../../@types/categoryTypeProps'
 
@@ -23,6 +25,8 @@ type RouteParams = {
 
 export function CategoryQuizMenu() {
 
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>()
+
   const route = useRoute()
   const { category, technology, description, options } = route.params as RouteParams
 
@@ -42,6 +46,17 @@ export function CategoryQuizMenu() {
     setIsActionDisabled(false)
 
     modalBottomPosition.value = withTiming(0)
+  }
+
+  function handleGoToQuiz(){
+    handleCloseConfirmationModal()
+
+    navigate('quiz', {
+      options,
+      category,
+      technology,
+      subcategory: selectedQuiz
+    })
   }
 
   return (
@@ -90,7 +105,7 @@ export function CategoryQuizMenu() {
 
         <Button
           title='Iniciar quiz'
-          onPress={() => {}}
+          onPress={handleGoToQuiz}
         />
       </Modal>  
     </>

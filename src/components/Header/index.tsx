@@ -6,15 +6,16 @@ import { CategoryTypeProps } from '../../@types/categoryTypeProps'
 import { IconButton } from '@components/IconButton'
 import { ChipCategory } from '@components/ChipCategory'
 
-import { Container, LeftContainer, Title } from './styles'
+import { Container, LeftContainer, Title, TitleHighlight } from './styles'
 
 type Props = ViewProps & {
   title: string;
+  titleHighlight?: string;
   category?: CategoryTypeProps;
   isGoBackButtonDisabled?: boolean;
 }
 
-export function Header({ title, category, isGoBackButtonDisabled = false,...rest }: Props) {
+export function Header({ title, category, isGoBackButtonDisabled = false, titleHighlight, ...rest }: Props) {
 
   const { goBack } = useNavigation()
 
@@ -27,9 +28,18 @@ export function Header({ title, category, isGoBackButtonDisabled = false,...rest
           disabled={isGoBackButtonDisabled}
         />
 
-        <Title>
-          {title}
-        </Title>
+        {titleHighlight ? (
+          <TitleHighlight>
+            {`${title}: `}
+            <Title>
+              {titleHighlight}
+            </Title>
+          </TitleHighlight>
+        ) : (
+          <Title>
+            {title}
+          </Title>
+        )}
       </LeftContainer>
 
       {category && <ChipCategory category={category} />}
