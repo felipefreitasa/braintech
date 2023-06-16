@@ -1,7 +1,9 @@
-import { useState } from 'react'
-import { View } from 'react-native'
-import { useRoute } from '@react-navigation/native'
+import { useEffect, useState } from 'react'
+import { Alert, BackHandler, View } from 'react-native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { useSharedValue, withTiming } from 'react-native-reanimated'
+
+import { AppNavigatorRoutesProps } from '../../routes/app.routes'
 
 import { QuizTypeProps } from '@utils/categoriesMock'
 import { CategoryTypeProps } from '../../@types/categoryTypeProps'
@@ -21,6 +23,8 @@ type RouteParams = {
 }
 
 export function Quiz() {
+
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>()
 
   const answerFeedback = useSharedValue(0)
 
@@ -49,6 +53,28 @@ export function Quiz() {
     setCurrentQuestion(currentQuestion + 1)
   }
 
+
+  function handleStopQuiz() {
+    Alert.alert('Tem certeza que deseja sair do quiz?', 'Se você sair, perderá o progresso do exercício atual.', [
+      {
+        text: 'Não',
+        style: 'cancel',
+      },
+      {
+        text: 'Sim',
+        style: 'destructive',
+        onPress: () => navigate('homeTabs')
+      },
+    ])
+
+    return true
+  }
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleStopQuiz)
+    return () => backHandler.remove()
+  }, [])
+
   return (
     <>
       <Container>
@@ -58,6 +84,7 @@ export function Quiz() {
             category={category}
             isGoBackButtonDisabled={questionWasAnswared}
             titleHighlight={subcategory}
+            onGoBack={handleStopQuiz}
           />
 
           <QuestionsCounter>
@@ -67,7 +94,7 @@ export function Quiz() {
           <ProgressBar>
             <ProgressIndicator percentage={progressPercentage}/>
           </ProgressBar>
-
+        
           <Question>
             {`${currentQuestion + 1}. ${questions[currentQuestion].question}`}
           </Question>
