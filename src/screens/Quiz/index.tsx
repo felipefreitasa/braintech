@@ -1,3 +1,4 @@
+import { Audio } from 'expo-av'
 import { useEffect, useState } from 'react'
 import { Alert, BackHandler, View } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -46,11 +47,17 @@ export function Quiz() {
 
   const isCorrectAnswer = selectedAnswer === questions[currentQuestion].correctAnswer
 
-  function handleCheckAnswer(){
+  async function handleCheckAnswer(){
     setIsQuestionAnswared(true)
     answerFeedback.value = withTiming(1)
 
-    if(isCorrectAnswer) setCorrectAnswers(correctAnswers + 1)
+    if(isCorrectAnswer) {
+      await playSound(true)
+      setCorrectAnswers(correctAnswers + 1)
+      
+    } else {
+      await playSound(false)
+    }
   }
 
   function handleGoToNextQuestion(){
@@ -86,6 +93,14 @@ export function Quiz() {
     ])
 
     return true
+  }
+
+  async function playSound(isCorrect: boolean){
+    const file = isCorrect ? require('../../assets/correct.mp3') : require('../../assets/error.mp3')
+    const { sound } = await Audio.Sound.createAsync(file, { shouldPlay: true })
+
+    await sound.setPositionAsync(0)
+    await sound.playAsync()
   }
 
   useEffect(() => {
