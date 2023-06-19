@@ -25,6 +25,7 @@ export default {
     MOBILE_10: '#E579C81A',
 
     SUCCESS: '#6CC264',
+    SUCCESS_5: '#6CC2640D',
     SUCCESS_10: '#6CC2641A',
 
     ERROR: '#E32A2A',

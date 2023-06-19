@@ -8,12 +8,13 @@ import { AnswerCorrectionTitle, AnswerStatus, AnswerStatusContainer, Container, 
 
 type Props = {
   correctAnswer: string;
+  isLastQuestion: boolean;
   isAnswerCorrect: boolean;
   goToNextQuestion: () => void;
   sharedValue: SharedValue<number>;
 }
 
-export function AnswerFeedbackModal({ sharedValue, isAnswerCorrect, correctAnswer, goToNextQuestion }: Props) {
+export function AnswerFeedbackModal({ sharedValue, isAnswerCorrect, correctAnswer, isLastQuestion, goToNextQuestion }: Props) {
 
   const { COLORS } = useTheme()
 
@@ -50,7 +51,7 @@ export function AnswerFeedbackModal({ sharedValue, isAnswerCorrect, correctAnswe
       )}
 
       <Button
-        title='Próxima questão'
+        title={isLastQuestion ? 'Finalizar quiz' : 'Próxima questão'}
         onPress={goToNextQuestion}
         style={{ marginTop: 24 }}
       />

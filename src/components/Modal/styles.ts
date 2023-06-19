@@ -8,7 +8,6 @@ export const Container = styled(Animated.View)`
   
   ${({ theme }) => css`
     padding: ${theme.PADDING}px;
-    padding-bottom: 40px;
     background-color: ${theme.COLORS.ACTION};
     border-top-left-radius: ${theme.BORDER_RADIUS}px;
     border-top-right-radius: ${theme.BORDER_RADIUS}px;

@@ -19,7 +19,7 @@ export function AnswerSelect({ title, isSelected, ...rest }: Props) {
       {...rest}
     >
       <MaterialIcons
-        size={20}
+        size={24}
         color={COLORS.PRIMARY}
         name={isSelected ? 'radio-button-on' : 'radio-button-off'}
       />

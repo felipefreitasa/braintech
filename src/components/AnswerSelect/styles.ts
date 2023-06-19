@@ -7,8 +7,7 @@ type Props = {
 export const Container = styled.Pressable<Props>`
   flex: 1;
   padding: 16px;
-  min-height: 52px;
-  max-height: 52px;
+  min-height: 64px;
   margin-bottom: 16px;
   flex-direction: row;
   align-items: center;
@@ -24,7 +23,7 @@ export const Container = styled.Pressable<Props>`
 
 
 export const Title = styled.Text`
-  font-size: 14px;
+  font-size: 16px;
   margin-left: 8px;
 
   ${({ theme }) => css`

@@ -28,6 +28,7 @@ export function Quiz() {
 
   const answerFeedback = useSharedValue(0)
 
+  const [correctAnswers, setCorrectAnswers] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState('')
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [isQuestionAnswared, setIsQuestionAnswared] = useState(false)
@@ -41,18 +42,35 @@ export function Quiz() {
 
   const progressPercentage = Math.round((currentQuestion / questions.length) * 100)
 
+  const isLastQuestion = currentQuestion === questions.length - 1
+
+  const isCorrectAnswer = selectedAnswer === questions[currentQuestion].correctAnswer
+
   function handleCheckAnswer(){
     setIsQuestionAnswared(true)
     answerFeedback.value = withTiming(1)
+
+    if(isCorrectAnswer) setCorrectAnswers(correctAnswers + 1)
   }
 
   function handleGoToNextQuestion(){
     setSelectedAnswer('')
     setIsQuestionAnswared(false)
     answerFeedback.value = withTiming(0)
-    setCurrentQuestion(currentQuestion + 1)
-  }
 
+    if(isLastQuestion){
+      navigate('quizStatus', { 
+        category,
+        technology,
+        subcategory,
+        correctAnswers,
+        totalQuestions: questions.length,
+       })
+      
+    } else { 
+      setCurrentQuestion(currentQuestion + 1)
+    }
+  }
 
   function handleStopQuiz() {
     Alert.alert('Tem certeza que deseja sair do quiz?', 'Se você sair, perderá o progresso do exercício atual.', [
@@ -119,9 +137,10 @@ export function Quiz() {
 
       <AnswerFeedbackModal 
         sharedValue={answerFeedback}
-        correctAnswer={questions[currentQuestion].correctAnswer}
-        isAnswerCorrect={selectedAnswer === questions[currentQuestion].correctAnswer}
+        isLastQuestion={isLastQuestion}
+        isAnswerCorrect={isCorrectAnswer}
         goToNextQuestion={handleGoToNextQuestion}
+        correctAnswer={questions[currentQuestion].correctAnswer}
       />
     </>
   )

@@ -6,6 +6,7 @@ import { HomeTabsRoutes } from "./tabs.routes"
 
 import { Quiz } from "@screens/Quiz"
 import { Search } from "@screens/Search"
+import { QuizStatus } from "@screens/QuizStatus"
 import { CategoryQuizMenu } from "@screens/CategoryQuizMenu"
 
 type AppRoutesTypeProps = {
@@ -22,6 +23,13 @@ type AppRoutesTypeProps = {
     technology: string;
     subcategory: string;
     options: QuizTypeProps[];
+  };
+  quizStatus: {
+    category: string;
+    technology: string;
+    subcategory: string;
+    totalQuestions: number;
+    correctAnswers: number;
   };
 }
 
@@ -51,6 +59,13 @@ export function AppRoutes() {
       <Screen
         name='quiz'
         component={Quiz}
+        options={{ gestureEnabled: false}}
+      />
+
+      <Screen
+        name='quizStatus'
+        component={QuizStatus}
+        options={{ gestureEnabled: false}}
       />
 
       <Screen
