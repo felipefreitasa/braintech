@@ -1,4 +1,5 @@
 import { Audio } from 'expo-av'
+import * as Haptics from 'expo-haptics'
 import { useEffect, useState } from 'react'
 import { Alert, BackHandler, View } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -57,6 +58,7 @@ export function Quiz() {
       
     } else {
       await playSound(false)
+      await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
     }
   }
 
