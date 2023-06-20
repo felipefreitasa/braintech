@@ -2,13 +2,12 @@ import { Audio } from 'expo-av'
 import * as Haptics from 'expo-haptics'
 import { useEffect, useState } from 'react'
 import { Alert, BackHandler, View } from 'react-native'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { useSharedValue, withTiming } from 'react-native-reanimated'
 
-import { AppNavigatorRoutesProps } from '../../routes/app.routes'
+import { useQuiz } from '@hooks/useQuiz'
 
-import { QuizTypeProps } from '@utils/categoriesMock'
-import { CategoryTypeProps } from '../../@types/categoryTypeProps'
+import { AppNavigatorRoutesProps } from '../../routes/app.routes'
 
 import { Header } from '@components/Header'
 import { Button } from '@components/Button'
@@ -17,30 +16,21 @@ import { AnswerFeedbackModal } from '@components/AnswerFeedbackModal'
 
 import { Container, ProgressBar, ProgressIndicator, Question, QuestionsCounter } from './styles'
 
-type RouteParams = {
-  technology: string;
-  subcategory: string;
-  options: QuizTypeProps[];
-  category: CategoryTypeProps;
-}
-
 export function Quiz() {
+
+  const { selectedTechnology, selectedQuiz, correctAnswers, setCorrectAnswers } = useQuiz()
 
   const { navigate } = useNavigation<AppNavigatorRoutesProps>()
 
   const answerFeedback = useSharedValue(0)
 
-  const [correctAnswers, setCorrectAnswers] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState('')
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [isQuestionAnswared, setIsQuestionAnswared] = useState(false)
 
-  const route = useRoute()
-  const { category, technology, options, subcategory } = route.params as RouteParams
-
-  const questions = options[0].questions
-
   const questionWasAnswared = isQuestionAnswared && selectedAnswer !== null
+
+  const questions = selectedQuiz.questions
 
   const progressPercentage = Math.round((currentQuestion / questions.length) * 100)
 
@@ -68,13 +58,7 @@ export function Quiz() {
     answerFeedback.value = withTiming(0)
 
     if(isLastQuestion){
-      navigate('quizStatus', { 
-        category,
-        technology,
-        subcategory,
-        correctAnswers,
-        totalQuestions: questions.length,
-       })
+      navigate('quizStatus')
       
     } else { 
       setCurrentQuestion(currentQuestion + 1)
@@ -115,10 +99,10 @@ export function Quiz() {
       <Container>
         <View>
           <Header
-            title={technology}
-            category={category}
+            title={selectedTechnology.technology}
+            category={selectedTechnology.category}
             isGoBackButtonDisabled={questionWasAnswared}
-            titleHighlight={subcategory}
+            titleHighlight={selectedQuiz.subcategory}
             onGoBack={handleStopQuiz}
           />
 

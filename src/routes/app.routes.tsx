@@ -1,7 +1,5 @@
 import { NativeStackNavigationProp, createNativeStackNavigator } from "@react-navigation/native-stack"
 
-import { QuizTypeProps } from "@utils/categoriesMock"
-
 import { HomeTabsRoutes } from "./tabs.routes"
 
 import { Quiz } from "@screens/Quiz"
@@ -10,27 +8,11 @@ import { QuizStatus } from "@screens/QuizStatus"
 import { CategoryQuizMenu } from "@screens/CategoryQuizMenu"
 
 type AppRoutesTypeProps = {
-  homeTabs: undefined;
+  quiz: undefined;
   search: undefined;
-  categoryQuizMenu: {
-    category: string;
-    technology: string;
-    description: string;
-    options: QuizTypeProps[];
-  };
-  quiz: {
-    category: string;
-    technology: string;
-    subcategory: string;
-    options: QuizTypeProps[];
-  };
-  quizStatus: {
-    category: string;
-    technology: string;
-    subcategory: string;
-    totalQuestions: number;
-    correctAnswers: number;
-  };
+  homeTabs: undefined;
+  quizStatus: undefined;
+  categoryQuizMenu: undefined;
 }
 
 export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutesTypeProps>

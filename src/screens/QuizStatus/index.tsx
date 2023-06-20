@@ -2,36 +2,27 @@ import { useEffect } from 'react'
 import { BackHandler, View } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { useTheme } from 'styled-components/native'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
+
+import { useQuiz } from '@hooks/useQuiz'
 
 import { AppNavigatorRoutesProps } from '../../routes/app.routes'
-import { CategoryTypeProps } from '../../@types/categoryTypeProps'
 import { capitalizeCategoryLabel } from '@utils/capitalizeCategoryLabel'
-
 
 import { Button } from '@components/Button'
 import { StatisticCard } from '@components/StatisticCard'
 
 import { Container, IconContainer, StatisticsTitle, Subtitle, Title } from './styles'
 
-type RouteParams = {
-  technology: string;
-  subcategory: string;
-  correctAnswers: number;
-  totalQuestions: number;
-  category: CategoryTypeProps;
-}
-
 export function QuizStatus() {
 
   const { COLORS } = useTheme()
-
-  const route = useRoute()
-  const { category, technology, correctAnswers, totalQuestions, subcategory } = route.params as RouteParams
+  
+  const { selectedQuiz, selectedTechnology, correctAnswers } = useQuiz()
 
   const { navigate } = useNavigation<AppNavigatorRoutesProps>()
 
-  const correctAnswersPercentage = Math.round((correctAnswers/totalQuestions) * 100)
+  const correctAnswersPercentage = Math.round((correctAnswers/selectedQuiz.questions.length) * 100)
   const mode = correctAnswersPercentage >= 70 ? 'success' : 'error'
 
   function handleGoToHome(){
@@ -76,19 +67,19 @@ export function QuizStatus() {
         <StatisticCard
           icon='help-circle'
           title='Respostas corretas'
-          subtitle={`${correctAnswers} de ${totalQuestions}`}
+          subtitle={`${correctAnswers} de ${selectedQuiz.questions.length}`}
         />
 
         <StatisticCard
           icon='book-open'
           title='Área'
-          subtitle={capitalizeCategoryLabel(category)}
+          subtitle={capitalizeCategoryLabel(selectedTechnology.category)}
         />
 
         <StatisticCard
           icon='code'
           title='Tecnologia'
-          subtitle={`${technology}: ${subcategory}`}
+          subtitle={`${selectedTechnology.technology}: ${selectedQuiz.subcategory}`}
         />
       </View>
 

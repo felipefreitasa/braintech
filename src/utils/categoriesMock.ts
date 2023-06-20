@@ -59,7 +59,7 @@ export const categoriesMock: Props[] = [
               {
                 id: '1113',
                 question: 'Qual componente no React Native é usado para exibir imagens?',
-                answers: ['<Image>', '<Img/>', '<Photo/>', '<Background/>'],
+                answers: ['<Image/>', '<Img/>', '<Photo/>', '<Background/>'],
                 correctAnswer: '<Image/>'
               },
               {

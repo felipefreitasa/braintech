@@ -1,13 +1,11 @@
 import { useState } from 'react'
 import { FlatList } from 'react-native'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native'
 import { useSharedValue, withTiming } from 'react-native-reanimated'
 
 import { AppNavigatorRoutesProps } from '../../routes/app.routes'
 
-import { CategoryTypeProps } from '../../@types/categoryTypeProps'
-
-import { QuizTypeProps } from '@utils/categoriesMock'
+import { useQuiz } from '@hooks/useQuiz'
 
 import { Modal } from '@components/Modal'
 import { Header } from '@components/Header'
@@ -16,28 +14,20 @@ import { TechnologyButton } from '@components/TechnologyButton'
 
 import { Container, Description, ModalConfirmationDescription, ModalConfirmationDescriptionHighligth } from './styles'
 
-type RouteParams = {
-  technology: string;
-  description: string;
-  options: QuizTypeProps[];
-  category: CategoryTypeProps;
-}
-
 export function CategoryQuizMenu() {
+
+  const { selectedTechnology, setSelectedQuiz, selectedQuiz } = useQuiz()
 
   const { navigate } = useNavigation<AppNavigatorRoutesProps>()
 
-  const route = useRoute()
-  const { category, technology, description, options } = route.params as RouteParams
-
-  const [selectedQuiz, setSelectedQuiz] = useState('')
+  const [selectedQuizName, setSelectedQuizName] = useState('')
   const [isActionDisabled, setIsActionDisabled] = useState(false)
 
   const modalBottomPosition = useSharedValue(0)
 
   function handleOpenConfirmationModal(quizName: string) {
     setIsActionDisabled(true)
-    setSelectedQuiz(quizName)
+    setSelectedQuizName(quizName)
 
     modalBottomPosition.value = withTiming(1)
   }
@@ -51,41 +41,42 @@ export function CategoryQuizMenu() {
   function handleGoToQuiz(){
     handleCloseConfirmationModal()
 
-    navigate('quiz', {
-      options,
-      category,
-      technology,
-      subcategory: selectedQuiz
-    })
+    navigate('quiz')
   }
 
   return (
     <>
       <Container>
         <Header
-          title={technology}
-          category={category}
+          title={selectedTechnology?.technology}
+          category={selectedTechnology?.category}
           isGoBackButtonDisabled={isActionDisabled}
         />
 
         <Description>
-          {description}
+          {selectedTechnology?.description}
         </Description>
 
         <FlatList
-          data={options}
+          data={selectedTechnology?.options}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => (
-            <TechnologyButton
-              icon={item.icon}
-              title={item.title}
-              category={category}
-              questionsQuantity={item.questions.length}
-              onPress={() => handleOpenConfirmationModal(item.title)}
-              disabled={isActionDisabled}
-            />
-          )}
+          renderItem={({ item }) => {
+
+            return (
+              <TechnologyButton
+                icon={item.icon}
+                title={item.title}
+                category={selectedTechnology?.category}
+                questionsQuantity={item.questions.length}
+                onPress={() => { 
+                  setSelectedQuiz({ questions: item.questions, subcategory: item.title })
+                  handleOpenConfirmationModal(item.title)
+                }}
+                disabled={isActionDisabled}
+              />
+            )
+          }}
         />
       </Container>  
 
@@ -98,7 +89,7 @@ export function CategoryQuizMenu() {
           Voce está prestes a iniciar os exercícios sobre
           {' '}
           <ModalConfirmationDescriptionHighligth>
-            {selectedQuiz}
+            {selectedQuizName}
           </ModalConfirmationDescriptionHighligth>
           .
         </ModalConfirmationDescription>
