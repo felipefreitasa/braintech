@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
-import { BackHandler, View } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import { BackHandler, View } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { useNavigation } from '@react-navigation/native'
 
 import { useQuiz } from '@hooks/useQuiz'
 
 import { AppNavigatorRoutesProps } from '../../routes/app.routes'
+import { calculateTimeInterval } from '@utils/calculateTimeInterval'
 import { capitalizeCategoryLabel } from '@utils/capitalizeCategoryLabel'
 
 import { Button } from '@components/Button'
@@ -18,7 +19,7 @@ export function QuizStatus() {
 
   const { COLORS } = useTheme()
   
-  const { selectedQuiz, selectedTechnology, correctAnswers } = useQuiz()
+  const { selectedQuiz, selectedTechnology, correctAnswers, quizStartTime, quizEndTime } = useQuiz()
 
   const { navigate } = useNavigation<AppNavigatorRoutesProps>()
 
@@ -61,7 +62,7 @@ export function QuizStatus() {
         <StatisticCard
           icon='clock'
           title='Duração'
-          subtitle='00:02:35'
+          subtitle={calculateTimeInterval(quizStartTime, quizEndTime)}
         />
 
         <StatisticCard

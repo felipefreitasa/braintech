@@ -30,9 +30,13 @@ export type SelectedQuizProps = {
 }
 
 export type QuizContextDataProps = {
+  quizEndTime: Date;
+  quizStartTime: Date;
   correctAnswers: number;
   selectedQuiz: SelectedQuizProps;
   selectedTechnology: SelectedCategoryProps;
+  setQuizEndTime: React.Dispatch<React.SetStateAction<Date>>;
+  setQuizStartTime: React.Dispatch<React.SetStateAction<Date>>;
   setCorrectAnswers: React.Dispatch<React.SetStateAction<number>>;
   setSelectedQuiz: React.Dispatch<React.SetStateAction<SelectedQuizProps>>;
   setSelectedTechnology: React.Dispatch<React.SetStateAction<SelectedCategoryProps>>;
@@ -49,13 +53,19 @@ export function QuizContextProvider({ children }: QuizContextProviderProps){
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [selectedQuiz, setSelectedQuiz] = useState<SelectedQuizProps>({} as SelectedQuizProps)
   const [selectedTechnology, setSelectedTechnology] = useState<SelectedCategoryProps>({} as SelectedCategoryProps)
+  const [quizStartTime, setQuizStartTime] = useState<Date>({} as Date)
+  const [quizEndTime, setQuizEndTime] = useState<Date>({} as Date)
 
   return(
     <QuizContext.Provider value={{
+      quizEndTime,
       selectedQuiz, 
+      quizStartTime,
       correctAnswers, 
       selectedTechnology, 
+      setQuizEndTime,
       setSelectedQuiz,
+      setQuizStartTime,
       setCorrectAnswers,
       setSelectedTechnology,
     }}>

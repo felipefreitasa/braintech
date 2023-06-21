@@ -18,7 +18,7 @@ import { Container, ProgressBar, ProgressIndicator, Question, QuestionsCounter }
 
 export function Quiz() {
 
-  const { selectedTechnology, selectedQuiz, correctAnswers, setCorrectAnswers } = useQuiz()
+  const { selectedTechnology, selectedQuiz, correctAnswers, setCorrectAnswers, setQuizEndTime } = useQuiz()
 
   const { navigate } = useNavigation<AppNavigatorRoutesProps>()
 
@@ -58,6 +58,8 @@ export function Quiz() {
     answerFeedback.value = withTiming(0)
 
     if(isLastQuestion){
+      setQuizEndTime(new Date())
+
       navigate('quizStatus')
       
     } else { 

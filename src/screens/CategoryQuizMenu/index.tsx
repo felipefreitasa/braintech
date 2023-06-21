@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { FlatList } from 'react-native'
+import { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { useSharedValue, withTiming } from 'react-native-reanimated'
 
@@ -16,7 +16,7 @@ import { Container, Description, ModalConfirmationDescription, ModalConfirmation
 
 export function CategoryQuizMenu() {
 
-  const { selectedTechnology, setSelectedQuiz, selectedQuiz } = useQuiz()
+  const { selectedTechnology, setSelectedQuiz, setQuizStartTime, setCorrectAnswers } = useQuiz()
 
   const { navigate } = useNavigation<AppNavigatorRoutesProps>()
 
@@ -41,8 +41,14 @@ export function CategoryQuizMenu() {
   function handleGoToQuiz(){
     handleCloseConfirmationModal()
 
+    setQuizStartTime(new Date())
+
     navigate('quiz')
   }
+
+  useEffect(() => {
+    setCorrectAnswers(0)
+  }, [])
 
   return (
     <>
