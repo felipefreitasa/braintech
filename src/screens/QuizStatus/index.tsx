@@ -10,6 +10,8 @@ import { AppNavigatorRoutesProps } from '../../routes/app.routes'
 import { calculateTimeInterval } from '@utils/calculateTimeInterval'
 import { capitalizeCategoryLabel } from '@utils/capitalizeCategoryLabel'
 
+import { historyCreate } from '@storage/historyCreate'
+
 import { Button } from '@components/Button'
 import { StatisticCard } from '@components/StatisticCard'
 
@@ -26,13 +28,21 @@ export function QuizStatus() {
   const correctAnswersPercentage = Math.round((correctAnswers/selectedQuiz.questions.length) * 100)
   const mode = correctAnswersPercentage >= 70 ? 'success' : 'error'
 
-  function handleGoToHome(){
+  async function handleGoToHome(){
+    await historyCreate({ 
+      correctAnswers,
+      category: selectedTechnology.category,
+      subCategory: selectedQuiz.subcategory,
+      totalQuestions: selectedQuiz.questions.length
+    })
+
     navigate('homeTabs')
+
     return true
   }
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleGoToHome)
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => null)
     return () => backHandler.remove()
   }, [])
 
