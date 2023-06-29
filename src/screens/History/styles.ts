@@ -20,7 +20,7 @@ export const Title = styled.Text`
 
 export const Subtitle = styled.Text`
   font-size: 18px;
-  margin-bottom: 32px;
+  margin-bottom: 8px;
 
   ${({ theme }) => css`
     color: ${theme.COLORS.GRAY};
@@ -35,4 +35,17 @@ export const Data = styled.Text`
     color: ${theme.COLORS.WHITE};
     font-family: ${theme.FONTS.REGULAR};
   `}
+`
+
+export const SectionHeaderSeparator = styled.View`
+  height: 16px;
+`
+
+export const ItemSeparator = styled.View`
+  margin-top: -16px;
+  margin-bottom: -16px;
+`
+
+export const SectionSeparator = styled.View`
+  margin-top: -8px;
 `

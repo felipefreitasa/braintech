@@ -11,7 +11,7 @@ import { Loading } from "@components/Loading"
 import { HistoryItem } from "@components/HistoryItem"
 import { ListFeedbackStatus } from "@components/ListFeedbackStatus"
 
-import { Container, Data, Subtitle, Title } from "./styles"
+import { Container, Data, ItemSeparator, SectionHeaderSeparator, SectionSeparator, Subtitle, Title } from "./styles"
 
 export function History() {
 
@@ -61,7 +61,10 @@ export function History() {
             />
           )}
           renderSectionHeader={({ section: { title } }) => (
-            <Data>{title}</Data>
+            <>
+              <SectionHeaderSeparator/>
+              <Data>{title}</Data>
+            </>
           )}
           contentContainerStyle={groupItemsByDate(historyData).length < 1 && { flex: 1 }}
           ListEmptyComponent={() => (
@@ -71,6 +74,8 @@ export function History() {
               subtitle='Escolha uma tecnologia e começe a se aprofundar agora mesmo!'
             />
           )}
+          ItemSeparatorComponent={() => <ItemSeparator/>}
+          SectionSeparatorComponent={() => <SectionSeparator/>}
         />
       )} 
     </Container>

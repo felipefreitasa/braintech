@@ -12,7 +12,6 @@ export const Container = styled.Pressable`
   max-height: 80px;
   flex-direction: row;
   align-items: center;
-  margin-bottom: -24px;
   justify-content: flex-start;
 `;
 
