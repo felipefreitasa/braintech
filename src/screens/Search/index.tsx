@@ -3,8 +3,8 @@ import { Keyboard } from 'react-native'
 
 import { Input } from '@components/Input'
 import { Header } from '@components/Header'
-import { SearchFeedback } from '@components/SearchFeedback'
 import { TechnologyButton } from '@components/TechnologyButton'
+import { ListFeedbackStatus } from '@components/ListFeedbackStatus'
 
 import { Container, SearchResultTitle } from './styles'
 
@@ -38,7 +38,7 @@ export function Search() {
           />
         </>
       ): (
-        <SearchFeedback
+        <ListFeedbackStatus
           mode='default'
           title='Pesquisa uma tecnologia'
           subtitle='Descubra os melhores frameworks e linguagens de programação.'

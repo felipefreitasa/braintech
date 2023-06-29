@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import 'react-native-get-random-values'
 import { Feather } from '@expo/vector-icons'
 import { BackHandler, View } from 'react-native'
 import { useTheme } from 'styled-components/native'
@@ -29,8 +31,11 @@ export function QuizStatus() {
   const mode = correctAnswersPercentage >= 70 ? 'success' : 'error'
 
   async function handleGoToHome(){
+
     await historyCreate({ 
+      id: uuidv4(),
       correctAnswers,
+      createdAt: new Date(),
       category: selectedTechnology.category,
       subCategory: selectedQuiz.subcategory,
       totalQuestions: selectedQuiz.questions.length

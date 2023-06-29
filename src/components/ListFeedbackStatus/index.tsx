@@ -9,7 +9,7 @@ type Props = {
   mode: ModeTypeProps;
 }
 
-export function SearchFeedback({ title, subtitle, mode = 'default' }: Props) {
+export function ListFeedbackStatus({ title, subtitle, mode = 'default' }: Props) {
 
   const { COLORS } = useTheme()
 

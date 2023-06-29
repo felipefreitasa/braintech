@@ -14,6 +14,7 @@ import { CategorySectionTitle } from "@components/CategorySectionTitle"
 
 import { CategoryContainer, Container, Title } from "./styles"
 
+
 export function Home() {
 
   const { setSelectedTechnology } = useQuiz()
