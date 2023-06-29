@@ -1,0 +1,1 @@
+export type CategoryTypeProps = 'MOBILE' | 'FRONT-END' | 'BACK-END'
