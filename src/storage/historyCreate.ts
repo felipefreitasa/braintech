@@ -7,8 +7,8 @@ import { HISTORY_COLLECTION } from "./storageConfig"
 import { historyGetAll } from "./historyGetAll"
 
 export type HistoryItemProps = {
-  id: string;
-  createdAt: Date,
+  id: number;
+  createdAt: Date;
   subCategory: string;
   correctAnswers: number;
   totalQuestions: number;

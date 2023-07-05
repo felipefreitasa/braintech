@@ -1,6 +1,4 @@
 import { useEffect } from 'react'
-import { v4 as uuidv4 } from 'uuid'
-import 'react-native-get-random-values'
 import { Feather } from '@expo/vector-icons'
 import { BackHandler, View } from 'react-native'
 import { useTheme } from 'styled-components/native'
@@ -8,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 
 import { useQuiz } from '@hooks/useQuiz'
 
+import { uniqueId } from '@utils/uniqueId'
 import { AppNavigatorRoutesProps } from '../../routes/app.routes'
 import { calculateTimeInterval } from '@utils/calculateTimeInterval'
 import { capitalizeCategoryLabel } from '@utils/capitalizeCategoryLabel'
@@ -20,20 +19,20 @@ import { StatisticCard } from '@components/StatisticCard'
 import { Container, IconContainer, StatisticsTitle, Subtitle, Title } from './styles'
 
 export function QuizStatus() {
-
+  
   const { COLORS } = useTheme()
   
   const { selectedQuiz, selectedTechnology, correctAnswers, quizStartTime, quizEndTime } = useQuiz()
-
+  
   const { navigate } = useNavigation<AppNavigatorRoutesProps>()
-
+  
   const correctAnswersPercentage = Math.round((correctAnswers/selectedQuiz.questions.length) * 100)
   const mode = correctAnswersPercentage >= 70 ? 'success' : 'error'
-
+  
   async function handleGoToHome(){
 
     await historyCreate({ 
-      id: uuidv4(),
+      id: uniqueId(),
       correctAnswers,
       createdAt: new Date(),
       category: selectedTechnology.category,
