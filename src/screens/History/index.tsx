@@ -51,7 +51,7 @@ export function History() {
       {isLoading ? <Loading/> : (
         <SectionList
           sections={groupItemsByDate(historyData)}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
             <HistoryItem 
               category={item.category}
@@ -66,7 +66,6 @@ export function History() {
               <Data>{title}</Data>
             </>
           )}
-          contentContainerStyle={groupItemsByDate(historyData).length < 1 && { flex: 1 }}
           ListEmptyComponent={() => (
             <ListFeedbackStatus
               mode='default'
@@ -74,8 +73,11 @@ export function History() {
               subtitle='Escolha uma tecnologia e começe a se aprofundar agora mesmo!'
             />
           )}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={groupItemsByDate(historyData).length < 1 && { flex: 1 }}
           ItemSeparatorComponent={() => <ItemSeparator/>}
           SectionSeparatorComponent={() => <SectionSeparator/>}
+
         />
       )} 
     </Container>
