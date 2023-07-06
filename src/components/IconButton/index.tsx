@@ -3,14 +3,15 @@ import { Feather } from '@expo/vector-icons'
 import { PressableProps } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
-import { Container } from './styles'
+import { Container, ModeProps } from './styles'
 
 type Props = PressableProps & {
+  mode?: ModeProps;
   iconSize?: number;
   icon: keyof typeof Feather.glyphMap;
 }
 
-export function IconButton({ icon, iconSize = 20, ...rest }: Props) {
+export function IconButton({ icon, iconSize = 20, mode = 'default',...rest }: Props) {
 
   const { COLORS } = useTheme()
 
@@ -18,6 +19,7 @@ export function IconButton({ icon, iconSize = 20, ...rest }: Props) {
 
   return (
     <Container
+      mode={mode}
       isActive={isActive}
       onPressIn={() => setIsActive(true)}
       onPressOut={() => setIsActive(false)}
@@ -26,7 +28,7 @@ export function IconButton({ icon, iconSize = 20, ...rest }: Props) {
       <Feather 
         name={icon}
         size={iconSize} 
-        color={COLORS.PRIMARY} 
+        color={mode === 'error' ? COLORS.ERROR : COLORS.PRIMARY} 
       />
     </Container>
   )

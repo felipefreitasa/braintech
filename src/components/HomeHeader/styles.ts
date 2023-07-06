@@ -8,12 +8,6 @@ export const Container = styled.View`
   padding: ${Platform.OS === 'ios' ? 50 : 20}px 20px 0 20px;
 `
 
-export const UserPhoto = styled.Image`
-  width: 40px;
-  height: 40px;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS}px;
-`
-
 export const LeftContainer = styled.View`
   flex-direction: row;
   align-items: center;

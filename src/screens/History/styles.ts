@@ -1,3 +1,4 @@
+import { Platform } from "react-native"
 import styled, { css } from "styled-components/native"
 
 export const Container = styled.View`
@@ -11,6 +12,7 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
   font-size: 24px;
+  padding-top: ${Platform.OS === 'ios' ? 50 : 20}px;
 
   ${({ theme }) => css`
     color: ${theme.COLORS.WHITE};
