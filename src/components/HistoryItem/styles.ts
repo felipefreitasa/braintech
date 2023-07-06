@@ -7,12 +7,9 @@ type IconContainerProps = {
 }
 
 export const Container = styled.Pressable`
-  flex: 1;
-  min-height: 80px;
-  max-height: 80px;
+  height: 80px;
   flex-direction: row;
   align-items: center;
-  margin-bottom: -24px;
   justify-content: flex-start;
 `;
 

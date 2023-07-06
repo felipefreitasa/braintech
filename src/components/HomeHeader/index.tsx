@@ -1,9 +1,10 @@
 import { useNavigation } from "@react-navigation/native"
 import { AppNavigatorRoutesProps } from "../../routes/app.routes"
 
+import { UserPhoto } from "@components/UserPhoto"
 import { IconButton } from "@components/IconButton"
 
-import { Container, LeftContainer, TextContent, Salution, UserName, UserPhoto } from "./styles"
+import { Container, LeftContainer, TextContent, Salution, UserName } from "./styles"
 
 export function HomeHeader() {
 
@@ -12,7 +13,10 @@ export function HomeHeader() {
   return (
     <Container>
       <LeftContainer>
-        <UserPhoto source={{ uri: 'https://github.com/felipefreitasa.png' }}/>
+        <UserPhoto 
+         size={40} 
+         source={{ uri: 'https://github.com/felipefreitasa.png' }}
+        />
 
         <TextContent>
           <Salution>
