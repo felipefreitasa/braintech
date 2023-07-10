@@ -42,11 +42,26 @@ export const IconContainer = styled.View<IconContainerProps>`
   }}
 `
 
+export const TitleContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+`
+
 export const TextContainer = styled.View`
   margin-left: 8px;
 `
 
-export const Title = styled.Text`
+export const Technology = styled.Text`
+  font-size: 16px;
+  margin-right: 4px;
+
+  ${({ theme }) => css`
+    color: ${theme.COLORS.WHITE};
+    font-family: ${theme.FONTS.REGULAR};
+  `}
+`
+
+export const Subcategory = styled.Text`
   font-size: 16px;
 
   ${({ theme }) => css`

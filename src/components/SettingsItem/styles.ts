@@ -5,7 +5,7 @@ export const Container = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: ${Platform.OS === 'ios' ? 24 : 0}px;
+  margin-bottom: ${Platform.OS === 'ios' ? 24 : 12}px;
 `
 
 export const LeftContainer = styled.View`

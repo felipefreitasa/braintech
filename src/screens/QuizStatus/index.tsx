@@ -37,6 +37,7 @@ export function QuizStatus() {
       createdAt: new Date(),
       category: selectedTechnology.category,
       subCategory: selectedQuiz.subcategory,
+      technology: selectedTechnology.technology,
       totalQuestions: selectedQuiz.questions.length
     })
 

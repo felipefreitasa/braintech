@@ -24,7 +24,7 @@ export default function App() {
             translucent
             barStyle="light-content"
             backgroundColor="transparent"
-            />
+          />
           
           {fontsLoaded ? <Routes/> : <Loading/>}
         </ThemeProvider>

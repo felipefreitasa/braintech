@@ -1,13 +1,7 @@
 import styled, { css } from 'styled-components/native'
 
-import { CategoryTypeProps } from '../../@types/categoryTypeProps';
-
 type ContainerProps = {
   isActive: boolean;
-}
-
-type IconContainerProps = {
-  category: CategoryTypeProps
 }
 
 export const Container = styled.Pressable<ContainerProps>`
@@ -31,39 +25,6 @@ export const Container = styled.Pressable<ContainerProps>`
 export const ContentContainer = styled.View`
   flex-direction: row;
   align-items: center;
-`
-
-export const IconContainer = styled.View<IconContainerProps>`
-  width: 37px;
-  height: 37px;
-  align-items: center;
-  justify-content: center;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS}px;
-
-  ${({ category }) => {
-    switch (category) {
-      case 'FRONT-END':
-        return css`
-          background-color: ${({ theme }) => theme.COLORS.FRONT_END_10};
-        `;
-
-      case 'BACK-END':
-        return css`
-          background-color: ${({ theme }) => theme.COLORS.BACK_END_10};
-        `;
-
-      case 'MOBILE':
-        return css`
-          background-color: ${({ theme }) => theme.COLORS.MOBILE_10};
-        `;
-
-      default:
-    }
-  }}
-`
-
-export const TextContainer = styled.View`
-  margin-left: 8px;
 `
 
 export const Title = styled.Text`
