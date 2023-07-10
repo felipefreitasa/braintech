@@ -55,6 +55,7 @@ export function History() {
           renderItem={({ item }) => (
             <HistoryItem 
               category={item.category}
+              technology={item.technology}
               subCategory={item.subCategory}
               correctAnswers={item.correctAnswers}
               totalQuestions={item.totalQuestions}

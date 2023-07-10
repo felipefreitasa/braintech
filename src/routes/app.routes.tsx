@@ -3,13 +3,11 @@ import { NativeStackNavigationProp, createNativeStackNavigator } from "@react-na
 import { HomeTabsRoutes } from "./tabs.routes"
 
 import { Quiz } from "@screens/Quiz"
-import { Search } from "@screens/Search"
 import { QuizStatus } from "@screens/QuizStatus"
 import { CategoryQuizMenu } from "@screens/CategoryQuizMenu"
 
 type AppRoutesTypeProps = {
   quiz: undefined;
-  search: undefined;
   homeTabs: undefined;
   quizStatus: undefined;
   categoryQuizMenu: undefined;
@@ -48,11 +46,6 @@ export function AppRoutes() {
         name='quizStatus'
         component={QuizStatus}
         options={{ gestureEnabled: false}}
-      />
-
-      <Screen
-        name='search'
-        component={Search}
       />
     </Navigator>
   )

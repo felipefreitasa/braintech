@@ -9,6 +9,7 @@ import { historyGetAll } from "./historyGetAll"
 export type HistoryItemProps = {
   id: number;
   createdAt: Date;
+  technology: string;
   subCategory: string;
   correctAnswers: number;
   totalQuestions: number;

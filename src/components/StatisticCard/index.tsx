@@ -5,11 +5,12 @@ import { Container, Content, IconContainer, Subtitle, Title } from './styles'
 
 type Props = {
   title: string;
-  subtitle: string;
+  subtitle?: string | number;
+  isLoading?: boolean;
   icon: keyof typeof Feather.glyphMap;
 }
 
-export function StatisticCard({ icon, title, subtitle }: Props) {
+export function StatisticCard({ icon, title, subtitle, isLoading }: Props) {
 
   const { COLORS } = useTheme()
 
@@ -29,7 +30,7 @@ export function StatisticCard({ icon, title, subtitle }: Props) {
         </Title>
 
         <Subtitle>
-          {subtitle}
+          {isLoading ? '-' : subtitle}
         </Subtitle>
       </Content>
     </Container>

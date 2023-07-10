@@ -1,26 +1,33 @@
 import { handleTechnologyIcon } from '@utils/handleTechnologyIcon'
 import { CategoryTypeProps } from '../../@types/categoryTypeProps'
 
-import { Container, IconContainer, QuestionsQuantity, TextContainer, Title } from './styles'
+import { Container, IconContainer, QuestionsQuantity, Technology, TextContainer, Subcategory, TitleContainer } from './styles'
 
 type Props = {
+  technology: string;
   subCategory: string;
   correctAnswers: number;
   totalQuestions: number;
   category: CategoryTypeProps;
 }
 
-export function HistoryItem({ category, correctAnswers, subCategory, totalQuestions }: Props) {
+export function HistoryItem({ category, technology, correctAnswers, subCategory, totalQuestions }: Props) {
   return (
     <Container>
       <IconContainer category={category}>
-        {handleTechnologyIcon(subCategory)}
+        {handleTechnologyIcon(technology)}
       </IconContainer>
 
       <TextContainer>
-        <Title>
-          {subCategory}
-        </Title>
+        <TitleContainer>
+          <Technology>
+            {technology}: 
+          </Technology>
+
+          <Subcategory>
+            {subCategory}
+          </Subcategory>
+        </TitleContainer>
 
         <QuestionsQuantity>
           {`Você acertou ${correctAnswers} de ${totalQuestions} questões`}
