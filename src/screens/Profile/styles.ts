@@ -56,3 +56,9 @@ export const StatisticsTitle = styled.Text`
   `}
 `;
 
+export const StatisticsContainer = styled.View`
+  width: 100%;
+  margin-bottom: 24px;
+`
+  
+

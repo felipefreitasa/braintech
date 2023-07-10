@@ -1,13 +1,19 @@
-import { useState } from "react"
-import { View, Switch } from "react-native"
+import { useCallback, useState } from "react"
+import { View, Switch, Alert } from "react-native"
 import { useTheme } from "styled-components/native"
+import { useFocusEffect } from "@react-navigation/native"
+
+import { historyGetAll } from "@storage/historyGetAll"
+import { HistoryItemProps } from "@storage/historyCreate"
+
+import { findMostPresentTechnology } from "@utils/findMostPresentTechnology"
 
 import { UserPhoto } from "@components/UserPhoto"
 import { IconButton } from "@components/IconButton"
 import { SettingsItem } from "@components/SettingsItem"
 import { StatisticCard } from "@components/StatisticCard"
 
-import { Container, HeaderContainer, UserEmail, UserInformationsContainer, UserName, LeftContainer, StatisticsTitle } from "./styles"
+import { Container, HeaderContainer, UserEmail, UserInformationsContainer, UserName, LeftContainer, StatisticsTitle, StatisticsContainer } from "./styles"
 
 export function Profile() {
 
@@ -20,6 +26,32 @@ export function Profile() {
   const toggleDarkModeSwitch = () => setIsDarkModeEnabled(previousState => !previousState)
   const toggleSoundEffectsSwitch = () => setIsSoundEffectsEnabled(previousState => !previousState)
   const toggleNotificationsSwitch = () => setIsNotificationsEnabled(previousState => !previousState)
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [mostPresenstTechnology, setMostPresenstTechnology] = useState('')
+  const [historyData, setHistoryData] = useState<HistoryItemProps[]>()
+
+  async function fetchHistory(){
+    try {
+      setIsLoading(true)
+
+      const data = await historyGetAll()
+
+      setMostPresenstTechnology(findMostPresentTechnology(data))
+
+      setHistoryData(data)      
+
+    } catch (error) {
+      Alert.alert('Histórico', 'Não foi possível carregar o seu histórico')
+      
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useFocusEffect(useCallback(() => {
+    fetchHistory()
+  }, [])) 
 
   return (
     <Container>
@@ -48,23 +80,25 @@ export function Profile() {
         />
       </HeaderContainer>
 
-      <View style={{ width: '100%', marginBottom: 24 }}>
+      <StatisticsContainer>
         <StatisticsTitle>
           Estatísticas 
         </StatisticsTitle>
 
         <StatisticCard
           icon='code'
-          subtitle='React Native'
+          isLoading={isLoading}
+          subtitle={mostPresenstTechnology}
           title='Tecnologia favorita'
         />
 
         <StatisticCard
-          subtitle='8'
           icon='git-branch'
+          isLoading={isLoading}
           title='Exercícios respondidos'
+          subtitle={historyData?.length}
         />
-      </View>
+      </StatisticsContainer>
 
       <View style={{ width: '100%' }}>
         <StatisticsTitle>
