@@ -1,4 +1,3 @@
-import { Feather } from "@expo/vector-icons"
 import { ReactNode, createContext, useState } from "react"
 
 import { CategoryTypeProps } from "../@types/categoryTypeProps"
@@ -14,7 +13,6 @@ export type QuizTypeProps = {
   id: string;
   title: string;
   questions: QuestionTypeProps[]
-  icon: keyof typeof Feather.glyphMap;
 }
 
 export type SelectedCategoryProps = {

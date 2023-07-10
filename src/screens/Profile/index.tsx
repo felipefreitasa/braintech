@@ -19,9 +19,9 @@ export function Profile() {
 
   const { COLORS } = useTheme()
 
-  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(false)
-  const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(false)
-  const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(false)
+  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(true)
+  const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(true)
+  const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true)
 
   const toggleDarkModeSwitch = () => setIsDarkModeEnabled(previousState => !previousState)
   const toggleSoundEffectsSwitch = () => setIsSoundEffectsEnabled(previousState => !previousState)
