@@ -57,10 +57,7 @@ export function Quiz() {
   }
 
   function handleGoToNextQuestion(){
-    setSelectedAnswer('')
-    setIsQuestionAnswared(false)
-
-    answerFeedback.value = withTiming(0)
+ 
 
     if(isLastQuestion){
       setQuizEndTime(new Date())
@@ -68,8 +65,18 @@ export function Quiz() {
       navigate('quizStatus')
       
     } else {
-      setCurrentQuestion(currentQuestion + 1)
+      const duration = 1000
+
+      answerFeedback.value = withTiming(0, { duration: duration })
+
+      setTimeout(() => {
+        setCurrentQuestion(currentQuestion + 1)
+
+        setSelectedAnswer('')
+        setIsQuestionAnswared(false)
+      }, (duration * 0.2)) 
     }
+    
   }
 
   function handleStopQuiz() {
