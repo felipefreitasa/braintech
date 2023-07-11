@@ -25,5 +25,5 @@ export function CategorySectionTitle({ category }: Props) {
         {capitalizeCategoryLabel(category)}
       </Title>
     </Container>
-  );
+  )
 }

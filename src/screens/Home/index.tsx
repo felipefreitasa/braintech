@@ -1,4 +1,5 @@
 import { FlatList } from "react-native"
+import Animated, { FadeInLeft } from "react-native-reanimated"
 import { useNavigation } from "@react-navigation/native"
 
 import { categoriesMock } from "@utils/categoriesMock"
@@ -14,6 +15,7 @@ import { CategorySectionTitle } from "@components/CategorySectionTitle"
 
 import { CategoryContainer, Container, Title } from "./styles"
 
+const TitleAnimated = Animated.createAnimatedComponent(Title)
 
 export function Home() {
 
@@ -31,43 +33,48 @@ export function Home() {
     <Container>
       <HomeHeader />
 
-      <Title>
+      <TitleAnimated entering={FadeInLeft.delay(250)}>
         Qual tecnologia você deseja aprender hoje ?
-      </Title>
+      </TitleAnimated>
 
       <FlatList
         data={categoriesMock}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
 
           const category = item.category
 
-          return (
-            <CategoryContainer>
-              <CategorySectionTitle category={item.category} />
+          const delay = 500 * (index + 1)
 
-              <FlatList
-                horizontal
-                data={item.technologies}
-                keyExtractor={(item) => item.id}
-                showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => (
-                  <CategoryButton
-                    category={category}
-                    technology={item.technology}
-                    description={item.description}
-                    onPress={() => handleGoToCategoryMenu({ 
-                      category, 
-                      technology: 
-                      item.technology, 
-                      options: item.quizOptions,
-                      description: item.description, 
-                    })}
-                  />
-                )}
-              />
-            </CategoryContainer>
+          return (
+            <Animated.View entering={FadeInLeft.delay(delay)}>
+              <CategoryContainer>
+                <CategorySectionTitle category={item.category} />
+
+                <FlatList
+                  horizontal
+                  data={item.technologies}
+                  keyExtractor={(item) => item.id}
+                  showsHorizontalScrollIndicator={false}
+                  renderItem={({ item }) => (
+                    <CategoryButton
+                      category={category}
+                      technology={item.technology}
+                      description={item.description}
+                      onPress={() => handleGoToCategoryMenu({ 
+                        category, 
+                        technology: 
+                        item.technology, 
+                        options: item.quizOptions,
+                        description: item.description, 
+                      })}
+                    />
+                  )}
+                />
+              </CategoryContainer>
+            </Animated.View>
+
           )
         }}
       />

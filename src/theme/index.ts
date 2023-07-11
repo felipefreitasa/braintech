@@ -7,6 +7,8 @@ export default {
     PRIMARY_ACTIVE: '#0055A4',
 
     CARD: '#1F2430',
+    CARD_ACTIVE: '#0F2236',
+
     ACTION: '#181D29',
     BACKGROUND: '#111720',
     TAB_BAR: '#141923',

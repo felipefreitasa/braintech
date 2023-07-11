@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react"
+import Animated, { FadeInLeft } from "react-native-reanimated"
 import { Alert, SectionList } from "react-native"
 import { useFocusEffect } from "@react-navigation/native"
 
@@ -12,6 +13,7 @@ import { HistoryItem } from "@components/HistoryItem"
 import { ListFeedbackStatus } from "@components/ListFeedbackStatus"
 
 import { Container, Data, ItemSeparator, SectionHeaderSeparator, SectionSeparator, Subtitle, Title } from "./styles"
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs"
 
 export function History() {
 
@@ -40,46 +42,49 @@ export function History() {
 
   return (
     <Container>
-      <Title>
-        Histórico de exercícios
-      </Title>
+      <Animated.View entering={FadeInLeft}>
+        <Title>
+          Histórico de exercícios
+        </Title>
 
-      <Subtitle>
-        Reveja seus exercícios anteriores e acompanhe seu desempenho no app
-      </Subtitle>
+        <Subtitle>
+          Reveja seus exercícios anteriores e acompanhe seu desempenho no app
+        </Subtitle>
+      </Animated.View>
 
       {isLoading ? <Loading/> : (
-        <SectionList
-          sections={groupItemsByDate(historyData)}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => (
-            <HistoryItem 
-              category={item.category}
-              technology={item.technology}
-              subCategory={item.subCategory}
-              correctAnswers={item.correctAnswers}
-              totalQuestions={item.totalQuestions}
-            />
-          )}
-          renderSectionHeader={({ section: { title } }) => (
+        <Animated.View entering={FadeInLeft.delay(250)}>
+          <SectionList
+            sections={groupItemsByDate(historyData)}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => (
+              <HistoryItem 
+                category={item.category}
+                technology={item.technology}
+                subCategory={item.subCategory}
+                correctAnswers={item.correctAnswers}
+                totalQuestions={item.totalQuestions}
+              />
+            )}
+            renderSectionHeader={({ section: { title } }) => (
             <>
               <SectionHeaderSeparator/>
               <Data>{title}</Data>
             </>
-          )}
-          ListEmptyComponent={() => (
-            <ListFeedbackStatus
-              mode='default'
-              title='Nenhum exercício realizado'
-              subtitle='Escolha uma tecnologia e começe a se aprofundar agora mesmo!'
-            />
-          )}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={groupItemsByDate(historyData).length < 1 && { flex: 1 }}
-          ItemSeparatorComponent={() => <ItemSeparator/>}
-          SectionSeparatorComponent={() => <SectionSeparator/>}
-
-        />
+            )}
+            ListEmptyComponent={() => (
+              <ListFeedbackStatus
+                mode='default'
+                title='Nenhum exercício realizado'
+                subtitle='Escolha uma tecnologia e começe a se aprofundar agora mesmo!'
+              />
+            )}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={[{ paddingBottom: 180 }, groupItemsByDate(historyData).length < 1 && { flex: 1 }]}
+            ItemSeparatorComponent={() => <ItemSeparator/>}
+            SectionSeparatorComponent={() => <SectionSeparator/>}
+          />
+        </Animated.View>
       )} 
     </Container>
   )

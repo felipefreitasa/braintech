@@ -20,7 +20,8 @@ export function AnswerFeedbackModal({ sharedValue, isAnswerCorrect, correctAnswe
 
   const confirmationModalAnimatedStyles = useAnimatedStyle(() => {
     return {
-      bottom: interpolate(sharedValue.value, [0, 1], [-2000, 0])
+      opacity: interpolate(sharedValue.value, [0, 1], [0, 1]),
+      bottom: interpolate(sharedValue.value, [0, 1], [-1000, 0])
     }
   })
 
