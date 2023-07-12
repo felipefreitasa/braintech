@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react"
+import Animated, { FadeInLeft } from "react-native-reanimated"
 import { View, Switch, Alert } from "react-native"
 import { useTheme } from "styled-components/native"
 import { useFocusEffect } from "@react-navigation/native"
@@ -15,15 +16,16 @@ import { StatisticCard } from "@components/StatisticCard"
 
 import { Container, HeaderContainer, UserEmail, UserInformationsContainer, UserName, LeftContainer, StatisticsTitle, StatisticsContainer } from "./styles"
 
+const AnimatedHeaderContainer = Animated.createAnimatedComponent(HeaderContainer)
+const AnimatedStatisticsContainer = Animated.createAnimatedComponent(StatisticsContainer)
+
 export function Profile() {
 
   const { COLORS } = useTheme()
 
-  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(true)
   const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(true)
   const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true)
 
-  const toggleDarkModeSwitch = () => setIsDarkModeEnabled(previousState => !previousState)
   const toggleSoundEffectsSwitch = () => setIsSoundEffectsEnabled(previousState => !previousState)
   const toggleNotificationsSwitch = () => setIsNotificationsEnabled(previousState => !previousState)
 
@@ -55,7 +57,7 @@ export function Profile() {
 
   return (
     <Container>
-      <HeaderContainer>
+      <AnimatedHeaderContainer entering={FadeInLeft}>
         <LeftContainer>
           <UserPhoto
             size={60}
@@ -78,9 +80,9 @@ export function Profile() {
           icon="log-out"
           iconSize={24}
         />
-      </HeaderContainer>
+      </AnimatedHeaderContainer>
 
-      <StatisticsContainer>
+      <AnimatedStatisticsContainer entering={FadeInLeft.delay(250)}>
         <StatisticsTitle>
           Estatísticas 
         </StatisticsTitle>
@@ -98,25 +100,15 @@ export function Profile() {
           title='Exercícios respondidos'
           subtitle={historyData?.length}
         />
-      </StatisticsContainer>
+      </AnimatedStatisticsContainer>
 
-      <View style={{ width: '100%' }}>
+      <Animated.View 
+        style={{ width: '100%' }}
+        entering={FadeInLeft.delay(500)}
+      >
         <StatisticsTitle>
           Configurações 
         </StatisticsTitle>
-
-        <SettingsItem
-          icon="moon"
-          title="Modo noturno"
-          rightAction={(
-            <Switch
-              value={isDarkModeEnabled}
-              onValueChange={toggleDarkModeSwitch}
-              thumbColor={isDarkModeEnabled ? COLORS.PRIMARY : COLORS.WHITE}
-              trackColor={{ false: COLORS.GRAY, true: COLORS.PRIMARY_30 }}
-            />
-          )}
-        />
 
         <SettingsItem
           icon="bell"
@@ -143,7 +135,7 @@ export function Profile() {
             />
           )}
         />
-      </View>
+      </Animated.View >
     </Container>
   )
 }

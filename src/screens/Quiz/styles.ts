@@ -1,9 +1,5 @@
 import styled, { css } from 'styled-components/native'
 
-type ProgressIndicatorProps = {
-  percentage: number;
-}
-
 export const Container = styled.View`
   flex: 1;
   justify-content: space-between;
@@ -36,8 +32,7 @@ export const ProgressBar = styled.View`
   `}
 `
 
-export const ProgressIndicator = styled.View<ProgressIndicatorProps>`
-  width: ${({ percentage }) => percentage}%;
+export const ProgressIndicator = styled.View`
   height: 100%;
 
   ${({ theme }) => css`

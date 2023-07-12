@@ -1,3 +1,5 @@
+import Animated, { FadeInLeft  } from "react-native-reanimated"
+
 import { UserPhoto } from "@components/UserPhoto"
 
 import { Container, LeftContainer, TextContent, Salution, UserName } from "./styles"
@@ -5,22 +7,24 @@ import { Container, LeftContainer, TextContent, Salution, UserName } from "./sty
 export function HomeHeader() {
   return (
     <Container>
-      <LeftContainer>
-        <UserPhoto 
-         size={40} 
-         source={{ uri: 'https://github.com/felipefreitasa.png' }}
-        />
+      <Animated.View entering={FadeInLeft}>
+        <LeftContainer>
+          <UserPhoto 
+            size={40} 
+            source={{ uri: 'https://github.com/felipefreitasa.png' }}
+          />
 
-        <TextContent>
-          <Salution>
-            Bom dia!
-          </Salution>
+          <TextContent>
+            <Salution>
+              Bom dia!
+            </Salution>
 
-          <UserName>
-            Felipe Freitas
-          </UserName>
-        </TextContent>
-      </LeftContainer>
+            <UserName>
+              Felipe Freitas
+            </UserName>
+          </TextContent>
+        </LeftContainer>
+      </Animated.View>
     </Container>
   )
 }

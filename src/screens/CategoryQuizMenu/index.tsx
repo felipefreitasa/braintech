@@ -1,7 +1,7 @@
 import { FlatList } from 'react-native'
 import { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { useSharedValue, withTiming } from 'react-native-reanimated'
+import Animated, { FadeInLeft, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import { AppNavigatorRoutesProps } from '../../routes/app.routes'
 
@@ -13,6 +13,8 @@ import { Button } from '@components/Button'
 import { TechnologyButton } from '@components/TechnologyButton'
 
 import { Container, Description, ModalConfirmationDescription, ModalConfirmationDescriptionHighligth } from './styles'
+
+const AnimatedDescription = Animated.createAnimatedComponent(Description)
 
 export function CategoryQuizMenu() {
 
@@ -59,28 +61,28 @@ export function CategoryQuizMenu() {
           isGoBackButtonDisabled={isActionDisabled}
         />
 
-        <Description>
+        <AnimatedDescription entering={FadeInLeft.delay(250)}>
           {selectedTechnology?.description}
-        </Description>
+        </AnimatedDescription>
 
         <FlatList
           data={selectedTechnology?.options}
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => {
-
+          renderItem={({ item, index }) => {
             return (
-              <TechnologyButton
-                icon={item.icon}
-                title={item.title}
-                category={selectedTechnology?.category}
-                questionsQuantity={item.questions.length}
-                onPress={() => { 
-                  setSelectedQuiz({ questions: item.questions, subcategory: item.title })
-                  handleOpenConfirmationModal(item.title)
-                }}
-                disabled={isActionDisabled}
-              />
+              <Animated.View entering={FadeInLeft.delay(500 * (index + 1))}>
+                <TechnologyButton
+                  title={item.title}
+                  category={selectedTechnology?.category}
+                  questionsQuantity={item.questions.length}
+                  onPress={() => { 
+                    setSelectedQuiz({ questions: item.questions, subcategory: item.title })
+                    handleOpenConfirmationModal(item.title)
+                  }}
+                  disabled={isActionDisabled}
+                />
+              </Animated.View>
             )
           }}
         />

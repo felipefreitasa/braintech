@@ -22,8 +22,8 @@ export function AppRoutes() {
   return (
     <Navigator
       screenOptions={{
+        animation: 'fade',
         headerShown: false,
-        animation: 'slide_from_right',
       }}
     >   
       <Screen

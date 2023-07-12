@@ -3,6 +3,7 @@ import { Feather } from '@expo/vector-icons'
 import { BackHandler, View } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { useNavigation } from '@react-navigation/native'
+import Animated, { FadeInLeft } from 'react-native-reanimated'
 
 import { useQuiz } from '@hooks/useQuiz'
 
@@ -17,6 +18,8 @@ import { Button } from '@components/Button'
 import { StatisticCard } from '@components/StatisticCard'
 
 import { Container, IconContainer, StatisticsTitle, Subtitle, Title } from './styles'
+
+const AnimatedIconContainer = Animated.createAnimatedComponent(IconContainer)
 
 export function QuizStatus() {
   
@@ -54,55 +57,67 @@ export function QuizStatus() {
   return (
     <Container>
       <View>
-        <IconContainer mode={mode}>
+        <AnimatedIconContainer
+          mode={mode}
+          entering={FadeInLeft}
+        >
           <Feather
             size={54}
             name={mode === 'success' ? 'award' : 'alert-circle'}
             color={mode === 'success' ? COLORS.SUCCESS : COLORS.ERROR}
           />
-        </IconContainer>
+        </AnimatedIconContainer>
 
-        <Title>
-          {mode === 'success' ? 'Parabéns!' : 'Não foi dessa vez...'}
-        </Title>
+        <Animated.View entering={FadeInLeft.delay(250)}>
+          <Title>
+            {mode === 'success' ? 'Parabéns!' : 'Não foi dessa vez...'}
+          </Title>
 
-        <Subtitle>
-          {mode === 'success' ? 'Voce possui bastante conhecimento sobre essa tecnologia!' : 'Continue se aprofundando nessa tecnologia e faça novamente esse quiz.'}
-        </Subtitle>
+          <Subtitle>
+            {mode === 'success' ? 'Voce possui bastante conhecimento sobre essa tecnologia!' : 'Continue se aprofundando nessa tecnologia e faça novamente esse quiz.'}
+          </Subtitle>
+        </Animated.View>
 
-        <StatisticsTitle>
-          Estatísticas do quiz  
-        </StatisticsTitle>
+        <Animated.View entering={FadeInLeft.delay(500)}>
+          <StatisticsTitle>
+            Estatísticas do quiz  
+          </StatisticsTitle>
 
-        <StatisticCard
-          icon='clock'
-          title='Duração'
-          subtitle={calculateTimeInterval(quizStartTime, quizEndTime)}
-        />
+          <StatisticCard
+            icon='clock'
+            title='Duração'
+            subtitle={calculateTimeInterval(quizStartTime, quizEndTime)}
+          />
 
-        <StatisticCard
-          icon='help-circle'
-          title='Respostas corretas'
-          subtitle={`${correctAnswers} de ${selectedQuiz.questions.length}`}
-        />
+          <StatisticCard
+            icon='help-circle'
+            title='Respostas corretas'
+            subtitle={`${correctAnswers} de ${selectedQuiz.questions.length}`}
+          />
 
-        <StatisticCard
-          icon='book-open'
-          title='Área'
-          subtitle={capitalizeCategoryLabel(selectedTechnology.category)}
-        />
+          <StatisticCard
+            icon='book-open'
+            title='Área'
+            subtitle={capitalizeCategoryLabel(selectedTechnology.category)}
+          />
 
-        <StatisticCard
-          icon='code'
-          title='Tecnologia'
-          subtitle={`${selectedTechnology.technology}: ${selectedQuiz.subcategory}`}
-        />
+          <StatisticCard
+            icon='code'
+            title='Tecnologia'
+            subtitle={`${selectedTechnology.technology}: ${selectedQuiz.subcategory}`}
+          />
+        </Animated.View>
       </View>
 
-      <Button
-        title='Finalizar quiz'
-        onPress={handleGoToHome}
-      />
+      <Animated.View 
+        style={{ height: 46 }}
+        entering={FadeInLeft.delay(750)} 
+      >
+        <Button
+          title='Finalizar quiz'
+          onPress={handleGoToHome}
+        />
+      </Animated.View>
     </Container>
   )
 }

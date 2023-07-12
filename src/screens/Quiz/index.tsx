@@ -3,7 +3,7 @@ import * as Haptics from 'expo-haptics'
 import { useEffect, useState } from 'react'
 import { Alert, BackHandler, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { useSharedValue, withTiming } from 'react-native-reanimated'
+import Animated, { FadeInLeft, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import { useQuiz } from '@hooks/useQuiz'
 
@@ -16,12 +16,16 @@ import { AnswerFeedbackModal } from '@components/AnswerFeedbackModal'
 
 import { Container, ProgressBar, ProgressIndicator, Question, QuestionsCounter } from './styles'
 
+const AnimatedQuestion = Animated.createAnimatedComponent(Question)
+const AnimatedProgressIndicator = Animated.createAnimatedComponent(ProgressIndicator)
+
 export function Quiz() {
 
   const { selectedTechnology, selectedQuiz, correctAnswers, setCorrectAnswers, setQuizEndTime } = useQuiz()
 
   const { navigate } = useNavigation<AppNavigatorRoutesProps>()
 
+  const progress = useSharedValue(0)
   const answerFeedback = useSharedValue(0)
 
   const [selectedAnswer, setSelectedAnswer] = useState('')
@@ -53,18 +57,26 @@ export function Quiz() {
   }
 
   function handleGoToNextQuestion(){
-    setSelectedAnswer('')
-    setIsQuestionAnswared(false)
-    answerFeedback.value = withTiming(0)
+ 
 
     if(isLastQuestion){
       setQuizEndTime(new Date())
 
       navigate('quizStatus')
       
-    } else { 
-      setCurrentQuestion(currentQuestion + 1)
+    } else {
+      const duration = 1000
+
+      answerFeedback.value = withTiming(0, { duration: duration })
+
+      setTimeout(() => {
+        setCurrentQuestion(currentQuestion + 1)
+
+        setSelectedAnswer('')
+        setIsQuestionAnswared(false)
+      }, (duration * 0.2)) 
     }
+    
   }
 
   function handleStopQuiz() {
@@ -91,11 +103,19 @@ export function Quiz() {
     await sound.playAsync()
   }
 
+  const progressAnimatedStyles = useAnimatedStyle(() => {
+    return { width: `${progress.value}%`}
+  })
+
   useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', handleStopQuiz)
     return () => backHandler.remove()
   }, [])
 
+  useEffect(() => {
+    progress.value = withTiming(progressPercentage)
+  }, [currentQuestion])
+  
   return (
     <>
       <Container>
@@ -107,35 +127,44 @@ export function Quiz() {
             titleHighlight={selectedQuiz.subcategory}
             onGoBack={handleStopQuiz}
           />
+          
+          <Animated.View entering={FadeInLeft.delay(250)}>
+            <QuestionsCounter>
+              {`${currentQuestion}/${questions.length} questões concluídas`}
+            </QuestionsCounter>
 
-          <QuestionsCounter>
-            {`${currentQuestion}/${questions.length} questões concluídas`}
-          </QuestionsCounter>
-
-          <ProgressBar>
-            <ProgressIndicator percentage={progressPercentage}/>
-          </ProgressBar>
+            <ProgressBar>
+              <AnimatedProgressIndicator style={progressAnimatedStyles} />
+            </ProgressBar>
+          </Animated.View>
         
-          <Question>
+          <AnimatedQuestion entering={FadeInLeft.delay(500)}>
             {`${currentQuestion + 1}. ${questions[currentQuestion].question}`}
-          </Question>
+          </AnimatedQuestion>
 
-          {questions[currentQuestion].answers.map((question) => (
-            <AnswerSelect
-              key={question}
-              title={question}
-              disabled={questionWasAnswared}
-              isSelected={selectedAnswer === question}
-              onPress={() => setSelectedAnswer(question)}
-            />
-          ))}
+          <Animated.View entering={FadeInLeft.delay(750)}>
+            {questions[currentQuestion].answers.map((question) => (
+              <AnswerSelect
+                key={question}
+                title={question}
+                disabled={questionWasAnswared}
+                isSelected={selectedAnswer === question}
+                onPress={() => setSelectedAnswer(question)}
+              />
+            ))}
+          </Animated.View>
         </View>
 
-        <Button
-          title='Verificar'
-          disabled={!selectedAnswer}
-          onPress={handleCheckAnswer}
-        />
+        <Animated.View 
+          style={{ height: 46 }}
+          entering={FadeInLeft.delay(1000)} 
+        >
+          <Button
+            title='Verificar'
+            disabled={!selectedAnswer}
+            onPress={handleCheckAnswer}
+          />
+        </Animated.View>
       </Container>
 
       <AnswerFeedbackModal 

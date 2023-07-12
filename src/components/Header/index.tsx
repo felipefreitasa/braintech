@@ -1,4 +1,5 @@
 import { ViewProps } from 'react-native'
+import Animated, { FadeInLeft } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 
 import { CategoryTypeProps } from '../../@types/categoryTypeProps'
@@ -21,29 +22,31 @@ export function Header({ title, category, onGoBack, isGoBackButtonDisabled = fal
   const { goBack } = useNavigation()
 
   return (
-    <Container {...rest}>
-      <LeftContainer>
-        <IconButton
-          onPress={onGoBack ? onGoBack : goBack}
-          icon='arrow-left'
-          disabled={isGoBackButtonDisabled}
-        />
+    <Animated.View entering={FadeInLeft}>
+      <Container {...rest}>
+        <LeftContainer>
+          <IconButton
+            onPress={onGoBack ? onGoBack : goBack}
+            icon='arrow-left'
+            disabled={isGoBackButtonDisabled}
+          />
 
-        {titleHighlight ? (
-          <TitleHighlight>
-            {`${title}: `}
+          {titleHighlight ? (
+            <TitleHighlight>
+              {`${title}: `}
+              <Title>
+                {titleHighlight}
+              </Title>
+            </TitleHighlight>
+          ) : (
             <Title>
-              {titleHighlight}
+              {title}
             </Title>
-          </TitleHighlight>
-        ) : (
-          <Title>
-            {title}
-          </Title>
-        )}
-      </LeftContainer>
+          )}
+        </LeftContainer>
 
-      {category && <ChipCategory category={category} />}
-    </Container>
+        {category && <ChipCategory category={category} />}
+      </Container>
+    </Animated.View>
   )
 }
