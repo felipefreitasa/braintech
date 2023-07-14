@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import Animated, { FadeInLeft, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import { useQuiz } from '@hooks/useQuiz'
+import { useSettings } from '@hooks/useSettings'
 
 import { AppNavigatorRoutesProps } from '../../routes/app.routes'
 
@@ -21,6 +22,7 @@ const AnimatedProgressIndicator = Animated.createAnimatedComponent(ProgressIndic
 
 export function Quiz() {
 
+  const { isSoundEffectsEnabled } = useSettings()
   const { selectedTechnology, selectedQuiz, correctAnswers, setCorrectAnswers, setQuizEndTime } = useQuiz()
 
   const { navigate } = useNavigation<AppNavigatorRoutesProps>()
@@ -57,8 +59,6 @@ export function Quiz() {
   }
 
   function handleGoToNextQuestion(){
- 
-
     if(isLastQuestion){
       setQuizEndTime(new Date())
 
@@ -96,11 +96,13 @@ export function Quiz() {
   }
 
   async function playSound(isCorrect: boolean){
-    const file = isCorrect ? require('../../assets/correct.mp3') : require('../../assets/error.mp3')
-    const { sound } = await Audio.Sound.createAsync(file, { shouldPlay: true })
-
-    await sound.setPositionAsync(0)
-    await sound.playAsync()
+    if(isSoundEffectsEnabled){
+      const file = isCorrect ? require('../../assets/correct.mp3') : require('../../assets/error.mp3')
+      const { sound } = await Audio.Sound.createAsync(file, { shouldPlay: true })
+      
+      await sound.setPositionAsync(0)
+      await sound.playAsync()
+    }
   }
 
   const progressAnimatedStyles = useAnimatedStyle(() => {

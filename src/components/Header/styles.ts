@@ -15,7 +15,7 @@ export const LeftContainer = styled.View`
 `
 
 export const TitleHighlight = styled.Text`
-  font-size: 14px;
+  font-size: 12px;
   margin-left: 8px;
 
   ${({ theme }) => css`
@@ -25,7 +25,7 @@ export const TitleHighlight = styled.Text`
 `
 
 export const Title = styled.Text`
-  font-size: 14px;
+  font-size: 12px;
   margin-left: 8px;
 
   ${({ theme }) => css`

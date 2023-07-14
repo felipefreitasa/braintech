@@ -1,4 +1,5 @@
 const BRAIN_TECH = '@braintech'
 const HISTORY_COLLECTION = `${BRAIN_TECH}:history`
+const SOUND_EFFECTS_COLLECTION = `${BRAIN_TECH}:sound_effects`
 
-export { HISTORY_COLLECTION }
+export { HISTORY_COLLECTION, SOUND_EFFECTS_COLLECTION }

@@ -3,8 +3,8 @@ import Animated, { FadeInLeft } from "react-native-reanimated"
 import { Alert, SectionList } from "react-native"
 import { useFocusEffect } from "@react-navigation/native"
 
-import { historyGetAll } from "@storage/historyGetAll"
-import { HistoryItemProps } from "@storage/historyCreate"
+import { historyGetAll } from "@storage/history/historyGetAll"
+import { HistoryItemProps } from "@storage/history/historyCreate"
 
 import { groupItemsByDate } from "@utils/groupItemsByDate"
 
