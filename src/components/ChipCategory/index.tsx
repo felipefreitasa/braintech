@@ -16,7 +16,7 @@ export function ChipCategory({ category }: Props) {
   return (
     <Container category={category}>
       <Feather
-        size={14}
+        size={10}
         name={handleCategoryIcon(category)}
         color={handleCategoryColor(category)}
       />

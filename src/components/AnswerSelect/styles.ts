@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components/native'
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export const Container = styled(AnimatedPressable)`
-  flex: 1;
+  padding: 8px 0;
   min-height: 64px;
   margin-bottom: 16px;
   flex-direction: row;
@@ -20,6 +20,7 @@ export const Container = styled(AnimatedPressable)`
 
 
 export const Title = styled.Text`
+flex: 1;
   font-size: 16px;
   margin-left: -4px;
   margin-bottom: 1px;

@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const Container = styled.View<Props>`
-  padding: 4px 12px;
+  padding: 4px 8px;
   border-radius: 60px;
   flex-direction: row;
   align-items: center;
@@ -36,7 +36,7 @@ export const Container = styled.View<Props>`
 `;
 
 export const Title = styled.Text<Props>`
-  font-size: 14px;
+  font-size: 10px;
   margin-left: 4px;
   font-family: ${({ theme }) => theme.FONTS.MEDIUM};
 

@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-import { CategoryTypeProps } from "../@types/categoryTypeProps"
+import { CategoryTypeProps } from "../../@types/categoryTypeProps"
 
-import { HISTORY_COLLECTION } from "./storageConfig"
+import { HISTORY_COLLECTION } from "../storageConfig"
 
 import { historyGetAll } from "./historyGetAll"
 

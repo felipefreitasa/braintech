@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react"
-import Animated, { FadeInLeft } from "react-native-reanimated"
 import { Alert, SectionList } from "react-native"
 import { useFocusEffect } from "@react-navigation/native"
+import Animated, { FadeInLeft } from "react-native-reanimated"
 
-import { historyGetAll } from "@storage/historyGetAll"
-import { HistoryItemProps } from "@storage/historyCreate"
+import { historyGetAll } from "@storage/history/historyGetAll"
+import { HistoryItemProps } from "@storage/history/historyCreate"
 
 import { groupItemsByDate } from "@utils/groupItemsByDate"
 
@@ -13,7 +13,6 @@ import { HistoryItem } from "@components/HistoryItem"
 import { ListFeedbackStatus } from "@components/ListFeedbackStatus"
 
 import { Container, Data, ItemSeparator, SectionHeaderSeparator, SectionSeparator, Subtitle, Title } from "./styles"
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs"
 
 export function History() {
 

@@ -1,11 +1,14 @@
+import { Switch, Alert } from "react-native"
 import { useCallback, useState } from "react"
-import Animated, { FadeInLeft } from "react-native-reanimated"
-import { View, Switch, Alert } from "react-native"
 import { useTheme } from "styled-components/native"
 import { useFocusEffect } from "@react-navigation/native"
+import Animated, { FadeInLeft } from "react-native-reanimated"
 
-import { historyGetAll } from "@storage/historyGetAll"
-import { HistoryItemProps } from "@storage/historyCreate"
+import { historyGetAll } from "@storage/history/historyGetAll"
+import { HistoryItemProps } from "@storage/history/historyCreate"
+import { soundEffectsCreate } from "@storage/soundEffects/soundEffectsCreate"
+
+import { useSettings } from "@hooks/useSettings"
 
 import { findMostPresentTechnology } from "@utils/findMostPresentTechnology"
 
@@ -23,26 +26,22 @@ export function Profile() {
 
   const { COLORS } = useTheme()
 
-  const [isSoundEffectsEnabled, setIsSoundEffectsEnabled] = useState(true)
-  const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true)
-
-  const toggleSoundEffectsSwitch = () => setIsSoundEffectsEnabled(previousState => !previousState)
-  const toggleNotificationsSwitch = () => setIsNotificationsEnabled(previousState => !previousState)
+  const { setIsSoundEffectsEnabled, isSoundEffectsEnabled, isSoundEffectsLoading } = useSettings()
 
   const [isLoading, setIsLoading] = useState(false)
-  const [mostPresenstTechnology, setMostPresenstTechnology] = useState('')
   const [historyData, setHistoryData] = useState<HistoryItemProps[]>()
-
+  const [mostPresenstTechnology, setMostPresenstTechnology] = useState('')
+  
   async function fetchHistory(){
     try {
       setIsLoading(true)
-
+      
       const data = await historyGetAll()
-
+      
       setMostPresenstTechnology(findMostPresentTechnology(data))
-
+      
       setHistoryData(data)      
-
+      
     } catch (error) {
       Alert.alert('Histórico', 'Não foi possível carregar o seu histórico')
       
@@ -51,10 +50,21 @@ export function Profile() {
     }
   }
 
+  async function toggleSoundAsyncStorage(){
+    try {
+      setIsSoundEffectsEnabled(previousState => !previousState)
+
+      await soundEffectsCreate()
+
+    } catch (error) {
+      Alert.alert('Efeitos sonoros', 'Não foi possível alterar as configurações de efeitos sonoros!')
+    }
+  }
+  
   useFocusEffect(useCallback(() => {
     fetchHistory()
   }, [])) 
-
+  
   return (
     <Container>
       <AnimatedHeaderContainer entering={FadeInLeft}>
@@ -110,7 +120,7 @@ export function Profile() {
           Configurações 
         </StatisticsTitle>
 
-        <SettingsItem
+        {/* <SettingsItem
           icon="bell"
           title="Notificações"
           rightAction={(
@@ -121,7 +131,7 @@ export function Profile() {
               trackColor={{ false: COLORS.GRAY, true: COLORS.PRIMARY_30 }}
             />
           )}
-        />
+        /> */}
 
         <SettingsItem
           icon="volume-2"
@@ -129,7 +139,8 @@ export function Profile() {
           rightAction={(
             <Switch
               value={isSoundEffectsEnabled}
-              onValueChange={toggleSoundEffectsSwitch}
+              disabled={isSoundEffectsLoading}
+              onValueChange={toggleSoundAsyncStorage}
               thumbColor={isSoundEffectsEnabled ? COLORS.PRIMARY : COLORS.WHITE}
               trackColor={{ false: COLORS.GRAY, true: COLORS.PRIMARY_30 }}
             />

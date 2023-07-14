@@ -12,7 +12,7 @@ import { AppNavigatorRoutesProps } from '../../routes/app.routes'
 import { calculateTimeInterval } from '@utils/calculateTimeInterval'
 import { capitalizeCategoryLabel } from '@utils/capitalizeCategoryLabel'
 
-import { historyCreate } from '@storage/historyCreate'
+import { historyCreate } from '@storage/history/historyCreate'
 
 import { Button } from '@components/Button'
 import { StatisticCard } from '@components/StatisticCard'
