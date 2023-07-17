@@ -100,7 +100,7 @@ export function Profile() {
         <StatisticCard
           icon='code'
           isLoading={isLoading}
-          subtitle={mostPresenstTechnology}
+          subtitle={mostPresenstTechnology || '-'}
           title='Tecnologia favorita'
         />
 

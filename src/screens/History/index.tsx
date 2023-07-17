@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react"
-import { Alert, SectionList } from "react-native"
+import { Alert, SectionList, View } from "react-native"
 import { useFocusEffect } from "@react-navigation/native"
 import Animated, { FadeInLeft } from "react-native-reanimated"
 
@@ -12,7 +12,7 @@ import { Loading } from "@components/Loading"
 import { HistoryItem } from "@components/HistoryItem"
 import { ListFeedbackStatus } from "@components/ListFeedbackStatus"
 
-import { Container, Data, ItemSeparator, SectionHeaderSeparator, SectionSeparator, Subtitle, Title } from "./styles"
+import { Container, Data, ItemSeparator, SectionHeader, SectionHeaderSeparator, SectionSeparator, Subtitle, Title } from "./styles"
 
 export function History() {
 
@@ -34,7 +34,7 @@ export function History() {
       setIsLoading(false)
     }
   }
-
+  
   useFocusEffect(useCallback(() => {
     fetchHistory()
   }, []))  
@@ -66,10 +66,10 @@ export function History() {
               />
             )}
             renderSectionHeader={({ section: { title } }) => (
-            <>
+            <SectionHeader>
               <SectionHeaderSeparator/>
               <Data>{title}</Data>
-            </>
+            </SectionHeader>
             )}
             ListEmptyComponent={() => (
               <ListFeedbackStatus
@@ -79,7 +79,7 @@ export function History() {
               />
             )}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={[{ paddingBottom: 180 }, groupItemsByDate(historyData).length < 1 && { flex: 1 }]}
+            contentContainerStyle={[{ paddingBottom: 180 }, groupItemsByDate(historyData).length < 1 && {  width: '100%', height: '100%' }]}
             ItemSeparatorComponent={() => <ItemSeparator/>}
             SectionSeparatorComponent={() => <SectionSeparator/>}
           />
