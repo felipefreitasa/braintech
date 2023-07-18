@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AntDesign } from '@expo/vector-icons'
+import { Feather } from '@expo/vector-icons'
 import { useTheme } from 'styled-components/native'
 import { PressableProps, ActivityIndicator } from 'react-native'
 
@@ -9,7 +9,7 @@ type Props = PressableProps & {
   title: string;
   disabled?: boolean;
   isLoading?: boolean;
-  icon?: keyof typeof AntDesign.glyphMap
+  icon?: keyof typeof Feather.glyphMap
 }
 
 export function Button({ title, disabled, isLoading, icon, ...rest }: Props) {
@@ -29,7 +29,7 @@ export function Button({ title, disabled, isLoading, icon, ...rest }: Props) {
       {isLoading ? <ActivityIndicator color={COLORS.GRAY_60}/> : (
         <>
           {icon && (
-            <AntDesign 
+            <Feather 
               name={icon}
               size={18} 
               color={disabled ? COLORS.GRAY_60 : COLORS.WHITE} 

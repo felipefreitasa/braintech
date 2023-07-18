@@ -3,6 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { NavigationContainer } from "@react-navigation/native"
 
 import { AppRoutes} from "./app.routes"
+import { AuthRoutes } from "./auth.routes"
 
 export function Routes() {
   
@@ -11,7 +12,7 @@ export function Routes() {
   return (
     <NavigationContainer>
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.BACKGROUND }}>
-        <AppRoutes/>
+        <AuthRoutes/>
       </SafeAreaView>
     </NavigationContainer>
   )

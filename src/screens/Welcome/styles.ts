@@ -42,3 +42,18 @@ export const Subtitle = styled.Text`
     font-family: ${theme.FONTS.REGULAR};
   `}
 `
+
+export const SignInButtonLabel = styled.Text`
+  font-size: 16px;
+  margin-top: 16px;
+  text-align: center;
+
+  ${({ theme }) => css`
+    color: ${theme.COLORS.GRAY};
+    font-family: ${theme.FONTS.REGULAR};
+  `}
+`
+
+export const SignInButtonLabelHighlight = styled(SignInButtonLabel)`
+  color: ${({ theme }) => theme.COLORS.PRIMARY};
+`
