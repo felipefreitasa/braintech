@@ -10,7 +10,7 @@ import { ChipCategory } from '@components/ChipCategory'
 import { Container, LeftContainer, Title, TitleHighlight } from './styles'
 
 type Props = ViewProps & {
-  title: string;
+  title?: string;
   onGoBack?: () => void;
   titleHighlight?: string;
   category?: CategoryTypeProps;

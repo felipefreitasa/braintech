@@ -1,23 +1,33 @@
-import { useState } from 'react'
-import { TextInputProps } from 'react-native'
-import { useTheme } from 'styled-components/native'
+import { useState } from "react";
+import { TextInputProps } from "react-native";
+import { useTheme } from "styled-components/native";
 
-import { Container } from './styles'
+import { Container, Label } from "./styles";
 
-export function Input({ ...rest }: TextInputProps) {
-  const { COLORS } = useTheme()
+type Props = TextInputProps & {
+  label: string
+}
 
-  const [isFocused, setIsFocused] = useState(false)
+export function Input({ label, ...rest }: Props) {
+  const { COLORS } = useTheme();
+
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <Container 
-      autoCorrect={false}
-      autoCapitalize='none'
-      isFocused={isFocused}
-      placeholderTextColor={COLORS.GRAY}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}
-      {...rest}
-    />
-  )
+    <>
+      <Label>
+        {label}
+      </Label>
+
+      <Container
+        autoCorrect={false}
+        autoCapitalize="none"
+        isFocused={isFocused}
+        placeholderTextColor={COLORS.GRAY}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        {...rest}
+      />
+    </>
+  );
 }

@@ -20,3 +20,13 @@ export const Container = styled.TextInput<Props>`
     background-color: ${isFocused ? theme.COLORS.PRIMARY_10 : theme.COLORS.CARD};
   `}
 `;
+
+export const Label = styled.Text`
+  font-size: 14px;
+  margin-bottom: 8px;
+
+  ${({ theme }) => css`
+    color: ${theme.COLORS.GRAY};
+    font-family: ${theme.FONTS.REGULAR};
+  `}
+`
