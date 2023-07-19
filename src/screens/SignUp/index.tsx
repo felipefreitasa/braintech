@@ -6,6 +6,8 @@ import { TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
+import { handleFirebaseSignUpErrors } from "@utils/handleFirebaseSignUpErrors";
+
 import { FIREBASE_AUTH } from "../../../firebaseConfig";
 
 import { ModeProps } from "@components/Toast/styles";
@@ -73,8 +75,8 @@ export function SignUp() {
       setToastMessage("Sua conta foi criada com suscesso!");
       setToastMode("success");
 
-    } catch (error) {
-      setToastMessage("Houve um erro para criar sua conta...");
+    } catch (error: any) {
+      setToastMessage(handleFirebaseSignUpErrors(error.code))
       setToastMode("error");
 
     } finally {

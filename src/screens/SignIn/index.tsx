@@ -9,6 +9,8 @@ import Animated, { FadeInLeft } from "react-native-reanimated";
 
 import { ModeProps } from "@components/Toast/styles";
 
+import { handleFirebaseSignInErrors } from "@utils/handleFirebaseSignInErrors";
+
 import { FIREBASE_AUTH } from "../../../firebaseConfig";
 
 import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
@@ -63,9 +65,9 @@ export function SignIn() {
 
       await signInWithEmailAndPassword(auth, email, password);
 
-    } catch (error) {
+    } catch (error: any) {
       setIsToastVisible(true);
-      setToastMessage("Houve um erro para acessar sua conta...");
+      setToastMessage(handleFirebaseSignInErrors(error.code));
       setToastMode("error");
 
     } finally {
