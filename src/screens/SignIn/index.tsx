@@ -1,13 +1,20 @@
 import * as yup from "yup";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import Animated, { FadeInLeft } from "react-native-reanimated";
+
+import { ModeProps } from "@components/Toast/styles";
+
+import { FIREBASE_AUTH } from "../../../firebaseConfig";
 
 import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
 
 import { Input } from "@components/Input";
+import { Toast } from "@components/Toast";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
 
@@ -43,73 +50,115 @@ export function SignIn() {
     resolver: yupResolver(signInSchema),
   });
 
-  function handleSignIn({ email, password }: FormDataProps) {
-    console.log("🚀 ~ email, password:", email, password);
+  const [isLoading, setIsLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastMode, setToastMode] = useState<ModeProps>();
+  const [isToastVisible, setIsToastVisible] = useState(false);
+
+  const auth = FIREBASE_AUTH;
+
+  async function handleSignIn({ email, password }: FormDataProps) {
+    try {
+      setIsLoading(true);
+
+      await signInWithEmailAndPassword(auth, email, password);
+
+    } catch (error) {
+      setIsToastVisible(true);
+      setToastMessage("Houve um erro para acessar sua conta...");
+      setToastMode("error");
+
+    } finally {
+      setIsLoading(false);
+    }
   }
 
+  useEffect(() => {
+    if (isToastVisible) {
+      setTimeout(() => {
+        setIsToastVisible(false);
+        setToastMessage("");
+      }, 3000);
+    }
+  }, [isToastVisible]);
+
   return (
-    <Container>
-      <View>
-        <Header onGoBack={() => navigate("welcome")} />
+    <>
+      <Container>
+        <View>
+          <Header onGoBack={() => navigate("welcome")} />
 
-        <Animated.View entering={FadeInLeft}>
-          <Title>Entrar</Title>
+          <Animated.View entering={FadeInLeft}>
+            <Title>Entrar</Title>
 
-          <Subtitle>Entre agora e aumente o seu conhecimento tech!</Subtitle>
-        </Animated.View>
+            <Subtitle>Entre agora e aumente o seu conhecimento tech!</Subtitle>
+          </Animated.View>
 
-        <Controller
-          control={control}
-          name="email"
-          render={({ field: { onChange, value } }) => (
-            <Input
-              value={value}
-              label="E-mail"
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              onChangeText={onChange}
-              keyboardType="email-address"
-              placeholder="Digite o seu e-mail"
-              errorMessage={errors.email?.message}
-            />
-          )}
-        />
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                value={value}
+                label="E-mail"
+                autoComplete="off"
+                autoCorrect={false}
+                autoCapitalize="none"
+                onChangeText={onChange}
+                keyboardType="email-address"
+                placeholder="Digite o seu e-mail"
+                errorMessage={errors.email?.message}
+              />
+            )}
+          />
 
-        <Controller
-          control={control}
-          name="password"
-          render={({ field: { onChange, value } }) => (
-            <Input
-              value={value}
-              label="Senha"
-              secureTextEntry
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              onChangeText={onChange}
-              placeholder="Digite a sua senha"
-              errorMessage={errors.password?.message}
-            />
-          )}
-        />
-      </View>
-
-      <View>
-        <View style={{ height: 46, width: "100%" }}>
-          <Button title="Entrar" onPress={handleSubmit(handleSignIn)} />
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                value={value}
+                label="Senha"
+                secureTextEntry
+                autoComplete="off"
+                autoCorrect={false}
+                autoCapitalize="none"
+                onChangeText={onChange}
+                placeholder="Digite a sua senha"
+                errorMessage={errors.password?.message}
+              />
+            )}
+          />
         </View>
 
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => navigate("signUp")}
-        >
-          <SignInButtonLabel>
-            Ainda não possui conta?{" "}
-            <SignInButtonLabelHighlight>Crie agora!</SignInButtonLabelHighlight>
-          </SignInButtonLabel>
-        </TouchableOpacity>
-      </View>
-    </Container>
+        <View>
+          <View style={{ height: 46, width: "100%" }}>
+            <Button
+              title="Entrar"
+              onPress={handleSubmit(handleSignIn)}
+              isLoading={isLoading}
+            />
+          </View>
+
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigate("signUp")}
+          >
+            <SignInButtonLabel>
+              Ainda não possui conta?{" "}
+              <SignInButtonLabelHighlight>
+                Crie agora!
+              </SignInButtonLabelHighlight>
+            </SignInButtonLabel>
+          </TouchableOpacity>
+        </View>
+      </Container>
+
+      <Toast
+        mode={toastMode}
+        message={toastMessage}
+        isVisible={isToastVisible}
+      />
+    </>
   );
 }

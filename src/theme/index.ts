@@ -30,10 +30,12 @@ export default {
     SUCCESS: '#6CC264',
     SUCCESS_5: '#6CC2640D',
     SUCCESS_10: '#6CC2641A',
+    SUCCESS_10_SOLID: '#152023',
 
     ERROR: '#E32A2A',
     ERROR_5: '#E32A2A0D',
     ERROR_10: '#E32A2A1A',
+    ERROR_10_SOLID: '#1B1820'
   },
 
   FONTS: {

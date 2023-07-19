@@ -1,13 +1,19 @@
 import * as yup from "yup";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Animated, { FadeInLeft } from "react-native-reanimated";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
+import { FIREBASE_AUTH } from "../../../firebaseConfig";
+
+import { ModeProps } from "@components/Toast/styles";
 
 import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
 
 import { Input } from "@components/Input";
+import { Toast } from "@components/Toast";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
 
@@ -50,111 +56,164 @@ export function SignUp() {
     resolver: yupResolver(signUpSchema),
   });
 
-  function handleSignUp({ name, email, password }: FormDataProps) {
-    console.log("🚀 ~ name, email, password:", name, email, password);
+  const [isLoading, setIsLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastMode, setToastMode] = useState<ModeProps>();
+  const [isToastVisible, setIsToastVisible] = useState(false);
+
+  const auth = FIREBASE_AUTH;
+
+  async function handleSignUp({ name, email, password }: FormDataProps) {
+    try {
+      setIsLoading(true);
+
+      await createUserWithEmailAndPassword(auth, email, password);
+      await updateUserName(name);
+
+      setToastMessage("Sua conta foi criada com suscesso!");
+      setToastMode("success");
+
+    } catch (error) {
+      setToastMessage("Houve um erro para criar sua conta...");
+      setToastMode("error");
+
+    } finally {
+      setIsToastVisible(true);
+      setIsLoading(false);
+    }
   }
 
+  async function updateUserName(name: string) {
+    if (auth.currentUser) {
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+    }
+  }
+
+  useEffect(() => {
+    if (isToastVisible) {
+      setTimeout(() => {
+        setIsToastVisible(false);
+        setToastMessage("");
+      }, 3000);
+    }
+  }, [isToastVisible]);
+
   return (
-    <Container>
-      <View>
-        <Header onGoBack={() => navigate("welcome")} />
-        <Animated.View entering={FadeInLeft}>
-          <Title>Criar conta</Title>
+    <>
+      <Container>
+        <View>
+          <Header onGoBack={() => navigate("welcome")} />
 
-          <Subtitle>
-            Crie sua conta e comece a aprofundar o seu conhecimento tech!
-          </Subtitle>
-        </Animated.View>
+          <View>
+            <Title>Criar conta</Title>
 
-        <Controller
-          control={control}
-          name="name"
-          render={({ field: { onChange, value } }) => (
-            <Input
-              label="Nome"
-              value={value}
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              onChangeText={onChange}
-              placeholder="Digite o seu nome"
-              errorMessage={errors.name?.message}
-            />
-          )}
-        />
+            <Subtitle>
+              Crie sua conta e comece a aprofundar o seu conhecimento tech!
+            </Subtitle>
+          </View>
 
-        <Controller
-          control={control}
-          name="email"
-          render={({ field: { onChange, value } }) => (
-            <Input
-              value={value}
-              label="E-mail"
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              onChangeText={onChange}
-              keyboardType="email-address"
-              placeholder="Digite o seu e-mail"
-              errorMessage={errors.email?.message}
-            />
-          )}
-        />
+          <Controller
+            control={control}
+            name="name"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                label="Nome"
+                value={value}
+                autoComplete="off"
+                autoCorrect={false}
+                autoCapitalize="none"
+                onChangeText={onChange}
+                placeholder="Digite o seu nome"
+                errorMessage={errors.name?.message}
+              />
+            )}
+          />
 
-        <Controller
-          control={control}
-          name="password"
-          render={({ field: { onChange, value } }) => (
-            <Input
-              value={value}
-              label="Senha"
-              secureTextEntry
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              onChangeText={onChange}
-              placeholder="Digite a sua senha"
-              errorMessage={errors.password?.message}
-            />
-          )}
-        />
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                value={value}
+                label="E-mail"
+                autoComplete="off"
+                autoCorrect={false}
+                autoCapitalize="none"
+                onChangeText={onChange}
+                keyboardType="email-address"
+                placeholder="Digite o seu e-mail"
+                errorMessage={errors.email?.message}
+              />
+            )}
+          />
 
-        <Controller
-          control={control}
-          name="password_confirm"
-          render={({ field: { onChange, value } }) => (
-            <Input
-              value={value}
-              label="Confirmação da senha"
-              secureTextEntry
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              onChangeText={onChange}
-              placeholder="Digite a confirmação da senha"
-              errorMessage={errors.password_confirm?.message}
-            />
-          )}
-        />
-      </View>
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                value={value}
+                label="Senha"
+                secureTextEntry
+                autoComplete="off"
+                autoCorrect={false}
+                autoCapitalize="none"
+                onChangeText={onChange}
+                placeholder="Digite a sua senha"
+                errorMessage={errors.password?.message}
+              />
+            )}
+          />
 
-      <View>
-        <View style={{ height: 46, width: "100%" }}>
-          <Button title="Criar conta" onPress={handleSubmit(handleSignUp)} />
+          <Controller
+            control={control}
+            name="password_confirm"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                value={value}
+                label="Confirmação da senha"
+                secureTextEntry
+                autoComplete="off"
+                autoCorrect={false}
+                autoCapitalize="none"
+                onChangeText={onChange}
+                placeholder="Digite a confirmação da senha"
+                errorMessage={errors.password_confirm?.message}
+              />
+            )}
+          />
         </View>
 
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => navigate("signIn")}
-        >
-          <SignInButtonLabel>
-            Já possui conta?{" "}
-            <SignInButtonLabelHighlight>
-              Entre agora!
-            </SignInButtonLabelHighlight>
-          </SignInButtonLabel>
-        </TouchableOpacity>
-      </View>
-    </Container>
+        <View>
+          <View style={{ height: 46, width: "100%" }}>
+            <Button
+              title="Criar conta"
+              isLoading={isLoading}
+              onPress={handleSubmit(handleSignUp)}
+            />
+          </View>
+
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigate("signIn")}
+          >
+            <SignInButtonLabel>
+              Já possui conta?{" "}
+              <SignInButtonLabelHighlight>
+                Entre agora!
+              </SignInButtonLabelHighlight>
+            </SignInButtonLabel>
+          </TouchableOpacity>
+        </View>
+      </Container>
+
+      <Toast
+        mode={toastMode}
+        message={toastMessage}
+        isVisible={isToastVisible}
+      />
+    </>
   );
 }
