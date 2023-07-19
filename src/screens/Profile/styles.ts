@@ -61,4 +61,14 @@ export const StatisticsContainer = styled.View`
   margin-bottom: 24px;
 `
   
+export const ProfileIconContainer = styled.View`
+  width: 60px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
 
+  ${({ theme }) => css`
+    border-radius: ${theme.BORDER_RADIUS}px;
+    background-color: ${theme.COLORS.PRIMARY_5};
+  `}
+`;

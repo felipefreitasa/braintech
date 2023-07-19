@@ -7,6 +7,8 @@ import { useNavigation } from "@react-navigation/native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Animated, { FadeInLeft } from "react-native-reanimated";
 
+import { useAuth } from "@hooks/useAuth";
+
 import { ModeProps } from "@components/Toast/styles";
 
 import { handleFirebaseSignInErrors } from "@utils/handleFirebaseSignInErrors";
@@ -42,6 +44,8 @@ const signInSchema = yup.object({
 });
 
 export function SignIn() {
+  const { setLoggedUser } = useAuth()
+
   const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
 
   const {
@@ -63,7 +67,8 @@ export function SignIn() {
     try {
       setIsLoading(true);
 
-      await signInWithEmailAndPassword(auth, email, password);
+      const authData = await signInWithEmailAndPassword(auth, email, password);
+      setLoggedUser(authData)
 
     } catch (error: any) {
       setIsToastVisible(true);
