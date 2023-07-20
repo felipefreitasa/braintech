@@ -42,7 +42,7 @@ export function Welcome() {
             disabled={false}
             isLoading={false}
             title="Criar conta"
-            onPress={() => navigate("signUp")}
+            onPress={() => navigate("nameOnboarding")}
           />
 
           <TouchableOpacity
