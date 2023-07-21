@@ -1,7 +1,6 @@
 import { NativeStackNavigationProp,createNativeStackNavigator } from "@react-navigation/native-stack"
 
 import { SignIn } from "@screens/SignIn"
-import { SignUp } from "@screens/SignUp"
 import { Welcome } from "@screens/Welcome"
 import { NameOnboarding } from "@screens/NameOnboarding";
 import { EmailOnboarding } from "@screens/EmailOnboarding";
@@ -10,7 +9,6 @@ import { ProfilePictureOnboarding } from "@screens/ProfilePictureOnboarding";
 
 type AuthRoutesTypeProps = {
   signIn: undefined;
-  signUp: undefined;
   welcome: undefined;
   nameOnboarding: undefined;
   emailOnboarding: undefined;
@@ -62,11 +60,6 @@ export function AuthRoutes() {
         name="profilePictureOnboarding"
         component={ProfilePictureOnboarding}
         options={{ gestureEnabled: false}}
-      />
-
-      <Screen
-        name="signUp" 
-        component={SignUp}
       />
     </Navigator>
   )

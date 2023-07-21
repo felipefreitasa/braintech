@@ -4,6 +4,7 @@ import { Alert, BackHandler, View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/native";
+import Animated, { FadeIn } from "react-native-reanimated";
 
 import { useAuth } from "@hooks/useAuth";
 
@@ -78,40 +79,45 @@ export function EmailOnboarding() {
           onGoBack={() => handleExitOnboarding()}
         />
 
-        <View>
+        <Animated.View entering={FadeIn.delay(300).duration(600)}>
           <Title>E-mail</Title>
 
           <Subtitle>
             Para uma experiência completa, insira seu e-mail no campo abaixo.
           </Subtitle>
-        </View>
+        </Animated.View>
 
-        <Controller
-          control={control}
-          name="email"
-          render={({ field: { onChange, value } }) => (
-            <Input
-              value={value}
-              label="E-mail"
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              onChangeText={onChange}
-              keyboardType="email-address"
-              placeholder="Digite o seu e-mail"
-              errorMessage={errors.email?.message}
-            />
-          )}
-        />
+        <Animated.View entering={FadeIn.delay(600).duration(600)}>
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                value={value}
+                label="E-mail"
+                autoComplete="off"
+                autoCorrect={false}
+                autoCapitalize="none"
+                onChangeText={onChange}
+                keyboardType="email-address"
+                placeholder="Digite o seu e-mail"
+                errorMessage={errors.email?.message}
+              />
+            )}
+          />
+        </Animated.View>
       </View>
 
       <View>
-        <View style={{ height: 46, width: "100%" }}>
+        <Animated.View
+          style={{ height: 46, width: "100%" }}
+          entering={FadeIn.delay(900).duration(600)}
+        >
           <Button
             title="Continuar"
             onPress={handleSubmit(handleGoToPasswordScreen)}
           />
-        </View>
+        </Animated.View>
       </View>
     </Container>
   );

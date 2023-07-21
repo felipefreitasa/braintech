@@ -1,5 +1,5 @@
 import { ViewProps } from 'react-native'
-import Animated, { FadeInLeft } from 'react-native-reanimated'
+import Animated, { FadeIn, FadeInLeft } from 'react-native-reanimated'
 import { useNavigation } from '@react-navigation/native'
 
 import { CategoryTypeProps } from '../../@types/categoryTypeProps'
@@ -22,7 +22,7 @@ export function Header({ title, category, onGoBack, isGoBackButtonDisabled = fal
   const { goBack } = useNavigation()
 
   return (
-    <Animated.View entering={FadeInLeft}>
+    <Animated.View entering={FadeIn}>
       <Container {...rest}>
         <LeftContainer>
           <IconButton

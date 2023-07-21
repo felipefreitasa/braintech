@@ -1,9 +1,9 @@
 import * as yup from "yup";
-import { useEffect } from "react";
+import { View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert, BackHandler, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Animated, { FadeIn } from "react-native-reanimated";
 
 import { useAuth } from "@hooks/useAuth";
 
@@ -26,7 +26,7 @@ const nameOnboardingSchema = yup.object({
 });
 
 export function NameOnboarding() {
-  const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
+  const { navigate, goBack } = useNavigation<AuthNavigatorRoutesProps>();
 
   const { setOnboardingName } = useAuth();
 
@@ -43,93 +43,66 @@ export function NameOnboarding() {
     navigate("emailOnboarding");
   }
 
-  function handleExitOnboarding() {
-    Alert.alert(
-      "Tem certeza que deseja sair do cadastro?",
-      "Se você sair, perderá o progresso realizado.",
-      [
-        {
-          text: "Não",
-          style: "cancel",
-        },
-        {
-          text: "Sim",
-          style: "destructive",
-          onPress: () => navigate("welcome"),
-        },
-      ]
-    );
-
-    return true;
-  }
-
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      handleExitOnboarding
-    );
-    return () => backHandler.remove();
-  }, []);
-
   return (
     <Container>
       <View>
-        <Header
-          title="Cadastro"
-          titleHighlight="Nome"
-          onGoBack={() => handleExitOnboarding()}
-        />
+        <Header title="Cadastro" titleHighlight="Nome" onGoBack={goBack} />
 
-        <View>
+        <Animated.View entering={FadeIn.delay(300).duration(600)}>
           <Title>Bem-vindo ao BrainTech!</Title>
 
           <Subtitle>
             Vamos começar seu cadastro com o seu nome e sobrenome.
           </Subtitle>
-        </View>
+        </Animated.View>
 
-        <Controller
-          control={control}
-          name="name"
-          render={({ field: { onChange, value } }) => (
-            <Input
-              label="Nome"
-              value={value}
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              onChangeText={onChange}
-              placeholder="Digite o seu nome"
-              errorMessage={errors.name?.message}
-            />
-          )}
-        />
+        <Animated.View entering={FadeIn.delay(600).duration(600)}>
+          <Controller
+            control={control}
+            name="name"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                label="Nome"
+                value={value}
+                autoComplete="off"
+                autoCorrect={false}
+                autoCapitalize="none"
+                onChangeText={onChange}
+                placeholder="Digite o seu nome"
+                errorMessage={errors.name?.message}
+              />
+            )}
+          />
 
-        <Controller
-          control={control}
-          name="lastName"
-          render={({ field: { onChange, value } }) => (
-            <Input
-              label="Sobrenome"
-              value={value}
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              onChangeText={onChange}
-              placeholder="Digite o seu sobrenome"
-              errorMessage={errors.lastName?.message}
-            />
-          )}
-        />
+          <Controller
+            control={control}
+            name="lastName"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                label="Sobrenome"
+                value={value}
+                autoComplete="off"
+                autoCorrect={false}
+                autoCapitalize="none"
+                onChangeText={onChange}
+                placeholder="Digite o seu sobrenome"
+                errorMessage={errors.lastName?.message}
+              />
+            )}
+          />
+        </Animated.View>
       </View>
 
       <View>
-        <View style={{ height: 46, width: "100%" }}>
+        <Animated.View
+          style={{ height: 46, width: "100%" }}
+          entering={FadeIn.delay(900).duration(600)}
+        >
           <Button
             title="Continuar"
             onPress={handleSubmit(handleGoToEmailScreen)}
           />
-        </View>
+        </Animated.View>
       </View>
     </Container>
   );
