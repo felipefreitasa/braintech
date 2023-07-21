@@ -3,7 +3,7 @@ import { Feather } from '@expo/vector-icons'
 import { BackHandler, View } from 'react-native'
 import { useTheme } from 'styled-components/native'
 import { useNavigation } from '@react-navigation/native'
-import Animated, { FadeInLeft } from 'react-native-reanimated'
+import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { useQuiz } from '@hooks/useQuiz'
 
@@ -59,7 +59,7 @@ export function QuizStatus() {
       <View>
         <AnimatedIconContainer
           mode={mode}
-          entering={FadeInLeft}
+          entering={FadeIn}
         >
           <Feather
             size={54}
@@ -68,7 +68,7 @@ export function QuizStatus() {
           />
         </AnimatedIconContainer>
 
-        <Animated.View entering={FadeInLeft.delay(250)}>
+        <Animated.View entering={FadeIn.duration(600).delay(250)}>
           <Title>
             {mode === 'success' ? 'Parabéns!' : 'Não foi dessa vez...'}
           </Title>
@@ -78,7 +78,7 @@ export function QuizStatus() {
           </Subtitle>
         </Animated.View>
 
-        <Animated.View entering={FadeInLeft.delay(500)}>
+        <Animated.View entering={FadeIn.duration(600).delay(500)}>
           <StatisticsTitle>
             Estatísticas do quiz  
           </StatisticsTitle>
@@ -111,7 +111,7 @@ export function QuizStatus() {
 
       <Animated.View 
         style={{ height: 46 }}
-        entering={FadeInLeft.delay(750)} 
+        entering={FadeIn.duration(600).delay(750)} 
       >
         <Button
           title='Finalizar quiz'

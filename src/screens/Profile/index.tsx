@@ -1,9 +1,9 @@
-import { Switch, Alert } from "react-native";
+import { Switch } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useCallback, useState } from "react";
 import { useTheme } from "styled-components/native";
 import { useFocusEffect } from "@react-navigation/native";
-import Animated, { FadeInLeft } from "react-native-reanimated";
+import Animated, { FadeIn } from "react-native-reanimated";
 
 import { authRemove } from "@storage/auth/authRemove";
 import { historyGetAll } from "@storage/history/historyGetAll";
@@ -116,7 +116,7 @@ export function Profile() {
   return (
     <>
       <Container>
-        <AnimatedHeaderContainer entering={FadeInLeft}>
+        <AnimatedHeaderContainer entering={FadeIn}>
           <LeftContainer>
             {loggedUser?.user.photoURL ? (
               <UserPhoto
@@ -146,7 +146,7 @@ export function Profile() {
           />
         </AnimatedHeaderContainer>
 
-        <AnimatedStatisticsContainer entering={FadeInLeft.delay(250)}>
+        <AnimatedStatisticsContainer entering={FadeIn.duration(600).delay(250)}>
           <StatisticsTitle>Estatísticas</StatisticsTitle>
 
           <StatisticCard
@@ -166,7 +166,7 @@ export function Profile() {
 
         <Animated.View
           style={{ width: "100%" }}
-          entering={FadeInLeft.delay(500)}
+          entering={FadeIn.duration(600).delay(500)}
         >
           <StatisticsTitle>Configurações</StatisticsTitle>
 

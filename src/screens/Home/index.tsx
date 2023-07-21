@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { FlatList } from "react-native"
 import { useNavigation } from "@react-navigation/native"
-import Animated, { FadeInLeft } from "react-native-reanimated"
+import Animated, { FadeIn } from "react-native-reanimated"
 
 import { categoriesMock } from "@utils/categoriesMock"
 
@@ -47,7 +47,7 @@ export function Home() {
     <Container>
       <HomeHeader />
 
-      <TitleAnimated entering={FadeInLeft.delay(250)}>
+      <TitleAnimated entering={FadeIn.delay(250)}>
         Qual tecnologia você deseja aprender hoje ?
       </TitleAnimated>
 
@@ -62,7 +62,7 @@ export function Home() {
           const delay = 500 * (index + 1)
 
           return (
-            <Animated.View entering={FadeInLeft.delay(delay)}>
+            <Animated.View entering={FadeIn.duration(600).delay(delay)}>
               <CategoryContainer>
                 <CategorySectionTitle category={item.category} />
 

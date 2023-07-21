@@ -1,56 +1,69 @@
-import { FlatList } from 'react-native'
-import { useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
-import Animated, { FadeInLeft, useSharedValue, withTiming } from 'react-native-reanimated'
+import { FlatList } from "react-native";
+import { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import Animated, {
+  FadeIn,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 
-import { AppNavigatorRoutesProps } from '../../routes/app.routes'
+import { AppNavigatorRoutesProps } from "../../routes/app.routes";
 
-import { useQuiz } from '@hooks/useQuiz'
+import { useQuiz } from "@hooks/useQuiz";
 
-import { Modal } from '@components/Modal'
-import { Header } from '@components/Header'
-import { Button } from '@components/Button'
-import { TechnologyButton } from '@components/TechnologyButton'
+import { Modal } from "@components/Modal";
+import { Header } from "@components/Header";
+import { Button } from "@components/Button";
+import { TechnologyButton } from "@components/TechnologyButton";
 
-import { Container, Description, ModalConfirmationDescription, ModalConfirmationDescriptionHighligth } from './styles'
+import {
+  Container,
+  Description,
+  ModalConfirmationDescription,
+  ModalConfirmationDescriptionHighligth,
+} from "./styles";
 
-const AnimatedDescription = Animated.createAnimatedComponent(Description)
+const AnimatedDescription = Animated.createAnimatedComponent(Description);
 
 export function CategoryQuizMenu() {
+  const {
+    selectedTechnology,
+    setSelectedQuiz,
+    setQuizStartTime,
+    setCorrectAnswers,
+  } = useQuiz();
 
-  const { selectedTechnology, setSelectedQuiz, setQuizStartTime, setCorrectAnswers } = useQuiz()
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
-  const { navigate } = useNavigation<AppNavigatorRoutesProps>()
+  const [selectedQuizName, setSelectedQuizName] = useState("");
+  const [isActionDisabled, setIsActionDisabled] = useState(false);
 
-  const [selectedQuizName, setSelectedQuizName] = useState('')
-  const [isActionDisabled, setIsActionDisabled] = useState(false)
-
-  const modalBottomPosition = useSharedValue(0)
+  const modalBottomPosition = useSharedValue(0);
 
   function handleOpenConfirmationModal(quizName: string) {
-    setIsActionDisabled(true)
-    setSelectedQuizName(quizName)
+    setIsActionDisabled(true);
+    setSelectedQuizName(quizName);
 
-    modalBottomPosition.value = withTiming(1)
+    modalBottomPosition.value = withTiming(1);
   }
 
-  function handleCloseConfirmationModal(){
-    setIsActionDisabled(false)
+  function handleCloseConfirmationModal() {
+    setIsActionDisabled(false);
 
-    modalBottomPosition.value = withTiming(0)
+    modalBottomPosition.value = withTiming(0);
   }
 
-  function handleGoToQuiz(){
-    handleCloseConfirmationModal()
+  function handleGoToQuiz() {
+    handleCloseConfirmationModal();
 
-    setQuizStartTime(new Date())
+    setQuizStartTime(new Date());
 
-    navigate('quiz')
+    navigate("quiz");
   }
 
   useEffect(() => {
-    setCorrectAnswers(0)
-  }, [])
+    setCorrectAnswers(0);
+  }, []);
 
   return (
     <>
@@ -61,52 +74,51 @@ export function CategoryQuizMenu() {
           isGoBackButtonDisabled={isActionDisabled}
         />
 
-        <AnimatedDescription entering={FadeInLeft.delay(250)}>
+        <AnimatedDescription entering={FadeIn.duration(600).delay(250)}>
           {selectedTechnology?.description}
         </AnimatedDescription>
 
-        <FlatList
-          data={selectedTechnology?.options}
-          keyExtractor={(item) => item.id}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item, index }) => {
-            return (
-              <Animated.View entering={FadeInLeft.delay(500 * (index + 1))}>
+        <Animated.View entering={FadeIn.duration(600).delay(500)}>
+          <FlatList
+            data={selectedTechnology?.options}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item, index }) => {
+              return (
                 <TechnologyButton
                   title={item.title}
                   category={selectedTechnology?.category}
                   questionsQuantity={item.questions.length}
-                  onPress={() => { 
-                    setSelectedQuiz({ questions: item.questions, subcategory: item.title })
-                    handleOpenConfirmationModal(item.title)
+                  onPress={() => {
+                    setSelectedQuiz({
+                      questions: item.questions,
+                      subcategory: item.title,
+                    });
+                    handleOpenConfirmationModal(item.title);
                   }}
                   disabled={isActionDisabled}
                 />
-              </Animated.View>
-            )
-          }}
-        />
-      </Container>  
+              );
+            }}
+          />
+        </Animated.View>
+      </Container>
 
       <Modal
-        title='Quiz selecionado'
+        title="Quiz selecionado"
         sharedValue={modalBottomPosition}
         onClose={handleCloseConfirmationModal}
       >
         <ModalConfirmationDescription>
-          Voce está prestes a iniciar os exercícios sobre
-          {' '}
+          Voce está prestes a iniciar os exercícios sobre{" "}
           <ModalConfirmationDescriptionHighligth>
             {selectedQuizName}
           </ModalConfirmationDescriptionHighligth>
           .
         </ModalConfirmationDescription>
 
-        <Button
-          title='Iniciar quiz'
-          onPress={handleGoToQuiz}
-        />
-      </Modal>  
+        <Button title="Iniciar quiz" onPress={handleGoToQuiz} />
+      </Modal>
     </>
-  )
+  );
 }

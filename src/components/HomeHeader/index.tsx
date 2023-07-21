@@ -1,6 +1,8 @@
 import { Feather } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
-import Animated, { FadeInLeft } from "react-native-reanimated";
+import Animated, { FadeIn } from "react-native-reanimated";
+
+import { getSalutation } from "@utils/getSalutation";
 
 import { useAuth } from "@hooks/useAuth";
 
@@ -22,7 +24,7 @@ export function HomeHeader() {
 
   return (
     <Container>
-      <Animated.View entering={FadeInLeft}>
+      <Animated.View entering={FadeIn}>
         <LeftContainer>
           {loggedUser?.user.photoURL ? (
             <UserPhoto size={40} source={{ uri: loggedUser?.user.photoURL }} />
@@ -33,7 +35,7 @@ export function HomeHeader() {
           )}
 
           <TextContent>
-            <Salution>Bom dia!</Salution>
+            <Salution>{getSalutation()}</Salution>
 
             <UserName>{loggedUser?.user.displayName}</UserName>
           </TextContent>
