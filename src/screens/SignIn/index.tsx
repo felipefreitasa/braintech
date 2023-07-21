@@ -149,7 +149,7 @@ export function SignIn() {
 
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigate("signUp")}
+            onPress={() => navigate("nameOnboarding")}
           >
             <SignInButtonLabel>
               Ainda não possui conta?{" "}

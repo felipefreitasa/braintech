@@ -1,23 +1,36 @@
 import * as yup from "yup";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Alert, BackHandler, View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/native";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
+import { handleFirebaseSignUpErrors } from "@utils/handleFirebaseSignUpErrors";
+
+import { FIREBASE_AUTH } from "../../../firebaseConfig";
 
 import { useAuth } from "@hooks/useAuth";
 
 import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
 
 import { Input } from "@components/Input";
+import { Toast } from "@components/Toast";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
+import { ModeProps } from "@components/Toast/styles";
 
 import { Title, Subtitle, Container } from "./styles";
 
 type FormDataProps = {
   password: string;
   password_confirm: string;
+};
+
+type SignUpProps = {
+  name: string;
+  email: string;
+  password: string;
 };
 
 const passwordOnboardingSchema = yup.object({
@@ -34,7 +47,14 @@ const passwordOnboardingSchema = yup.object({
 export function PasswordOnboarding() {
   const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
 
-  const { setOnboardingPassword } = useAuth();
+  const { setOnboardingPassword, onboardingName, onboardingEmail } = useAuth();
+
+  const auth = FIREBASE_AUTH;
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastMode, setToastMode] = useState<ModeProps>();
+  const [isToastVisible, setIsToastVisible] = useState(false);
 
   const {
     control,
@@ -44,8 +64,15 @@ export function PasswordOnboarding() {
     resolver: yupResolver(passwordOnboardingSchema),
   });
 
-  function handleGoToProfilePictureScreen({ password }: FormDataProps) {
+  async function handleGoToProfilePictureScreen({ password }: FormDataProps) {
     setOnboardingPassword(password);
+
+    await handleSignUp({
+      name: onboardingName,
+      email: onboardingEmail,
+      password,
+    });
+
     navigate("profilePictureOnboarding");
   }
 
@@ -69,6 +96,39 @@ export function PasswordOnboarding() {
     return true;
   }
 
+  async function handleSignUp({ name, email, password }: SignUpProps) {
+    try {
+      setIsLoading(true);
+
+      await createUserWithEmailAndPassword(auth, email, password);
+      await updateUserName(name);
+
+    } catch (error: any) {
+      setIsToastVisible(true);
+      setToastMessage(handleFirebaseSignUpErrors(error.code));
+      setToastMode("error");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function updateUserName(name: string) {
+    if (auth.currentUser) {
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+    }
+  }
+
+  useEffect(() => {
+    if (isToastVisible) {
+      setTimeout(() => {
+        setIsToastVisible(false);
+        setToastMessage("");
+      }, 3000);
+    }
+  }, [isToastVisible]);
+
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
@@ -78,65 +138,76 @@ export function PasswordOnboarding() {
   }, []);
 
   return (
-    <Container>
-      <View>
-        <Header
-          title="Cadastro"
-          titleHighlight="Senha"
-          onGoBack={() => handleExitOnboarding()}
-        />
-
+    <>
+      <Container>
         <View>
-          <Title>Senha</Title>
+          <Header
+            title="Cadastro"
+            titleHighlight="Senha"
+            onGoBack={() => handleExitOnboarding()}
+          />
 
-          <Subtitle>Escolha uma senha segura para proteger sua conta.</Subtitle>
-        </View>
+          <View>
+            <Title>Senha</Title>
 
-        <Controller
-          control={control}
-          name="password"
-          render={({ field: { onChange, value } }) => (
-            <Input
-              value={value}
-              label="Senha"
-              secureTextEntry
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              onChangeText={onChange}
-              placeholder="Digite a sua senha"
-              errorMessage={errors.password?.message}
-            />
-          )}
-        />
+            <Subtitle>
+              Escolha uma senha segura para proteger sua conta.
+            </Subtitle>
+          </View>
 
-        <Controller
-          control={control}
-          name="password_confirm"
-          render={({ field: { onChange, value } }) => (
-            <Input
-              value={value}
-              label="Confirmação da senha"
-              secureTextEntry
-              autoComplete="off"
-              autoCorrect={false}
-              autoCapitalize="none"
-              onChangeText={onChange}
-              placeholder="Digite a confirmação da senha"
-              errorMessage={errors.password_confirm?.message}
-            />
-          )}
-        />
-      </View>
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                value={value}
+                label="Senha"
+                secureTextEntry
+                autoComplete="off"
+                autoCorrect={false}
+                autoCapitalize="none"
+                onChangeText={onChange}
+                placeholder="Digite a sua senha"
+                errorMessage={errors.password?.message}
+              />
+            )}
+          />
 
-      <View>
-        <View style={{ height: 46, width: "100%" }}>
-          <Button
-            title="Continuar"
-            onPress={handleSubmit(handleGoToProfilePictureScreen)}
+          <Controller
+            control={control}
+            name="password_confirm"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                value={value}
+                label="Confirmação da senha"
+                secureTextEntry
+                autoComplete="off"
+                autoCorrect={false}
+                autoCapitalize="none"
+                onChangeText={onChange}
+                placeholder="Digite a confirmação da senha"
+                errorMessage={errors.password_confirm?.message}
+              />
+            )}
           />
         </View>
-      </View>
-    </Container>
+
+        <View>
+          <View style={{ height: 46, width: "100%" }}>
+            <Button
+              title="Continuar"
+              isLoading={isLoading}
+              onPress={handleSubmit(handleGoToProfilePictureScreen)}
+            />
+          </View>
+        </View>
+      </Container>
+
+      <Toast
+        mode={toastMode}
+        message={toastMessage}
+        isVisible={isToastVisible}
+      />
+    </>
   );
 }

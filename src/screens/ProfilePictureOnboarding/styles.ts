@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/native'
+import styled, { css } from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
@@ -19,7 +19,7 @@ export const Title = styled.Text`
     color: ${theme.COLORS.WHITE};
     font-family: ${theme.FONTS.BOLD};
   `}
-`
+`;
 
 export const Subtitle = styled.Text`
   font-size: 18px;
@@ -29,4 +29,35 @@ export const Subtitle = styled.Text`
     color: ${theme.COLORS.GRAY};
     font-family: ${theme.FONTS.REGULAR};
   `}
-`
+`;
+
+export const ProfileIconContainer = styled.View`
+  width: 180px;
+  height: 180px;
+  align-items: center;
+  justify-content: center;
+
+  ${({ theme }) => css`
+    border-radius: ${theme.BORDER_RADIUS}px;
+    background-color: ${theme.COLORS.PRIMARY_5};
+  `}
+`;
+
+export const ChoosePictureButtonContainer = styled.TouchableOpacity`
+  margin-top: 16px;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 100px;
+  justify-content: center;
+`;
+
+export const ChoosePictureButtonLabel = styled.Text`
+  font-size: 16px;
+  margin-left: 8px;
+
+  ${({ theme }) => css`
+    color: ${theme.COLORS.PRIMARY};
+    font-family: ${theme.FONTS.BOLD};
+  `}
+`;
+
