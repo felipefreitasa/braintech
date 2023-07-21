@@ -11,6 +11,8 @@ import { FIREBASE_AUTH } from "../../../firebaseConfig";
 
 import { useAuth } from "@hooks/useAuth";
 
+import { authCreate } from "@storage/auth/authCreate";
+
 import { handleFirebaseSignInErrors } from "@utils/handleFirebaseSignInErrors";
 
 import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
@@ -120,6 +122,9 @@ export function ProfilePictureOnboarding() {
         onboardingEmail,
         onboardingPassword
       );
+
+      await authCreate(authData)
+
       setLoggedUser(authData);
     } catch (error: any) {
       setIsToastVisible(true);

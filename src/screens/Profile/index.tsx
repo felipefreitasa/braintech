@@ -5,6 +5,7 @@ import { useTheme } from "styled-components/native";
 import { useFocusEffect } from "@react-navigation/native";
 import Animated, { FadeInLeft } from "react-native-reanimated";
 
+import { authRemove } from "@storage/auth/authRemove";
 import { historyGetAll } from "@storage/history/historyGetAll";
 import { HistoryItemProps } from "@storage/history/historyCreate";
 import { soundEffectsCreate } from "@storage/soundEffects/soundEffectsCreate";
@@ -14,8 +15,10 @@ import { useSettings } from "@hooks/useSettings";
 
 import { findMostPresentTechnology } from "@utils/findMostPresentTechnology";
 
+import { Toast } from "@components/Toast";
 import { UserPhoto } from "@components/UserPhoto";
 import { IconButton } from "@components/IconButton";
+import { ModeProps } from "@components/Toast/styles";
 import { SettingsItem } from "@components/SettingsItem";
 import { StatisticCard } from "@components/StatisticCard";
 
@@ -39,7 +42,7 @@ const AnimatedStatisticsContainer =
 export function Profile() {
   const { COLORS } = useTheme();
 
-  const { loggedUser } = useAuth();
+  const { loggedUser, setLoggedUser } = useAuth();
 
   const {
     setIsSoundEffectsEnabled,
@@ -48,6 +51,9 @@ export function Profile() {
   } = useSettings();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastMode, setToastMode] = useState<ModeProps>();
+  const [isToastVisible, setIsToastVisible] = useState(false);
   const [historyData, setHistoryData] = useState<HistoryItemProps[]>();
   const [mostPresenstTechnology, setMostPresenstTechnology] = useState("");
 
@@ -61,7 +67,11 @@ export function Profile() {
 
       setHistoryData(data);
     } catch (error) {
-      Alert.alert("Histórico", "Não foi possível carregar o seu histórico");
+      setIsToastVisible(true);
+      setToastMessage(
+        "Houve um erro ao carregar algumas informações do seu perfil"
+      );
+      setToastMode("error");
     } finally {
       setIsLoading(false);
     }
@@ -73,11 +83,17 @@ export function Profile() {
 
       await soundEffectsCreate();
     } catch (error) {
-      Alert.alert(
-        "Efeitos sonoros",
-        "Não foi possível alterar as configurações de efeitos sonoros!"
+      setIsToastVisible(true);
+      setToastMessage(
+        "Houve um erro ao carregar as suas configurações de efeitos sonoros"
       );
+      setToastMode("error");
     }
+  }
+
+  async function logOut() {
+    await authRemove()
+    setLoggedUser(undefined);
   }
 
   useFocusEffect(
@@ -86,65 +102,97 @@ export function Profile() {
     }, [])
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      if (isToastVisible) {
+        setTimeout(() => {
+          setIsToastVisible(false);
+          setToastMessage("");
+        }, 3000);
+      }
+    }, [isToastVisible])
+  );
+
   return (
-    <Container>
-      <AnimatedHeaderContainer entering={FadeInLeft}>
-        <LeftContainer>
-          {loggedUser?.user.photoURL ? (
-            <UserPhoto size={60} source={{ uri: loggedUser?.user.photoURL }} />
-          ) : (
-            <ProfileIconContainer>
-              <Feather name="user" size={40} color={COLORS.PRIMARY} />
-            </ProfileIconContainer>
-          )}
+    <>
+      <Container>
+        <AnimatedHeaderContainer entering={FadeInLeft}>
+          <LeftContainer>
+            {loggedUser?.user.photoURL ? (
+              <UserPhoto
+                size={60}
+                source={{ uri: loggedUser?.user.photoURL }}
+              />
+            ) : (
+              <ProfileIconContainer>
+                <Feather name="user" size={40} color={COLORS.PRIMARY} />
+              </ProfileIconContainer>
+            )}
 
-          <UserInformationsContainer>
-            <UserName numberOfLines={1}>
-              {loggedUser?.user.displayName}
-            </UserName>
+            <UserInformationsContainer>
+              <UserName numberOfLines={1}>
+                {loggedUser?.user.displayName}
+              </UserName>
 
-            <UserEmail numberOfLines={1}>{loggedUser?.user.email}</UserEmail>
-          </UserInformationsContainer>
-        </LeftContainer>
+              <UserEmail numberOfLines={1}>{loggedUser?.user.email}</UserEmail>
+            </UserInformationsContainer>
+          </LeftContainer>
 
-        <IconButton icon="edit-2" iconSize={24} />
-      </AnimatedHeaderContainer>
+          <IconButton
+            icon="log-out"
+            iconSize={24}
+            mode="error"
+            onPress={logOut}
+          />
+        </AnimatedHeaderContainer>
 
-      <AnimatedStatisticsContainer entering={FadeInLeft.delay(250)}>
-        <StatisticsTitle>Estatísticas</StatisticsTitle>
+        <AnimatedStatisticsContainer entering={FadeInLeft.delay(250)}>
+          <StatisticsTitle>Estatísticas</StatisticsTitle>
 
-        <StatisticCard
-          icon="code"
-          isLoading={isLoading}
-          subtitle={mostPresenstTechnology || "-"}
-          title="Tecnologia favorita"
-        />
+          <StatisticCard
+            icon="code"
+            isLoading={isLoading}
+            subtitle={mostPresenstTechnology || "-"}
+            title="Tecnologia favorita"
+          />
 
-        <StatisticCard
-          icon="git-branch"
-          isLoading={isLoading}
-          title="Exercícios respondidos"
-          subtitle={historyData?.length}
-        />
-      </AnimatedStatisticsContainer>
+          <StatisticCard
+            icon="git-branch"
+            isLoading={isLoading}
+            title="Exercícios respondidos"
+            subtitle={historyData?.length}
+          />
+        </AnimatedStatisticsContainer>
 
-      <Animated.View style={{ width: "100%" }} entering={FadeInLeft.delay(500)}>
-        <StatisticsTitle>Configurações</StatisticsTitle>
+        <Animated.View
+          style={{ width: "100%" }}
+          entering={FadeInLeft.delay(500)}
+        >
+          <StatisticsTitle>Configurações</StatisticsTitle>
 
-        <SettingsItem
-          icon="volume-2"
-          title="Efeitos sonoros"
-          rightAction={
-            <Switch
-              value={isSoundEffectsEnabled}
-              disabled={isSoundEffectsLoading}
-              onValueChange={toggleSoundAsyncStorage}
-              thumbColor={isSoundEffectsEnabled ? COLORS.PRIMARY : COLORS.WHITE}
-              trackColor={{ false: COLORS.GRAY, true: COLORS.PRIMARY_30 }}
-            />
-          }
-        />
-      </Animated.View>
-    </Container>
+          <SettingsItem
+            icon="volume-2"
+            title="Efeitos sonoros"
+            rightAction={
+              <Switch
+                value={isSoundEffectsEnabled}
+                disabled={isSoundEffectsLoading}
+                onValueChange={toggleSoundAsyncStorage}
+                thumbColor={
+                  isSoundEffectsEnabled ? COLORS.PRIMARY : COLORS.WHITE
+                }
+                trackColor={{ false: COLORS.GRAY, true: COLORS.PRIMARY_30 }}
+              />
+            }
+          />
+        </Animated.View>
+      </Container>
+
+      <Toast
+        mode={toastMode}
+        message={toastMessage}
+        isVisible={isToastVisible}
+      />
+    </>
   );
 }

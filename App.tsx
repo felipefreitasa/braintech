@@ -14,6 +14,8 @@ import { QuizContextProvider } from "@context/QuizContext";
 import { AuthContextProvider } from "@context/AuthContext";
 import { SettingsContextProvider } from "@context/SettingsContext";
 
+import { useAuth } from "@hooks/useAuth";
+
 import theme from "./src/theme";
 
 import { Routes } from "./src/routes";
@@ -28,6 +30,8 @@ export default function App() {
     SpaceGrotesk_400Regular,
   });
 
+  const { isFetchingLoggedUser } = useAuth()
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthContextProvider>
@@ -40,7 +44,7 @@ export default function App() {
                 backgroundColor="transparent"
               />
 
-              {fontsLoaded ? <Routes /> : <Loading />}
+              {fontsLoaded && !isFetchingLoggedUser ? <Routes /> : <Loading />}
             </ThemeProvider>
           </QuizContextProvider>
         </SettingsContextProvider>

@@ -13,6 +13,8 @@ export type AuthContextDataProps = {
   setOnboardingEmail: React.Dispatch<React.SetStateAction<string>>;
   onboardingPassword: string;
   setOnboardingPassword: React.Dispatch<React.SetStateAction<string>>;
+  isFetchingLoggedUser: boolean;
+  setIsFetchingLoggedUser: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 type AuthContextProviderProps = {
@@ -24,12 +26,11 @@ export const AuthContext = createContext<AuthContextDataProps>(
 );
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
-  
   const [onboardingName, setOnboardingName] = useState("");
   const [onboardingEmail, setOnboardingEmail] = useState("");
-  const [onboardingPassword, setOnboardingPassword] = useState("");
-
   const [loggedUser, setLoggedUser] = useState<UserCredential>();
+  const [onboardingPassword, setOnboardingPassword] = useState("");
+  const [isFetchingLoggedUser, setIsFetchingLoggedUser] = useState(true);
 
   return (
     <AuthContext.Provider
@@ -42,6 +43,8 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
         setOnboardingEmail,
         onboardingPassword,
         setOnboardingPassword,
+        isFetchingLoggedUser,
+        setIsFetchingLoggedUser,
       }}
     >
       {children}

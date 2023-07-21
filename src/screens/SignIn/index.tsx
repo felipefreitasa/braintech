@@ -11,6 +11,8 @@ import { useAuth } from "@hooks/useAuth";
 
 import { ModeProps } from "@components/Toast/styles";
 
+import { authCreate } from "@storage/auth/authCreate";
+
 import { handleFirebaseSignInErrors } from "@utils/handleFirebaseSignInErrors";
 
 import { FIREBASE_AUTH } from "../../../firebaseConfig";
@@ -68,6 +70,9 @@ export function SignIn() {
       setIsLoading(true);
 
       const authData = await signInWithEmailAndPassword(auth, email, password);
+
+      await authCreate(authData)
+
       setLoggedUser(authData);
     } catch (error: any) {
       setIsToastVisible(true);
