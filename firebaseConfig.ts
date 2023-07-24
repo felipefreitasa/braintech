@@ -21,6 +21,10 @@ export type HistoryItemProps = {
   category: "MOBILE" | "FRONT-END" | "BACK-END";
 };
 
+type HistoryProps = HistoryItemProps & {
+  userId: string;
+}
+
 const firebaseConfig = {
   appId: FIREBASE_APP_ID,
   apiKey: FIREBASE_API_KEY,
@@ -42,19 +46,19 @@ export async function saveQuizStatus(historyItem: HistoryItemProps) {
   }
 }
 
-export async function getHistory(): Promise<HistoryItemProps[]> {
+export async function getHistory(loggedUserId: string): Promise<HistoryProps[]> {
   try {
     const querySnapshot = await getDocs(
-      collection(FIREBASE_FIRESTORE, "history"),
+      collection(FIREBASE_FIRESTORE, "history")
     );
 
-    const historyData: HistoryItemProps[] = [];
+    const historyData: HistoryProps[] = [];
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
 
       if (data) {
-        const historyItem: HistoryItemProps = {
+        const historyItem: HistoryProps = {
           id: doc.id,
           createdAt: data.createdAt.toDate(),
           technology: data.technology,
@@ -62,14 +66,17 @@ export async function getHistory(): Promise<HistoryItemProps[]> {
           correctAnswers: data.correctAnswers,
           totalQuestions: data.totalQuestions,
           category: data.category,
+          userId: data.userId,
         };
 
-        historyData.push(historyItem);
+        if (data.userId === loggedUserId) {
+          historyData.push(historyItem);
+        }
       }
     });
 
     return historyData;
   } catch (error) {
-    throw error
+    throw error;
   }
 }

@@ -5,6 +5,7 @@ import { useTheme } from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
+import { useAuth } from "@hooks/useAuth";
 import { useQuiz } from "@hooks/useQuiz";
 
 import { saveQuizStatus } from "../../../firebaseConfig";
@@ -37,6 +38,8 @@ export function QuizStatus() {
     quizEndTime,
   } = useQuiz();
 
+  const { loggedUser } = useAuth()
+
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +60,7 @@ export function QuizStatus() {
       subCategory: selectedQuiz.subcategory,
       technology: selectedTechnology.technology,
       totalQuestions: selectedQuiz.questions.length,
+      userId: loggedUser?.user.uid
     });
 
     setIsLoading(false);

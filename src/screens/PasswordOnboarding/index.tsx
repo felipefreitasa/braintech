@@ -2,10 +2,16 @@ import * as yup from "yup";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert, BackHandler, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  View,
+  Alert,
+  ScrollView,
+  BackHandler,
+  KeyboardAvoidingView,
+} from "react-native";
 
 import { handleFirebaseSignUpErrors } from "@utils/handleFirebaseSignUpErrors";
 
@@ -73,8 +79,31 @@ export function PasswordOnboarding() {
       email: onboardingEmail,
       password,
     });
+  }
 
-    navigate("profilePictureOnboarding");
+  async function handleSignUp({ name, email, password }: SignUpProps) {
+    try {
+      setIsLoading(true);
+
+      await createUserWithEmailAndPassword(auth, email, password);
+      await updateUserName(name);
+
+      navigate("profilePictureOnboarding");
+    } catch (error: any) {
+      setIsToastVisible(true);
+      setToastMessage(handleFirebaseSignUpErrors(error.code));
+      setToastMode("error");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function updateUserName(name: string) {
+    if (auth.currentUser) {
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+    }
   }
 
   function handleExitOnboarding() {
@@ -97,29 +126,6 @@ export function PasswordOnboarding() {
     return true;
   }
 
-  async function handleSignUp({ name, email, password }: SignUpProps) {
-    try {
-      setIsLoading(true);
-
-      await createUserWithEmailAndPassword(auth, email, password);
-      await updateUserName(name);
-    } catch (error: any) {
-      setIsToastVisible(true);
-      setToastMessage(handleFirebaseSignUpErrors(error.code));
-      setToastMode("error");
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  async function updateUserName(name: string) {
-    if (auth.currentUser) {
-      await updateProfile(auth.currentUser, {
-        displayName: name,
-      });
-    }
-  }
-
   useEffect(() => {
     if (isToastVisible) {
       setTimeout(() => {
@@ -139,74 +145,78 @@ export function PasswordOnboarding() {
 
   return (
     <>
-      <Container>
-        <View>
-          <Header
-            title="Cadastro"
-            titleHighlight="Senha"
-            onGoBack={() => handleExitOnboarding()}
-          />
+      <KeyboardAvoidingView style={{ flex: 1 }}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <Container>
+            <View>
+              <Header
+                title="Cadastro"
+                titleHighlight="Senha"
+                onGoBack={() => handleExitOnboarding()}
+              />
 
-          <Animated.View entering={FadeIn.delay(300).duration(600)}>
-            <Title>Senha</Title>
+              <Animated.View entering={FadeIn.delay(300).duration(600)}>
+                <Title>Senha</Title>
 
-            <Subtitle>
-              Escolha uma senha segura para proteger sua conta.
-            </Subtitle>
-          </Animated.View>
+                <Subtitle>
+                  Escolha uma senha segura para proteger sua conta.
+                </Subtitle>
+              </Animated.View>
 
-          <Animated.View entering={FadeIn.delay(600).duration(600)}>
-            <Controller
-              control={control}
-              name="password"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  value={value}
-                  label="Senha"
-                  secureTextEntry
-                  autoComplete="off"
-                  autoCorrect={false}
-                  autoCapitalize="none"
-                  onChangeText={onChange}
-                  placeholder="Digite a sua senha"
-                  errorMessage={errors.password?.message}
+              <Animated.View entering={FadeIn.delay(600).duration(600)}>
+                <Controller
+                  control={control}
+                  name="password"
+                  render={({ field: { onChange, value } }) => (
+                    <Input
+                      value={value}
+                      label="Senha"
+                      secureTextEntry
+                      autoComplete="off"
+                      autoCorrect={false}
+                      autoCapitalize="none"
+                      onChangeText={onChange}
+                      placeholder="Digite a sua senha"
+                      errorMessage={errors.password?.message}
+                    />
+                  )}
                 />
-              )}
-            />
 
-            <Controller
-              control={control}
-              name="password_confirm"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  value={value}
-                  label="Confirmação da senha"
-                  secureTextEntry
-                  autoComplete="off"
-                  autoCorrect={false}
-                  autoCapitalize="none"
-                  onChangeText={onChange}
-                  placeholder="Digite a confirmação da senha"
-                  errorMessage={errors.password_confirm?.message}
+                <Controller
+                  control={control}
+                  name="password_confirm"
+                  render={({ field: { onChange, value } }) => (
+                    <Input
+                      value={value}
+                      label="Confirmação da senha"
+                      secureTextEntry
+                      autoComplete="off"
+                      autoCorrect={false}
+                      autoCapitalize="none"
+                      onChangeText={onChange}
+                      placeholder="Digite a confirmação da senha"
+                      errorMessage={errors.password_confirm?.message}
+                    />
+                  )}
                 />
-              )}
-            />
-          </Animated.View>
-        </View>
+              </Animated.View>
+            </View>
 
-        <View>
-          <Animated.View
-            style={{ height: 46, width: "100%" }}
-            entering={FadeIn.delay(900).duration(600)}
-          >
-            <Button
-              title="Continuar"
-              isLoading={isLoading}
-              onPress={handleSubmit(handleGoToProfilePictureScreen)}
-            />
-          </Animated.View>
-        </View>
-      </Container>
+            <View>
+              <Animated.View
+                style={{ height: 46, width: "100%" }}
+                entering={FadeIn.delay(900).duration(600)}
+              >
+                <Button
+                  title="Continuar"
+                  isLoading={isLoading}
+                  onPress={handleSubmit(handleGoToProfilePictureScreen)}
+                />
+              </Animated.View>
+            </View>
+          </Container>
+        </ScrollView>
+      </KeyboardAvoidingView>
 
       <Toast
         mode={toastMode}

@@ -2,10 +2,15 @@ import * as yup from "yup";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import Animated, { FadeIn } from "react-native-reanimated";
+import {
+  View,
+  ScrollView,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+} from "react-native";
 
 import { useAuth } from "@hooks/useAuth";
 
@@ -71,7 +76,7 @@ export function SignIn() {
 
       const authData = await signInWithEmailAndPassword(auth, email, password);
 
-      await authCreate(authData)
+      await authCreate(authData);
 
       setLoggedUser(authData);
     } catch (error: any) {
@@ -94,81 +99,87 @@ export function SignIn() {
 
   return (
     <>
-      <Container>
-        <View>
-          <Header
-            title="BrainTech"
-            titleHighlight="Entrar"
-            onGoBack={() => navigate("welcome")}
-          />
+      <KeyboardAvoidingView style={{ flex: 1 }}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <Container>
+            <View>
+              <Header
+                title="BrainTech"
+                titleHighlight="Entrar"
+                onGoBack={() => navigate("welcome")}
+              />
 
-          <Animated.View entering={FadeIn.delay(300).duration(600)}>
-            <Title>Entrar</Title>
+              <Animated.View entering={FadeIn.delay(300).duration(600)}>
+                <Title>Entrar</Title>
 
-            <Subtitle>Entre agora e aumente o seu conhecimento tech!</Subtitle>
-          </Animated.View>
+                <Subtitle>
+                  Entre agora e aumente o seu conhecimento tech!
+                </Subtitle>
+              </Animated.View>
 
-          <Animated.View entering={FadeIn.delay(600).duration(600)}>
-            <Controller
-              control={control}
-              name="email"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  value={value}
-                  label="E-mail"
-                  autoComplete="off"
-                  autoCorrect={false}
-                  autoCapitalize="none"
-                  onChangeText={onChange}
-                  keyboardType="email-address"
-                  placeholder="Digite o seu e-mail"
-                  errorMessage={errors.email?.message}
+              <Animated.View entering={FadeIn.delay(600).duration(600)}>
+                <Controller
+                  control={control}
+                  name="email"
+                  render={({ field: { onChange, value } }) => (
+                    <Input
+                      value={value}
+                      label="E-mail"
+                      autoComplete="off"
+                      autoCorrect={false}
+                      autoCapitalize="none"
+                      onChangeText={onChange}
+                      keyboardType="email-address"
+                      placeholder="Digite o seu e-mail"
+                      errorMessage={errors.email?.message}
+                    />
+                  )}
                 />
-              )}
-            />
 
-            <Controller
-              control={control}
-              name="password"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  value={value}
-                  label="Senha"
-                  secureTextEntry
-                  autoComplete="off"
-                  autoCorrect={false}
-                  autoCapitalize="none"
-                  onChangeText={onChange}
-                  placeholder="Digite a sua senha"
-                  errorMessage={errors.password?.message}
+                <Controller
+                  control={control}
+                  name="password"
+                  render={({ field: { onChange, value } }) => (
+                    <Input
+                      value={value}
+                      label="Senha"
+                      secureTextEntry
+                      autoComplete="off"
+                      autoCorrect={false}
+                      autoCapitalize="none"
+                      onChangeText={onChange}
+                      placeholder="Digite a sua senha"
+                      errorMessage={errors.password?.message}
+                    />
+                  )}
                 />
-              )}
-            />
-          </Animated.View>
-        </View>
+              </Animated.View>
+            </View>
 
-        <Animated.View entering={FadeIn.delay(900).duration(600)}>
-          <View style={{ height: 46, width: "100%" }}>
-            <Button
-              title="Entrar"
-              onPress={handleSubmit(handleSignIn)}
-              isLoading={isLoading}
-            />
-          </View>
+            <Animated.View entering={FadeIn.delay(900).duration(600)}>
+              <View style={{ height: 46, width: "100%" }}>
+                <Button
+                  title="Entrar"
+                  onPress={handleSubmit(handleSignIn)}
+                  isLoading={isLoading}
+                />
+              </View>
 
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigate("nameOnboarding")}
-          >
-            <SignInButtonLabel>
-              Ainda não possui conta?{" "}
-              <SignInButtonLabelHighlight>
-                Crie agora!
-              </SignInButtonLabelHighlight>
-            </SignInButtonLabel>
-          </TouchableOpacity>
-        </Animated.View>
-      </Container>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigate("nameOnboarding")}
+              >
+                <SignInButtonLabel>
+                  Ainda não possui conta?{" "}
+                  <SignInButtonLabelHighlight>
+                    Crie agora!
+                  </SignInButtonLabelHighlight>
+                </SignInButtonLabel>
+              </TouchableOpacity>
+            </Animated.View>
+          </Container>
+        </ScrollView>
+      </KeyboardAvoidingView>
 
       <Toast
         mode={toastMode}

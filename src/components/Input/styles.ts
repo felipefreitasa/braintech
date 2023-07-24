@@ -6,7 +6,7 @@ type InputProps = {
 };
 
 export const Container = styled.View`
-  margin-bottom: 70px;
+  margin-bottom: 35px;
 `;
 
 export const InputContainer = styled.TextInput<InputProps>`

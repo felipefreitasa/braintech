@@ -1,10 +1,16 @@
 import * as yup from "yup";
 import { useEffect } from "react";
-import { Alert, BackHandler, View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
+import {
+  View,
+  Alert,
+  ScrollView,
+  BackHandler,
+  KeyboardAvoidingView,
+} from "react-native";
 
 import { useAuth } from "@hooks/useAuth";
 
@@ -71,54 +77,59 @@ export function EmailOnboarding() {
   }, []);
 
   return (
-    <Container>
-      <View>
-        <Header
-          title="Cadastro"
-          titleHighlight="E-mail"
-          onGoBack={() => handleExitOnboarding()}
-        />
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <Container>
+          <View>
+            <Header
+              title="Cadastro"
+              titleHighlight="E-mail"
+              onGoBack={() => handleExitOnboarding()}
+            />
 
-        <Animated.View entering={FadeIn.delay(300).duration(600)}>
-          <Title>E-mail</Title>
+            <Animated.View entering={FadeIn.delay(300).duration(600)}>
+              <Title>E-mail</Title>
 
-          <Subtitle>
-            Para uma experiência completa, insira seu e-mail no campo abaixo.
-          </Subtitle>
-        </Animated.View>
+              <Subtitle>
+                Para uma experiência completa, insira seu e-mail no campo
+                abaixo.
+              </Subtitle>
+            </Animated.View>
 
-        <Animated.View entering={FadeIn.delay(600).duration(600)}>
-          <Controller
-            control={control}
-            name="email"
-            render={({ field: { onChange, value } }) => (
-              <Input
-                value={value}
-                label="E-mail"
-                autoComplete="off"
-                autoCorrect={false}
-                autoCapitalize="none"
-                onChangeText={onChange}
-                keyboardType="email-address"
-                placeholder="Digite o seu e-mail"
-                errorMessage={errors.email?.message}
+            <Animated.View entering={FadeIn.delay(600).duration(600)}>
+              <Controller
+                control={control}
+                name="email"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    value={value}
+                    label="E-mail"
+                    autoComplete="off"
+                    autoCorrect={false}
+                    autoCapitalize="none"
+                    onChangeText={onChange}
+                    keyboardType="email-address"
+                    placeholder="Digite o seu e-mail"
+                    errorMessage={errors.email?.message}
+                  />
+                )}
               />
-            )}
-          />
-        </Animated.View>
-      </View>
+            </Animated.View>
+          </View>
 
-      <View>
-        <Animated.View
-          style={{ height: 46, width: "100%" }}
-          entering={FadeIn.delay(900).duration(600)}
-        >
-          <Button
-            title="Continuar"
-            onPress={handleSubmit(handleGoToPasswordScreen)}
-          />
-        </Animated.View>
-      </View>
-    </Container>
+          <View>
+            <Animated.View
+              style={{ height: 46, width: "100%" }}
+              entering={FadeIn.delay(900).duration(600)}
+            >
+              <Button
+                title="Continuar"
+                onPress={handleSubmit(handleGoToPasswordScreen)}
+              />
+            </Animated.View>
+          </View>
+        </Container>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }

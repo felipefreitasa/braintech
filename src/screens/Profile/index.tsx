@@ -61,11 +61,11 @@ export function Profile() {
     try {
       setIsLoading(true);
 
-      const data = await getHistory();
-
-      setMostPresenstTechnology(findMostPresentTechnology(data));
-
-      setHistoryData(data);
+      if (loggedUser) {
+        const data = await getHistory(loggedUser?.user.uid);
+        setMostPresenstTechnology(findMostPresentTechnology(data));
+        setHistoryData(data);
+      }
     } catch (error) {
       setIsToastVisible(true);
       setToastMessage(
@@ -92,7 +92,7 @@ export function Profile() {
   }
 
   async function logOut() {
-    await authRemove()
+    await authRemove();
     setLoggedUser(undefined);
   }
 

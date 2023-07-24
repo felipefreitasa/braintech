@@ -5,6 +5,8 @@ import Animated, { FadeIn } from "react-native-reanimated";
 
 import { getHistory, HistoryItemProps } from "../../../firebaseConfig";
 
+import { useAuth } from "@hooks/useAuth";
+
 import { groupItemsByDate } from "@utils/groupItemsByDate";
 
 import { Toast } from "@components/Toast";
@@ -31,13 +33,17 @@ export function History() {
   const [isToastVisible, setIsToastVisible] = useState(false);
   const [historyData, setHistoryData] = useState<HistoryItemProps[]>();
 
+  const { loggedUser } = useAuth()
+
   async function fetchHistory() {
     try {
       setIsLoading(true);
 
-      const data = await getHistory();
+      if(loggedUser){
+        const data = await getHistory(loggedUser?.user.uid);
+        setHistoryData(data);
+      }
 
-      setHistoryData(data);
     } catch (error) {
       setIsToastVisible(true);
       setToastMessage("Não foi possível carregar o seu histórico");
