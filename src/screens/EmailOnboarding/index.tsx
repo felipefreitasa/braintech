@@ -111,6 +111,7 @@ export function EmailOnboarding() {
                     keyboardType="email-address"
                     placeholder="Digite o seu e-mail"
                     errorMessage={errors.email?.message}
+                    onSubmitEditing={handleSubmit(handleGoToPasswordScreen)}
                   />
                 )}
               />

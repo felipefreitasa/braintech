@@ -14,8 +14,6 @@ import {
 
 import { useAuth } from "@hooks/useAuth";
 
-import { ModeProps } from "@components/Toast/styles";
-
 import { authCreate } from "@storage/auth/authCreate";
 
 import { handleFirebaseSignInErrors } from "@utils/handleFirebaseSignInErrors";
@@ -28,6 +26,7 @@ import { Input } from "@components/Input";
 import { Toast } from "@components/Toast";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
+import { ModeProps } from "@components/Toast/styles";
 
 import {
   Title,
@@ -150,6 +149,7 @@ export function SignIn() {
                       onChangeText={onChange}
                       placeholder="Digite a sua senha"
                       errorMessage={errors.password?.message}
+                      onSubmitEditing={handleSubmit(handleSignIn)}
                     />
                   )}
                 />

@@ -196,6 +196,7 @@ export function PasswordOnboarding() {
                       onChangeText={onChange}
                       placeholder="Digite a confirmação da senha"
                       errorMessage={errors.password_confirm?.message}
+                      onSubmitEditing={handleSubmit(handleGoToProfilePictureScreen)}
                     />
                   )}
                 />

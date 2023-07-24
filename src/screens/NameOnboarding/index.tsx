@@ -89,6 +89,7 @@ export function NameOnboarding() {
                     onChangeText={onChange}
                     placeholder="Digite o seu sobrenome"
                     errorMessage={errors.lastName?.message}
+                    onSubmitEditing={handleSubmit(handleGoToEmailScreen)}
                   />
                 )}
               />
