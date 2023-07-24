@@ -1,48 +1,52 @@
-import { useEffect } from "react"
-import { FlatList } from "react-native"
-import { useNavigation } from "@react-navigation/native"
-import Animated, { FadeIn } from "react-native-reanimated"
+import { useEffect } from "react";
+import { FlatList } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Animated, { FadeIn } from "react-native-reanimated";
 
-import { categoriesMock } from "@utils/categoriesMock"
+import { categoriesMock } from "@utils/categoriesMock";
 
-import { AppNavigatorRoutesProps } from "../../routes/app.routes"
+import { AppNavigatorRoutesProps } from "../../routes/app.routes";
 
-import { useQuiz } from "@hooks/useQuiz"
-import { useSettings } from "@hooks/useSettings"
-import { SelectedCategoryProps } from "@context/QuizContext"
+import { useQuiz } from "@hooks/useQuiz";
+import { useSettings } from "@hooks/useSettings";
+import { SelectedCategoryProps } from "@context/QuizContext";
 
-import { Loading } from "@components/Loading"
-import { HomeHeader } from "@components/HomeHeader"
-import { CategoryButton } from "@components/CategoryButton"
-import { CategorySectionTitle } from "@components/CategorySectionTitle"
+import { Loading } from "@components/Loading";
+import { HomeHeader } from "@components/HomeHeader";
+import { CategoryButton } from "@components/CategoryButton";
+import { CategorySectionTitle } from "@components/CategorySectionTitle";
 
-import { CategoryContainer, Container, Title } from "./styles"
+import { CategoryContainer, Container, Title } from "./styles";
 
-const TitleAnimated = Animated.createAnimatedComponent(Title)
+const TitleAnimated = Animated.createAnimatedComponent(Title);
 
 export function Home() {
+  const { setSelectedTechnology } = useQuiz();
+  const { fetchSoundEffectsSettings, isSoundEffectsLoading } = useSettings();
 
-  const { setSelectedTechnology } = useQuiz()
-  const { fetchSoundEffectsSettings, isSoundEffectsLoading } = useSettings()
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
-  const { navigate } = useNavigation<AppNavigatorRoutesProps>()
+  function handleGoToCategoryMenu({
+    category,
+    description,
+    options,
+    technology,
+  }: SelectedCategoryProps) {
+    setSelectedTechnology({ category, description, options, technology });
 
-  function handleGoToCategoryMenu({ category, description, options, technology }: SelectedCategoryProps){
-    setSelectedTechnology({ category, description, options, technology })
-
-    navigate('categoryQuizMenu')
+    navigate("categoryQuizMenu");
   }
 
   useEffect(() => {
     (async () => {
-      await fetchSoundEffectsSettings()
-    })()
-  }, [])
+      await fetchSoundEffectsSettings();
+    })();
+  }, []);
 
-  if (isSoundEffectsLoading){
-    return <Loading/>
+  if (isSoundEffectsLoading) {
+    return <Loading />;
   }
-  
+
   return (
     <Container>
       <HomeHeader />
@@ -56,10 +60,9 @@ export function Home() {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => {
+          const category = item.category;
 
-          const category = item.category
-
-          const delay = 500 * (index + 1)
+          const delay = 500 * (index + 1);
 
           return (
             <Animated.View entering={FadeIn.duration(600).delay(delay)}>
@@ -76,22 +79,22 @@ export function Home() {
                       category={category}
                       technology={item.technology}
                       description={item.description}
-                      onPress={() => handleGoToCategoryMenu({ 
-                        category, 
-                        technology: 
-                        item.technology, 
-                        options: item.quizOptions,
-                        description: item.description, 
-                      })}
+                      onPress={() =>
+                        handleGoToCategoryMenu({
+                          category,
+                          technology: item.technology,
+                          options: item.quizOptions,
+                          description: item.description,
+                        })
+                      }
                     />
                   )}
                 />
               </CategoryContainer>
             </Animated.View>
-
-          )
+          );
         }}
       />
     </Container>
-  )
+  );
 }

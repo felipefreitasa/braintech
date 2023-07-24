@@ -6,9 +6,9 @@ import { useFocusEffect } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
 import { authRemove } from "@storage/auth/authRemove";
-import { historyGetAll } from "@storage/history/historyGetAll";
-import { HistoryItemProps } from "@storage/history/historyCreate";
 import { soundEffectsCreate } from "@storage/soundEffects/soundEffectsCreate";
+
+import { getHistory, HistoryItemProps } from "../../../firebaseConfig";
 
 import { useAuth } from "@hooks/useAuth";
 import { useSettings } from "@hooks/useSettings";
@@ -23,15 +23,15 @@ import { SettingsItem } from "@components/SettingsItem";
 import { StatisticCard } from "@components/StatisticCard";
 
 import {
-  Container,
-  HeaderContainer,
-  UserEmail,
-  UserInformationsContainer,
   UserName,
+  UserEmail,
+  Container,
   LeftContainer,
   StatisticsTitle,
+  HeaderContainer,
   StatisticsContainer,
   ProfileIconContainer,
+  UserInformationsContainer,
 } from "./styles";
 
 const AnimatedHeaderContainer =
@@ -61,7 +61,7 @@ export function Profile() {
     try {
       setIsLoading(true);
 
-      const data = await historyGetAll();
+      const data = await getHistory();
 
       setMostPresenstTechnology(findMostPresentTechnology(data));
 

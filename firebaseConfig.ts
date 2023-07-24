@@ -1,5 +1,6 @@
-import { getAuth } from "firebase/auth"
-import { initializeApp } from "firebase/app"
+import { getAuth } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getFirestore, addDoc, collection, getDocs } from "firebase/firestore";
 
 import {
   FIREBASE_APP_ID,
@@ -8,7 +9,17 @@ import {
   FIREBASE_AUTH_DOMAIN,
   FIREBASE_STORAGE_BUCKET,
   FIREBASE_MESSAGING_SENDER_ID,
-} from "@env"
+} from "@env";
+
+export type HistoryItemProps = {
+  id?: string;
+  createdAt: Date;
+  technology: string;
+  subCategory: string;
+  correctAnswers: number;
+  totalQuestions: number;
+  category: "MOBILE" | "FRONT-END" | "BACK-END";
+};
 
 const firebaseConfig = {
   appId: FIREBASE_APP_ID,
@@ -19,5 +30,46 @@ const firebaseConfig = {
   messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
 };
 
-export const FIREBASE_APP = initializeApp(firebaseConfig)
-export const FIREBASE_AUTH = getAuth(FIREBASE_APP)
+export const FIREBASE_APP = initializeApp(firebaseConfig);
+export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
+export const FIREBASE_FIRESTORE = getFirestore(FIREBASE_APP);
+
+export async function saveQuizStatus(historyItem: HistoryItemProps) {
+  try {
+    await addDoc(collection(FIREBASE_FIRESTORE, "history"), historyItem);
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getHistory(): Promise<HistoryItemProps[]> {
+  try {
+    const querySnapshot = await getDocs(
+      collection(FIREBASE_FIRESTORE, "history"),
+    );
+
+    const historyData: HistoryItemProps[] = [];
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      if (data) {
+        const historyItem: HistoryItemProps = {
+          id: doc.id,
+          createdAt: data.createdAt.toDate(),
+          technology: data.technology,
+          subCategory: data.subCategory,
+          correctAnswers: data.correctAnswers,
+          totalQuestions: data.totalQuestions,
+          category: data.category,
+        };
+
+        historyData.push(historyItem);
+      }
+    });
+
+    return historyData;
+  } catch (error) {
+    throw error
+  }
+}

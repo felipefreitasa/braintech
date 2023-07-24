@@ -3,8 +3,7 @@ import { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
-import { historyGetAll } from "@storage/history/historyGetAll";
-import { HistoryItemProps } from "@storage/history/historyCreate";
+import { getHistory, HistoryItemProps } from "../../../firebaseConfig";
 
 import { groupItemsByDate } from "@utils/groupItemsByDate";
 
@@ -36,7 +35,7 @@ export function History() {
     try {
       setIsLoading(true);
 
-      const data = await historyGetAll();
+      const data = await getHistory();
 
       setHistoryData(data);
     } catch (error) {
@@ -82,7 +81,7 @@ export function History() {
           <Animated.View entering={FadeIn.duration(600).delay(250)}>
             <SectionList
               sections={groupItemsByDate(historyData)}
-              keyExtractor={(item) => item.id.toString()}
+              keyExtractor={(item) => String(item.id)}
               renderItem={({ item }) => (
                 <HistoryItem
                   category={item.category}
