@@ -3,7 +3,7 @@ import * as Haptics from 'expo-haptics'
 import { useEffect, useState } from 'react'
 import { Alert, BackHandler, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import Animated, { FadeInLeft, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import Animated, { FadeIn, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
 import { useQuiz } from '@hooks/useQuiz'
 import { useSettings } from '@hooks/useSettings'
@@ -130,7 +130,7 @@ export function Quiz() {
             onGoBack={handleStopQuiz}
           />
           
-          <Animated.View entering={FadeInLeft.delay(250)}>
+          <Animated.View entering={FadeIn.duration(600).delay(250)}>
             <QuestionsCounter>
               {`${currentQuestion}/${questions.length} questões concluídas`}
             </QuestionsCounter>
@@ -140,11 +140,11 @@ export function Quiz() {
             </ProgressBar>
           </Animated.View>
         
-          <AnimatedQuestion entering={FadeInLeft.delay(500)}>
+          <AnimatedQuestion entering={FadeIn.duration(600).delay(500)}>
             {`${currentQuestion + 1}. ${questions[currentQuestion].question}`}
           </AnimatedQuestion>
 
-          <Animated.View entering={FadeInLeft.delay(750)}>
+          <Animated.View entering={FadeIn.duration(600).delay(750)}>
             {questions[currentQuestion].answers.map((question) => (
               <AnswerSelect
                 key={question}
@@ -159,7 +159,7 @@ export function Quiz() {
 
         <Animated.View 
           style={{ height: 46 }}
-          entering={FadeInLeft.delay(1000)} 
+          entering={FadeIn.duration(600).delay(1000)} 
         >
           <Button
             title='Verificar'

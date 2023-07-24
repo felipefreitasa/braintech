@@ -1,28 +1,40 @@
-import styled, { css } from 'styled-components/native'
+import styled, { css } from "styled-components/native"
 
 export const Container = styled.View`
   flex: 1;
-  padding: 20px 20px 40px 20px;
-  justify-content: space-between;
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
+`
 
-  ${({ theme }) => css`
-    background-color: ${theme.COLORS.BACKGROUND};
-  `}
-`;
+export const Background = styled.ImageBackground`
+  flex: 1;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: flex-end;
+`
+
+export const Content = styled.View`
+  flex: 1;
+  width: 100%;
+  padding: 40px 20px;
+  justify-content: flex-end;
+`
 
 export const Title = styled.Text`
-  font-size: 24px;
-  margin-top: 24px;
-  margin-bottom: 4px;
+  font-size: 34px;
+  margin-top: 8px;
 
   ${({ theme }) => css`
-    color: ${theme.COLORS.WHITE};
+    color: ${theme.COLORS.PRIMARY};
     font-family: ${theme.FONTS.BOLD};
   `}
 `
 
+export const TitleDescription = styled(Title)`
+  color: ${({ theme }) => theme.COLORS.WHITE};
+`
+
 export const Subtitle = styled.Text`
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 32px;
 
   ${({ theme }) => css`

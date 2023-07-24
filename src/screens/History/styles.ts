@@ -39,6 +39,10 @@ export const Data = styled.Text`
   `}
 `
 
+export const SectionHeader = styled.View`
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
+`
+
 export const SectionHeaderSeparator = styled.View`
   height: 16px;
 `
