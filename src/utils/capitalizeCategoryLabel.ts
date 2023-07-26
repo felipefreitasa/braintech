@@ -6,6 +6,8 @@ const categoryLabels = {
   'FRONT-END': 'Front-end',
 }
 
-export function capitalizeCategoryLabel(category: CategoryTypeProps){
-  return categoryLabels[category]
+export function capitalizeCategoryLabel(category: CategoryTypeProps | undefined){
+  if(category){
+    return categoryLabels[category]
+  }
 }

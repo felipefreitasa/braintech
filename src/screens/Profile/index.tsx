@@ -1,4 +1,3 @@
-import { Switch } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useCallback, useState } from "react";
 import { useTheme } from "styled-components/native";
@@ -6,12 +5,12 @@ import { useFocusEffect } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
 import { authRemove } from "@storage/auth/authRemove";
-import { soundEffectsCreate } from "@storage/soundEffects/soundEffectsCreate";
 
 import { getHistory, HistoryItemProps } from "../../../firebaseConfig";
 
 import { useAuth } from "@hooks/useAuth";
-import { useSettings } from "@hooks/useSettings";
+
+import { CategoryTypeProps } from "../../@types/categoryTypeProps";
 
 import { findMostPresentTechnology } from "@utils/findMostPresentTechnology";
 
@@ -19,7 +18,6 @@ import { Toast } from "@components/Toast";
 import { UserPhoto } from "@components/UserPhoto";
 import { IconButton } from "@components/IconButton";
 import { ModeProps } from "@components/Toast/styles";
-import { SettingsItem } from "@components/SettingsItem";
 import { StatisticCard } from "@components/StatisticCard";
 
 import {
@@ -33,6 +31,8 @@ import {
   ProfileIconContainer,
   UserInformationsContainer,
 } from "./styles";
+import { findMostPresentCategory } from "@utils/findMostPresentCategory";
+import { capitalizeCategoryLabel } from "@utils/capitalizeCategoryLabel";
 
 const AnimatedHeaderContainer =
   Animated.createAnimatedComponent(HeaderContainer);
@@ -44,18 +44,14 @@ export function Profile() {
 
   const { loggedUser, setLoggedUser } = useAuth();
 
-  const {
-    setIsSoundEffectsEnabled,
-    isSoundEffectsEnabled,
-    isSoundEffectsLoading,
-  } = useSettings();
-
   const [isLoading, setIsLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastMode, setToastMode] = useState<ModeProps>();
   const [isToastVisible, setIsToastVisible] = useState(false);
   const [historyData, setHistoryData] = useState<HistoryItemProps[]>();
   const [mostPresenstTechnology, setMostPresenstTechnology] = useState("");
+  const [mostPresentCategory, setMostPresentCategory] =
+    useState<CategoryTypeProps>();
 
   async function fetchHistory() {
     try {
@@ -63,7 +59,12 @@ export function Profile() {
 
       if (loggedUser) {
         const data = await getHistory(loggedUser?.user.uid);
+
+        setMostPresentCategory(
+          findMostPresentCategory(data) as CategoryTypeProps
+        );
         setMostPresenstTechnology(findMostPresentTechnology(data));
+
         setHistoryData(data);
       }
     } catch (error) {
@@ -74,20 +75,6 @@ export function Profile() {
       setToastMode("error");
     } finally {
       setIsLoading(false);
-    }
-  }
-
-  async function toggleSoundAsyncStorage() {
-    try {
-      setIsSoundEffectsEnabled((previousState) => !previousState);
-
-      await soundEffectsCreate();
-    } catch (error) {
-      setIsToastVisible(true);
-      setToastMessage(
-        "Houve um erro ao carregar as suas configurações de efeitos sonoros"
-      );
-      setToastMode("error");
     }
   }
 
@@ -139,9 +126,9 @@ export function Profile() {
           </LeftContainer>
 
           <IconButton
-            icon="log-out"
-            iconSize={24}
             mode="error"
+            iconSize={24}
+            icon="log-out"
             onPress={logOut}
           />
         </AnimatedHeaderContainer>
@@ -150,10 +137,17 @@ export function Profile() {
           <StatisticsTitle>Estatísticas</StatisticsTitle>
 
           <StatisticCard
+            icon="terminal"
+            isLoading={isLoading}
+            title="Categoria favorita"
+            subtitle={capitalizeCategoryLabel(mostPresentCategory) || "-"}
+          />
+
+          <StatisticCard
             icon="code"
             isLoading={isLoading}
-            subtitle={mostPresenstTechnology || "-"}
             title="Tecnologia favorita"
+            subtitle={mostPresenstTechnology || "-"}
           />
 
           <StatisticCard
@@ -162,30 +156,14 @@ export function Profile() {
             title="Exercícios respondidos"
             subtitle={historyData?.length}
           />
-        </AnimatedStatisticsContainer>
 
-        <Animated.View
-          style={{ width: "100%" }}
-          entering={FadeIn.duration(600).delay(500)}
-        >
-          <StatisticsTitle>Configurações</StatisticsTitle>
-
-          <SettingsItem
-            icon="volume-2"
-            title="Efeitos sonoros"
-            rightAction={
-              <Switch
-                value={isSoundEffectsEnabled}
-                disabled={isSoundEffectsLoading}
-                onValueChange={toggleSoundAsyncStorage}
-                thumbColor={
-                  isSoundEffectsEnabled ? COLORS.PRIMARY : COLORS.WHITE
-                }
-                trackColor={{ false: COLORS.GRAY, true: COLORS.PRIMARY_30 }}
-              />
-            }
+          <StatisticCard
+            icon="clock"
+            isLoading={isLoading}
+            title="Tempo jogado"
+            subtitle="TEMPO JOGADO"
           />
-        </Animated.View>
+        </AnimatedStatisticsContainer>
       </Container>
 
       <Toast

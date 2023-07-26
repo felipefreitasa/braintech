@@ -5,7 +5,7 @@ type UserPhotoProps = {
 }
 
 export const Container = styled.Image<UserPhotoProps>`
+  border-radius: 200px;
   width: ${({ size }) => size}px;
   height: ${({ size }) => size}px;
-  border-radius: ${({ theme }) => theme.BORDER_RADIUS}px;
 `

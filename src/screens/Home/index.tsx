@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
@@ -8,10 +7,8 @@ import { categoriesMock } from "@utils/categoriesMock";
 import { AppNavigatorRoutesProps } from "../../routes/app.routes";
 
 import { useQuiz } from "@hooks/useQuiz";
-import { useSettings } from "@hooks/useSettings";
 import { SelectedCategoryProps } from "@context/QuizContext";
 
-import { Loading } from "@components/Loading";
 import { HomeHeader } from "@components/HomeHeader";
 import { CategoryButton } from "@components/CategoryButton";
 import { CategorySectionTitle } from "@components/CategorySectionTitle";
@@ -22,7 +19,6 @@ const TitleAnimated = Animated.createAnimatedComponent(Title);
 
 export function Home() {
   const { setSelectedTechnology } = useQuiz();
-  const { fetchSoundEffectsSettings, isSoundEffectsLoading } = useSettings();
 
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
@@ -35,16 +31,6 @@ export function Home() {
     setSelectedTechnology({ category, description, options, technology });
 
     navigate("categoryQuizMenu");
-  }
-
-  useEffect(() => {
-    (async () => {
-      await fetchSoundEffectsSettings();
-    })();
-  }, []);
-
-  if (isSoundEffectsLoading) {
-    return <Loading />;
   }
 
   return (

@@ -28,9 +28,11 @@ import {
   Subtitle,
   Container,
   ProfileIconContainer,
-  ChoosePictureButtonLabel,
+  SignInButtonContainer,
   ChoosePictureButtonContainer,
 } from "./styles";
+
+const AnimatedSignInButtonContainer = Animated.createAnimatedComponent(SignInButtonContainer)
 
 export function ProfilePictureOnboarding() {
   const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
@@ -41,10 +43,11 @@ export function ProfilePictureOnboarding() {
     useAuth();
 
   const [userPhoto, setUserPhoto] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastMode, setToastMode] = useState<ModeProps>();
   const [isToastVisible, setIsToastVisible] = useState(false);
+  const [isSignInLoading, setIsSignInLoading] = useState(false);
+  const [isPictureLoading, setIsPictureLoading] = useState(false);
 
   const auth = FIREBASE_AUTH;
 
@@ -70,7 +73,7 @@ export function ProfilePictureOnboarding() {
 
   async function handleUserPhotoSelect() {
     try {
-      setIsLoading(true);
+      setIsPictureLoading(true);
 
       const photoSelected = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -101,7 +104,7 @@ export function ProfilePictureOnboarding() {
       setToastMessage("Houve um erro para carregar a sua foto");
       setToastMode("error");
     } finally {
-      setIsLoading(false);
+      setIsPictureLoading(false);
     }
   }
 
@@ -115,7 +118,7 @@ export function ProfilePictureOnboarding() {
 
   async function handleSignIn() {
     try {
-      setIsLoading(true);
+      setIsSignInLoading(true);
 
       const authData = await signInWithEmailAndPassword(
         auth,
@@ -123,7 +126,7 @@ export function ProfilePictureOnboarding() {
         onboardingPassword
       );
 
-      await authCreate(authData)
+      await authCreate(authData);
 
       setLoggedUser(authData);
     } catch (error: any) {
@@ -131,7 +134,7 @@ export function ProfilePictureOnboarding() {
       setToastMessage(handleFirebaseSignInErrors(error.code));
       setToastMode("error");
     } finally {
-      setIsLoading(false);
+      setIsSignInLoading(false);
     }
   }
 
@@ -166,35 +169,38 @@ export function ProfilePictureOnboarding() {
         <Animated.View entering={FadeIn.delay(600).duration(600)}>
           <View style={{ alignItems: "center" }}>
             {userPhoto ? (
-              <UserPhoto source={{ uri: userPhoto }} size={180} />
+              <View>
+                <UserPhoto source={{ uri: userPhoto }} size={180} />
+
+                <ChoosePictureButtonContainer onPress={handleUserPhotoSelect}>
+                  <Feather name="edit-2" size={20} color={COLORS.WHITE} />
+                </ChoosePictureButtonContainer>
+              </View>
             ) : (
-              <ProfileIconContainer>
-                <Feather name="user" size={124} color={COLORS.PRIMARY} />
-              </ProfileIconContainer>
+              <View>
+                <ProfileIconContainer>
+                  <Feather name="user" size={110} color={COLORS.PRIMARY} />
+                </ProfileIconContainer>
+
+                <ChoosePictureButtonContainer onPress={handleUserPhotoSelect}>
+                  <Feather name="edit-2" size={20} color={COLORS.WHITE} />
+                </ChoosePictureButtonContainer>
+              </View>
             )}
-
-            <ChoosePictureButtonContainer onPress={handleUserPhotoSelect}>
-              <Feather name="camera" size={18} color={COLORS.PRIMARY} />
-
-              <ChoosePictureButtonLabel>{`Escolher ${
-                userPhoto ? "outra" : ""
-              } foto`}</ChoosePictureButtonLabel>
-            </ChoosePictureButtonContainer>
           </View>
         </Animated.View>
 
         <View>
-          <Animated.View
-            style={{ height: 46, width: "100%" }}
+          <AnimatedSignInButtonContainer
             entering={FadeIn.delay(900).duration(600)}
           >
             <Button
-              disabled={isLoading}
-              isLoading={isLoading}
               onPress={handleSignIn}
               title="Finalizar cadastro"
+              disabled={isPictureLoading}
+              isLoading={isSignInLoading}
             />
-          </Animated.View>
+          </AnimatedSignInButtonContainer>
         </View>
       </Container>
 
