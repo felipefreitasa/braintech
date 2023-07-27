@@ -31,11 +31,11 @@ export function QuizStatus() {
   const { COLORS } = useTheme();
 
   const {
-    selectedQuiz,
-    selectedTechnology,
-    correctAnswers,
-    quizStartTime,
     quizEndTime,
+    selectedQuiz,
+    quizStartTime,
+    correctAnswers,
+    selectedTechnology,
   } = useQuiz();
 
   const { loggedUser } = useAuth()
@@ -56,11 +56,12 @@ export function QuizStatus() {
     await saveQuizStatus({
       correctAnswers,
       createdAt: new Date(),
+      userId: loggedUser?.user.uid,
       category: selectedTechnology.category,
       subCategory: selectedQuiz.subcategory,
       technology: selectedTechnology.technology,
       totalQuestions: selectedQuiz.questions.length,
-      userId: loggedUser?.user.uid
+      timeSpent: calculateTimeInterval(quizStartTime, quizEndTime)
     });
 
     setIsLoading(false);

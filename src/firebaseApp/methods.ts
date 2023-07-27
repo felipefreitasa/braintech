@@ -5,7 +5,9 @@ import { FIREBASE_AUTH, FIREBASE_FIRESTORE } from "./config";
 
 export type HistoryItemProps = {
   id?: string;
+  userId?: string;
   createdAt: Date;
+  timeSpent?: string;
   technology: string;
   subCategory: string;
   correctAnswers: number;
@@ -39,13 +41,14 @@ export async function getHistory(loggedUserId: string): Promise<HistoryProps[]> 
       if (data) {
         const historyItem: HistoryProps = {
           id: doc.id,
-          createdAt: data.createdAt.toDate(),
+          userId: data.userId,
+          category: data.category,
+          timeSpent: data.timeSpent,
           technology: data.technology,
           subCategory: data.subCategory,
+          createdAt: data.createdAt.toDate(),
           correctAnswers: data.correctAnswers,
           totalQuestions: data.totalQuestions,
-          category: data.category,
-          userId: data.userId,
         };
 
         if (data.userId === loggedUserId) {

@@ -1,7 +1,7 @@
 import _ from "lodash"
 import moment from "moment"
 
-import { HistoryItemProps } from "../firebaseApp/config"
+import { HistoryItemProps } from "@firebaseApp/methods"
 
 export function groupItemsByDate(items: HistoryItemProps[] | undefined): { title: string, data: HistoryItemProps[] }[] {
   const groupedItems = _.groupBy(items, (item: HistoryItemProps) => moment(new Date(item.createdAt)).format('DD.MM.YYYY'))

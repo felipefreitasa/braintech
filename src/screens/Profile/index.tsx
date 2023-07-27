@@ -20,6 +20,7 @@ import { useAuth } from "@hooks/useAuth";
 
 import { CategoryTypeProps } from "../../@types/categoryTypeProps";
 
+import { sumStringTimes } from "@utils/sumStringTimes";
 import { findMostPresentCategory } from "@utils/findMostPresentCategory";
 import { capitalizeCategoryLabel } from "@utils/capitalizeCategoryLabel";
 import { findMostPresentTechnology } from "@utils/findMostPresentTechnology";
@@ -54,6 +55,7 @@ export function Profile() {
 
   const { loggedUser, setLoggedUser } = useAuth();
 
+  const [timeSpent, setTimeSpent] = useState("");
   const [toastMessage, setToastMessage] = useState("");
   const [toastMode, setToastMode] = useState<ModeProps>();
   const [isToastVisible, setIsToastVisible] = useState(false);
@@ -75,6 +77,11 @@ export function Profile() {
           findMostPresentCategory(data) as CategoryTypeProps
         );
         setMostPresenstTechnology(findMostPresentTechnology(data));
+
+        if (data){
+          const allTimeSpentArray = data.map((item) => item.timeSpent);
+          setTimeSpent(sumStringTimes(allTimeSpentArray as string[]));
+        }
 
         setHistoryData(data);
       }
@@ -252,7 +259,7 @@ export function Profile() {
             icon="clock"
             title="Tempo jogado"
             isLoading={isHistoryLoading}
-            subtitle="TEMPO JOGADO"
+            subtitle={timeSpent}
           />
         </AnimatedStatisticsContainer>
       </Container>
