@@ -72,3 +72,16 @@ export const ProfileIconContainer = styled.View`
     background-color: ${theme.COLORS.PRIMARY_5};
   `}
 `;
+
+export const ChoosePictureButtonContainer = styled.Pressable`
+  right: 0px;
+  width: 24px;
+  bottom: 0px;
+  height: 24px;
+  position: absolute;
+  align-items: center;
+  border-radius: 32px;
+  flex-direction: row;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.COLORS.PRIMARY};
+`;

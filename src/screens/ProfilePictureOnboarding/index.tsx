@@ -5,13 +5,15 @@ import { useTheme } from "styled-components/native";
 import { Alert, BackHandler, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
-import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-import { FIREBASE_AUTH } from "../../firebaseApp/config";
+import { FIREBASE_AUTH } from "@firebaseApp/config";
 
 import { useAuth } from "@hooks/useAuth";
 
 import { authCreate } from "@storage/auth/authCreate";
+
+import { updateUserProfilePicture } from "@firebaseApp/methods";
 
 import { handleFirebaseSignInErrors } from "@utils/handleFirebaseSignInErrors";
 
@@ -105,14 +107,6 @@ export function ProfilePictureOnboarding() {
       setToastMode("error");
     } finally {
       setIsPictureLoading(false);
-    }
-  }
-
-  async function updateUserProfilePicture(photoUri: string) {
-    if (auth.currentUser) {
-      await updateProfile(auth.currentUser, {
-        photoURL: photoUri,
-      });
     }
   }
 

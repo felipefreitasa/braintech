@@ -1,6 +1,7 @@
+import { updateProfile } from "firebase/auth";
 import { addDoc, collection, getDocs } from "firebase/firestore";
 
-import { FIREBASE_FIRESTORE } from "./config";
+import { FIREBASE_AUTH, FIREBASE_FIRESTORE } from "./config";
 
 export type HistoryItemProps = {
   id?: string;
@@ -56,5 +57,13 @@ export async function getHistory(loggedUserId: string): Promise<HistoryProps[]> 
     return historyData;
   } catch (error) {
     throw error;
+  }
+}
+
+export async function updateUserProfilePicture(photoUri: string) {
+  if (FIREBASE_AUTH.currentUser) {
+    await updateProfile(FIREBASE_AUTH.currentUser, {
+      photoURL: photoUri,
+    });
   }
 }

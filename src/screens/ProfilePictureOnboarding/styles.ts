@@ -43,7 +43,7 @@ export const ProfileIconContainer = styled.View`
   `}
 `;
 
-export const ChoosePictureButtonContainer = styled.TouchableOpacity`
+export const ChoosePictureButtonContainer = styled.Pressable`
   right: 0px;
   width: 42px;
   bottom: 0px;
