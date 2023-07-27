@@ -18,7 +18,7 @@ import { authCreate } from "@storage/auth/authCreate";
 
 import { handleFirebaseSignInErrors } from "@utils/handleFirebaseSignInErrors";
 
-import { FIREBASE_AUTH } from "../../../firebaseConfig";
+import { FIREBASE_AUTH } from "../../firebaseApp/config";
 
 import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
 

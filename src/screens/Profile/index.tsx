@@ -6,7 +6,7 @@ import Animated, { FadeIn } from "react-native-reanimated";
 
 import { authRemove } from "@storage/auth/authRemove";
 
-import { getHistory, HistoryItemProps } from "../../../firebaseConfig";
+import { getHistory, HistoryItemProps } from "@firebaseApp/methods";
 
 import { useAuth } from "@hooks/useAuth";
 

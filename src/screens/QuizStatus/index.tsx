@@ -8,7 +8,7 @@ import Animated, { FadeIn } from "react-native-reanimated";
 import { useAuth } from "@hooks/useAuth";
 import { useQuiz } from "@hooks/useQuiz";
 
-import { saveQuizStatus } from "../../../firebaseConfig";
+import { saveQuizStatus } from "@firebaseApp/methods"
 
 import { AppNavigatorRoutesProps } from "../../routes/app.routes";
 import { calculateTimeInterval } from "@utils/calculateTimeInterval";

@@ -15,7 +15,7 @@ import {
 
 import { handleFirebaseSignUpErrors } from "@utils/handleFirebaseSignUpErrors";
 
-import { FIREBASE_AUTH } from "../../../firebaseConfig";
+import { FIREBASE_AUTH } from "../../firebaseApp/config";
 
 import { useAuth } from "@hooks/useAuth";
 

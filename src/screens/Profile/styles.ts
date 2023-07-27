@@ -65,10 +65,10 @@ export const ProfileIconContainer = styled.View`
   width: 60px;
   height: 60px;
   align-items: center;
+  border-radius: 60px;
   justify-content: center;
 
   ${({ theme }) => css`
-    border-radius: ${theme.BORDER_RADIUS}px;
     background-color: ${theme.COLORS.PRIMARY_5};
   `}
 `;

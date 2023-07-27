@@ -14,6 +14,7 @@ module.exports = function(api) {
             '@screens': './src/screens',
             '@storage': './src/storage',
             '@context': './src/context',
+            '@firebaseApp': './src/firebaseApp',
             '@components': './src/components',
           }
         }

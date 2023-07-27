@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-import { FIREBASE_AUTH } from "../../../firebaseConfig";
+import { FIREBASE_AUTH } from "../../firebaseApp/config";
 
 import { useAuth } from "@hooks/useAuth";
 

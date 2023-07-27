@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
-import { getHistory, HistoryItemProps } from "../../../firebaseConfig";
+import { getHistory, HistoryItemProps } from "@firebaseApp/methods";
 
 import { useAuth } from "@hooks/useAuth";
 
