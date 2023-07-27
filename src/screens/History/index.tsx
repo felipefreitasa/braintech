@@ -10,7 +10,7 @@ import { useAuth } from "@hooks/useAuth";
 import { groupItemsByDate } from "@utils/groupItemsByDate";
 
 import { Toast } from "@components/Toast";
-import { Loading } from "@components/Loading";
+import { HistoryLoading } from "./HistoryLoading";
 import { HistoryItem } from "@components/HistoryItem";
 import { ModeProps } from "@components/Toast/styles";
 import { ListFeedbackStatus } from "@components/ListFeedbackStatus";
@@ -33,17 +33,16 @@ export function History() {
   const [isToastVisible, setIsToastVisible] = useState(false);
   const [historyData, setHistoryData] = useState<HistoryItemProps[]>();
 
-  const { loggedUser } = useAuth()
+  const { loggedUser } = useAuth();
 
   async function fetchHistory() {
     try {
       setIsLoading(true);
 
-      if(loggedUser){
+      if (loggedUser) {
         const data = await getHistory(loggedUser?.user.uid);
         setHistoryData(data);
       }
-
     } catch (error) {
       setIsToastVisible(true);
       setToastMessage("Não foi possível carregar o seu histórico");
@@ -82,9 +81,9 @@ export function History() {
         </Animated.View>
 
         {isLoading ? (
-          <Loading />
+          <HistoryLoading/>
         ) : (
-          <Animated.View entering={FadeIn.duration(600).delay(250)}>
+          <Animated.View entering={FadeIn}>
             <SectionList
               sections={groupItemsByDate(historyData)}
               keyExtractor={(item) => String(item.id)}

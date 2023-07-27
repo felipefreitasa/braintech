@@ -115,7 +115,7 @@ export function SignIn() {
                   Entre agora e aumente o seu conhecimento tech!
                 </Subtitle>
               </Animated.View>
-
+              
               <Animated.View entering={FadeIn.delay(600).duration(600)}>
                 <Controller
                   control={control}

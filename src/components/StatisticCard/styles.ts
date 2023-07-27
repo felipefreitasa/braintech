@@ -25,6 +25,7 @@ export const Content = styled.View`
 
 export const Title = styled.Text`
   font-size: 18px;
+  margin-bottom: 4px;
 
   ${({ theme }) => css`
     color: ${theme.COLORS.WHITE};

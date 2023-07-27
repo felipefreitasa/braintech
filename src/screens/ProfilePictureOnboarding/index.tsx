@@ -22,6 +22,7 @@ import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
 import { Toast } from "@components/Toast";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
+import { Skeleton } from "@components/Skeleton";
 import { UserPhoto } from "@components/UserPhoto";
 import { ModeProps } from "@components/Toast/styles";
 
@@ -34,7 +35,9 @@ import {
   ChoosePictureButtonContainer,
 } from "./styles";
 
-const AnimatedSignInButtonContainer = Animated.createAnimatedComponent(SignInButtonContainer)
+const AnimatedSignInButtonContainer = Animated.createAnimatedComponent(
+  SignInButtonContainer
+);
 
 export function ProfilePictureOnboarding() {
   const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
@@ -162,24 +165,34 @@ export function ProfilePictureOnboarding() {
 
         <Animated.View entering={FadeIn.delay(600).duration(600)}>
           <View style={{ alignItems: "center" }}>
-            {userPhoto ? (
-              <View>
-                <UserPhoto source={{ uri: userPhoto }} size={180} />
-
-                <ChoosePictureButtonContainer onPress={handleUserPhotoSelect}>
-                  <Feather name="edit-2" size={20} color={COLORS.WHITE} />
-                </ChoosePictureButtonContainer>
-              </View>
+            {isPictureLoading ? (
+              <Skeleton width={180} height={180} borderRadius={180} />
             ) : (
-              <View>
-                <ProfileIconContainer>
-                  <Feather name="user" size={110} color={COLORS.PRIMARY} />
-                </ProfileIconContainer>
+              <>
+                {userPhoto ? (
+                  <View>
+                    <UserPhoto source={{ uri: userPhoto }} size={180} />
 
-                <ChoosePictureButtonContainer onPress={handleUserPhotoSelect}>
-                  <Feather name="edit-2" size={20} color={COLORS.WHITE} />
-                </ChoosePictureButtonContainer>
-              </View>
+                    <ChoosePictureButtonContainer
+                      onPress={handleUserPhotoSelect}
+                    >
+                      <Feather name="edit-2" size={20} color={COLORS.WHITE} />
+                    </ChoosePictureButtonContainer>
+                  </View>
+                ) : (
+                  <View>
+                    <ProfileIconContainer>
+                      <Feather name="user" size={110} color={COLORS.PRIMARY} />
+                    </ProfileIconContainer>
+
+                    <ChoosePictureButtonContainer
+                      onPress={handleUserPhotoSelect}
+                    >
+                      <Feather name="edit-2" size={20} color={COLORS.WHITE} />
+                    </ChoosePictureButtonContainer>
+                  </View>
+                )}
+              </>
             )}
           </View>
         </Animated.View>

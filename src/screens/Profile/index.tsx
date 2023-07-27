@@ -25,6 +25,7 @@ import { capitalizeCategoryLabel } from "@utils/capitalizeCategoryLabel";
 import { findMostPresentTechnology } from "@utils/findMostPresentTechnology";
 
 import { Toast } from "@components/Toast";
+import { Skeleton } from "@components/Skeleton";
 import { UserPhoto } from "@components/UserPhoto";
 import { IconButton } from "@components/IconButton";
 import { ModeProps } from "@components/Toast/styles";
@@ -53,10 +54,11 @@ export function Profile() {
 
   const { loggedUser, setLoggedUser } = useAuth();
 
-  const [isLoading, setIsLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastMode, setToastMode] = useState<ModeProps>();
   const [isToastVisible, setIsToastVisible] = useState(false);
+  const [isHistoryLoading, setIsHistoryLoading] = useState(false);
+  const [isPictureLoading, setIsPictureLoading] = useState(false);
   const [historyData, setHistoryData] = useState<HistoryItemProps[]>();
   const [mostPresenstTechnology, setMostPresenstTechnology] = useState("");
   const [mostPresentCategory, setMostPresentCategory] =
@@ -64,7 +66,7 @@ export function Profile() {
 
   async function fetchHistory() {
     try {
-      setIsLoading(true);
+      setIsHistoryLoading(true);
 
       if (loggedUser) {
         const data = await getHistory(loggedUser?.user.uid);
@@ -83,7 +85,7 @@ export function Profile() {
       );
       setToastMode("error");
     } finally {
-      setIsLoading(false);
+      setIsHistoryLoading(false);
     }
   }
 
@@ -106,6 +108,8 @@ export function Profile() {
 
   async function handleUserPhotoSelect() {
     try {
+      setIsPictureLoading(true);
+
       const photoSelected = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 1,
@@ -142,8 +146,10 @@ export function Profile() {
       }
     } catch (error) {
       setIsToastVisible(true);
-      setToastMessage("Houve um erro para carregar a sua foto");
+      setToastMessage("Houve um erro ao carregar a sua foto");
       setToastMode("error");
+    } finally {
+      setIsPictureLoading(false);
     }
   }
 
@@ -169,29 +175,38 @@ export function Profile() {
       <Container>
         <AnimatedHeaderContainer entering={FadeIn}>
           <LeftContainer>
-            {loggedUser?.user.photoURL ? (
-              <View>
-                <UserPhoto
-                  size={60}
-                  source={{ uri: loggedUser?.user.photoURL }}
-                />
-
-                <ChoosePictureButtonContainer onPress={handleUserPhotoSelect}>
-                  <Feather name="edit-2" size={12} color={COLORS.WHITE} />
-                </ChoosePictureButtonContainer>
-              </View>
+            {isPictureLoading ? (
+              <Skeleton width={60} height={60} borderRadius={60} />
             ) : (
-              <View>
-                <ProfileIconContainer>
-                  <Feather name="user" size={40} color={COLORS.PRIMARY} />
-                </ProfileIconContainer>
+              <>
+                {loggedUser?.user.photoURL ? (
+                  <View>
+                    <UserPhoto
+                      size={60}
+                      source={{ uri: loggedUser?.user.photoURL }}
+                    />
 
-                <ChoosePictureButtonContainer onPress={handleUserPhotoSelect}>
-                  <Feather name="edit-2" size={12} color={COLORS.WHITE} />
-                </ChoosePictureButtonContainer>
-              </View>
+                    <ChoosePictureButtonContainer
+                      onPress={handleUserPhotoSelect}
+                    >
+                      <Feather name="edit-2" size={12} color={COLORS.WHITE} />
+                    </ChoosePictureButtonContainer>
+                  </View>
+                ) : (
+                  <View>
+                    <ProfileIconContainer>
+                      <Feather name="user" size={40} color={COLORS.PRIMARY} />
+                    </ProfileIconContainer>
+
+                    <ChoosePictureButtonContainer
+                      onPress={handleUserPhotoSelect}
+                    >
+                      <Feather name="edit-2" size={12} color={COLORS.WHITE} />
+                    </ChoosePictureButtonContainer>
+                  </View>
+                )}
+              </>
             )}
-
             <UserInformationsContainer>
               <UserName numberOfLines={1}>
                 {loggedUser?.user.displayName}
@@ -214,29 +229,29 @@ export function Profile() {
 
           <StatisticCard
             icon="terminal"
-            isLoading={isLoading}
+            isLoading={isHistoryLoading}
             title="Categoria favorita"
             subtitle={capitalizeCategoryLabel(mostPresentCategory) || "-"}
           />
 
           <StatisticCard
             icon="code"
-            isLoading={isLoading}
+            isLoading={isHistoryLoading}
             title="Tecnologia favorita"
             subtitle={mostPresenstTechnology || "-"}
           />
 
           <StatisticCard
             icon="git-branch"
-            isLoading={isLoading}
+            isLoading={isHistoryLoading}
             title="Exercícios respondidos"
             subtitle={historyData?.length}
           />
 
           <StatisticCard
             icon="clock"
-            isLoading={isLoading}
             title="Tempo jogado"
+            isLoading={isHistoryLoading}
             subtitle="TEMPO JOGADO"
           />
         </AnimatedStatisticsContainer>

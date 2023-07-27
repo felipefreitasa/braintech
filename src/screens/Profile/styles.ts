@@ -21,6 +21,7 @@ export const HeaderContainer = styled.View`
 export const LeftContainer = styled.View`
   flex: 1;
   flex-direction: row;
+  align-items: center;
 `
 
 export const UserInformationsContainer = styled.View`
