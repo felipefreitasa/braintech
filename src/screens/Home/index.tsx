@@ -2,7 +2,7 @@ import { FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
-import { categoriesMock } from "@utils/categoriesMock";
+import { quizContent } from "../../quizContent/quizContent";
 
 import { AppNavigatorRoutesProps } from "../../routes/app.routes";
 
@@ -23,10 +23,10 @@ export function Home() {
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
   function handleGoToCategoryMenu({
-    category,
-    description,
     options,
+    category,
     technology,
+    description,
   }: SelectedCategoryProps) {
     setSelectedTechnology({ category, description, options, technology });
 
@@ -42,7 +42,7 @@ export function Home() {
       </TitleAnimated>
 
       <FlatList
-        data={categoriesMock}
+        data={quizContent}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => {
