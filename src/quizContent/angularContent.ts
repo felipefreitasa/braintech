@@ -3,35 +3,33 @@ import { CategoryTypes } from "./quizContentTypes";
 export const angularContent: CategoryTypes = {
   id: "22",
   technology: "Angular JS",
-  description: "Plataforma de desenvolvimento de aplicativos web em TypeScript",
+  description: "Platform for developing web applications in TypeScript",
   quizOptions: [
     {
       id: "221",
-      title: "Componentes",
+      title: "Components",
       questions: [
         {
           id: "2211",
-          question:
-            "Qual é o decorador usado para criar um componente em Angular?",
+          question: "What decorator is used to create a component in Angular?",
           answers: ["@Component", "@Directive", "@Module", "@Injectable"],
           correctAnswer: "@Component",
         },
         {
           id: "2212",
-          question: "Qual é a diretiva usada para criar um loop em Angular?",
+          question: "What directive is used to create a loop in Angular?",
           answers: ["*ngFor", "*ngIf", "*ngSwitch", "*ngWhile"],
           correctAnswer: "*ngFor",
         },
         {
           id: "2213",
-          question:
-            "Qual é o serviço usado para fazer solicitações HTTP em Angular?",
+          question: "What service is used to make HTTP requests in Angular?",
           answers: ["HttpClient", "HttpService", "HttpProvider", "HttpRequest"],
           correctAnswer: "HttpClient",
         },
         {
           id: "2214",
-          question: "Qual é o ciclo de vida de um componente em Angular?",
+          question: "What is the lifecycle of a component in Angular?",
           answers: [
             "OnInit, OnDestroy, OnChanges",
             "OnCreate, OnUpdate, OnDestroy",
@@ -42,7 +40,7 @@ export const angularContent: CategoryTypes = {
         },
         {
           id: "2215",
-          question: "Qual é a injeção de dependência usada em Angular?",
+          question: "What dependency injection is used in Angular?",
           answers: ["@Inject", "@Provide", "@Injectable", "@Dependency"],
           correctAnswer: "@Injectable",
         },
@@ -54,8 +52,7 @@ export const angularContent: CategoryTypes = {
       questions: [
         {
           id: "2221",
-          question:
-            "Qual é a sintaxe usada para fazer interpolação de variáveis em um template Angular?",
+          question: "What syntax is used to perform variable interpolation in an Angular template?",
           answers: [
             "{{ variable }}",
             "[[ variable ]]",
@@ -66,29 +63,25 @@ export const angularContent: CategoryTypes = {
         },
         {
           id: "2222",
-          question:
-            "Qual é a diretiva usada para exibir ou ocultar elementos com base em uma condição em Angular?",
+          question: "What directive is used to show or hide elements based on a condition in Angular?",
           answers: ["*ngIf", "*ngFor", "*ngSwitch", "*ngWhile"],
           correctAnswer: "*ngIf",
         },
         {
           id: "2223",
-          question:
-            "Qual é a sintaxe usada para criar um evento de ligação em Angular?",
+          question: "What syntax is used to create an event binding in Angular?",
           answers: ["(event)", "[event]", "{{ event }}", "[(event)]"],
           correctAnswer: "(event)",
         },
         {
           id: "2224",
-          question:
-            "Qual é a diretiva usada para estilizar um elemento condicionalmente em Angular?",
+          question: "What directive is used to conditionally style an element in Angular?",
           answers: ["[ngClass]", "[ngStyle]", "[ngIf]", "[ngSwitch]"],
           correctAnswer: "[ngClass]",
         },
         {
           id: "2225",
-          question:
-            "Qual é a diretiva usada para alternar entre diferentes opções em um template Angular?",
+          question: "What directive is used to switch between different options in an Angular template?",
           answers: ["*ngSwitch", "*ngIf", "*ngFor", "*ngWhile"],
           correctAnswer: "*ngSwitch",
         },
@@ -101,37 +94,35 @@ export const angularContent: CategoryTypes = {
       questions: [
         {
           id: "2231",
-          question: "Qual é a finalidade dos serviços em Angular?",
+          question: "What is the purpose of services in Angular?",
           answers: [
-            "Compartilhar dados entre componentes",
-            "Manipular eventos do DOM",
-            "Estilizar elementos do template",
-            "Realizar lógica de negócio",
+            "Share data between components",
+            "Handle DOM events",
+            "Style template elements",
+            "Perform business logic",
           ],
-          correctAnswer: "Realizar lógica de negócio",
+          correctAnswer: "Perform business logic",
         },
         {
           id: "2232",
-          question:
-            "Qual é o decorador usado para criar um serviço em Angular?",
+          question: "What decorator is used to create a service in Angular?",
           answers: ["@Service", "@Injectable", "@Provider", "@Dependency"],
           correctAnswer: "@Injectable",
         },
         {
           id: "2233",
-          question: "Como um serviço é injetado em um componente em Angular?",
+          question: "How is a service injected into a component in Angular?",
           answers: [
-            "Por meio do construtor do componente",
-            "Por meio do método ngOnInit() do componente",
-            "Por meio da propriedade services[] do componente",
-            "Por meio do método injectService() do componente",
+            "Through the component's constructor",
+            "Through the component's ngOnInit() method",
+            "Through the component's services[] property",
+            "Through the component's injectService() method",
           ],
-          correctAnswer: "Por meio do construtor do componente",
+          correctAnswer: "Through the component's constructor",
         },
         {
           id: "2234",
-          question:
-            "Qual é o método usado para fazer solicitações HTTP em um serviço Angular?",
+          question: "What method is used to make HTTP requests in an Angular service?",
           answers: [
             "httpClient.post()",
             "httpService.request()",
@@ -142,15 +133,14 @@ export const angularContent: CategoryTypes = {
         },
         {
           id: "2235",
-          question:
-            "Qual é a finalidade do módulo HttpClientModule em Angular?",
+          question: "What is the purpose of the HttpClientModule in Angular?",
           answers: [
-            "Importar e configurar o serviço HttpClient",
-            "Importar e configurar o serviço HttpService",
-            "Importar e configurar o provedor HttpProvider",
-            "Importar e configurar o objeto HttpRequest",
+            "Import and configure the HttpClient service",
+            "Import and configure the HttpService service",
+            "Import and configure the HttpProvider service",
+            "Import and configure the HttpRequest object",
           ],
-          correctAnswer: "Importar e configurar o serviço HttpClient",
+          correctAnswer: "Import and configure the HttpClient service",
         },
       ],
     },
@@ -160,8 +150,7 @@ export const angularContent: CategoryTypes = {
       questions: [
         {
           id: "2241",
-          question:
-            "Qual pacote pode ser usado para implementar o roteamento em uma aplicação Angular?",
+          question: "Which package can be used to implement routing in an Angular application?",
           answers: [
             "@angular/core",
             "@angular/router",
@@ -172,8 +161,7 @@ export const angularContent: CategoryTypes = {
         },
         {
           id: "2242",
-          question:
-            "Qual é o componente usado para definir uma rota em uma aplicação Angular?",
+          question: "What component is used to define a route in an Angular application?",
           answers: [
             "<router-link/>",
             "<router-view/>",
@@ -184,20 +172,18 @@ export const angularContent: CategoryTypes = {
         },
         {
           id: "2243",
-          question:
-            "Qual é a finalidade do componente <router-outlet/> em Angular?",
+          question: "What is the purpose of the <router-outlet/> component in Angular?",
           answers: [
-            "Redirecionar para uma nova rota",
-            "Alternar entre diferentes rotas",
-            "Exibir o conteúdo de uma rota",
-            "Fazer a renderização condicional de rotas",
+            "Redirect to a new route",
+            "Switch between different routes",
+            "Display the content of a route",
+            "Conditional rendering of routes",
           ],
-          correctAnswer: "Exibir o conteúdo de uma rota",
+          correctAnswer: "Display the content of a route",
         },
         {
           id: "2244",
-          question:
-            "Qual é o serviço usado para acessar os parâmetros da URL em Angular?",
+          question: "What service is used to access URL parameters in Angular?",
           answers: [
             "router.params",
             "route.params",
@@ -208,15 +194,14 @@ export const angularContent: CategoryTypes = {
         },
         {
           id: "2245",
-          question:
-            "Qual é a finalidade do componente <router-link/> em Angular?",
+          question: "What is the purpose of the <router-link/> component in Angular?",
           answers: [
-            "Navegar para uma nova rota",
-            "Exibir o conteúdo de uma rota",
-            "Alternar entre diferentes rotas",
-            "Redirecionar para uma nova rota",
+            "Navigate to a new route",
+            "Display the content of a route",
+            "Switch between different routes",
+            "Redirect to a new route",
           ],
-          correctAnswer: "Navegar para uma nova rota",
+          correctAnswer: "Navigate to a new route",
         },
       ],
     },

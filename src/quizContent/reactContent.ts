@@ -3,16 +3,16 @@ import { CategoryTypes } from "./quizContentTypes";
 export const reactContent: CategoryTypes = {
   id: "21",
   technology: "React JS",
-  description: "Biblioteca JavaScript para construção de interfaces de usuário",
+  description: "JavaScript library for building user interfaces",
   quizOptions: [
     {
       id: "211",
-      title: "Componentes",
+      title: "Components",
       questions: [
         {
           id: "2111",
           question:
-            "Qual componente no React.js é usado para renderizar um elemento HTML?",
+            "Which component in React.js is used to render an HTML element?",
           answers: [
             "<DOMElement/>",
             "<HTMLComponent/>",
@@ -24,7 +24,7 @@ export const reactContent: CategoryTypes = {
         {
           id: "2112",
           question:
-            "Qual método é chamado quando um componente está prestes a ser montado no DOM?",
+            "Which method is called when a component is about to be mounted in the DOM?",
           answers: [
             "componentWillMount()",
             "componentDidMount()",
@@ -36,7 +36,7 @@ export const reactContent: CategoryTypes = {
         {
           id: "2113",
           question:
-            "Qual hook do React é usado para adicionar estado a um componente funcional?",
+            "Which React hook is used to add state to a functional component?",
           answers: [
             "useEffect()",
             "useContext()",
@@ -48,7 +48,7 @@ export const reactContent: CategoryTypes = {
         {
           id: "2114",
           question:
-            "Qual ciclo de vida do React é chamado imediatamente antes de um componente ser desmontado?",
+            "Which React lifecycle method is called immediately before a component is unmounted?",
           answers: [
             "componentWillUnmount()",
             "componentDidUnmount()",
@@ -60,7 +60,7 @@ export const reactContent: CategoryTypes = {
         {
           id: "2115",
           question:
-            "Qual método é chamado sempre que o estado ou as propriedades de um componente são atualizadas?",
+            "Which method is called whenever the state or props of a component are updated?",
           answers: [
             "componentWillReceiveProps()",
             "shouldComponentUpdate()",
@@ -78,21 +78,21 @@ export const reactContent: CategoryTypes = {
         {
           id: "2121",
           question:
-            "Qual hook do React é usado para executar efeitos colaterais após renderizar um componente?",
+            "Which React hook is used to perform side effects after rendering a component?",
           answers: ["useEffect()", "useMemo()", "useCallback()", "useRef()"],
           correctAnswer: "useEffect()",
         },
         {
           id: "2122",
           question:
-            "Qual hook do React é usado para acessar o contexto definido por um componente pai?",
+            "Which React hook is used to access the context defined by a parent component?",
           answers: ["useEffect()", "useMemo()", "useContext()", "useRef()"],
           correctAnswer: "useContext()",
         },
         {
           id: "2123",
           question:
-            "Qual método é usado para atualizar o estado de um componente e agendar uma re-renderização?",
+            "Which method is used to update the state of a component and schedule a re-render?",
           answers: [
             "setState()",
             "updateState()",
@@ -104,7 +104,7 @@ export const reactContent: CategoryTypes = {
         {
           id: "2124",
           question:
-            "Qual ciclo de vida do React é chamado após a renderização do componente?",
+            "Which React lifecycle method is called after a component has rendered?",
           answers: [
             "componentWillReceiveProps()",
             "shouldComponentUpdate()",
@@ -116,7 +116,7 @@ export const reactContent: CategoryTypes = {
         {
           id: "2125",
           question:
-            "Qual método é usado para evitar a re-renderização desnecessária de um componente?",
+            "Which method is used to prevent unnecessary re-rendering of a component?",
           answers: [
             "shouldComponentUpdate()",
             "componentWillUpdate()",
@@ -134,25 +134,25 @@ export const reactContent: CategoryTypes = {
         {
           id: "2131",
           question:
-            "Qual biblioteca popular de gerenciamento de estado pode ser usada com React JS?",
+            "Which popular state management library can be used with React JS?",
           answers: ["Redux", "Axios", "Lodash", "Moment.js"],
           correctAnswer: "Redux",
         },
         {
           id: "2132",
           question:
-            "Qual é a principal vantagem do gerenciamento de estado centralizado?",
+            "What is the main advantage of centralized state management?",
           answers: [
-            "Melhora a performance da aplicação",
-            "Simplifica o código dos componentes",
-            "Reduz o número de dependências",
-            "Permite compartilhar dados entre componentes",
+            "Improves application performance",
+            "Simplifies component code",
+            "Reduces the number of dependencies",
+            "Allows sharing data between components",
           ],
-          correctAnswer: "Permite compartilhar dados entre componentes",
+          correctAnswer: "Allows sharing data between components",
         },
         {
           id: "2133",
-          question: "Qual método é usado para despachar uma ação no Redux?",
+          question: "Which method is used to dispatch an action in Redux?",
           answers: [
             "dispatchAction()",
             "triggerAction()",
@@ -164,19 +164,19 @@ export const reactContent: CategoryTypes = {
         {
           id: "2134",
           question:
-            "Qual é o nome do conceito que descreve a previsibilidade do estado em uma aplicação Redux?",
+            "What is the name of the concept that describes the predictability of state in a Redux application?",
           answers: [
-            "Estado único",
-            "Imutabilidade",
+            "Single state",
+            "Immutability",
             "Middleware",
-            "Fluxo unidirecional",
+            "Unidirectional flow",
           ],
-          correctAnswer: "Fluxo unidirecional",
+          correctAnswer: "Unidirectional flow",
         },
         {
           id: "2135",
           question:
-            "Qual função é usada para definir a lógica de atualização do estado em uma store do Redux?",
+            "Which function is used to define the state update logic in a Redux store?",
           answers: ["reducer()", "store()", "action()", "selector()"],
           correctAnswer: "reducer()",
         },
@@ -189,7 +189,7 @@ export const reactContent: CategoryTypes = {
         {
           id: "2141",
           question:
-            "Qual pacote pode ser usado para implementar o roteamento em uma aplicação React JS?",
+            "Which package can be used to implement routing in a React JS application?",
           answers: [
             "React DOM",
             "React Router",
@@ -201,26 +201,26 @@ export const reactContent: CategoryTypes = {
         {
           id: "2142",
           question:
-            "Qual componente é usado para definir uma rota em uma aplicação React Router?",
+            "Which component is used to define a route in a React Router application?",
           answers: ["<Route/>", "<Link/>", "<Switch/>", "<Redirect/>"],
           correctAnswer: "<Route/>",
         },
         {
           id: "2143",
           question:
-            "Qual é a finalidade do componente <Switch/> do React Router?",
+            "What is the purpose of the <Switch/> component in React Router?",
           answers: [
-            "Redirecionar para uma nova rota",
-            "Alternar entre diferentes rotas",
-            "Exibir uma rota específica",
-            "Fazer a renderização condicional de rotas",
+            "Redirect to a new route",
+            "Toggle between different routes",
+            "Display a specific route",
+            "Conditional rendering of routes",
           ],
-          correctAnswer: "Alternar entre diferentes rotas",
+          correctAnswer: "Toggle between different routes",
         },
         {
           id: "2144",
           question:
-            "Qual é o hook do React Router usado para acessar os parâmetros da URL?",
+            "Which React Router hook is used to access URL parameters?",
           answers: [
             "useURLParams()",
             "useParams()",
@@ -232,16 +232,16 @@ export const reactContent: CategoryTypes = {
         {
           id: "2145",
           question:
-            "Qual é a finalidade do componente <Link/> do React Router?",
+            "What is the purpose of the <Link/> component in React Router?",
           answers: [
-            "Navegar para uma nova rota",
-            "Exibir o conteúdo de uma rota",
-            "Alternar entre diferentes rotas",
-            "Redirecionar para uma nova rota",
+            "Navigate to a new route",
+            "Display the content of a route",
+            "Toggle between different routes",
+            "Redirect to a new route",
           ],
-          correctAnswer: "Navegar para uma nova rota",
+          correctAnswer: "Navigate to a new route",
         },
       ],
     },
   ],
-}
+};

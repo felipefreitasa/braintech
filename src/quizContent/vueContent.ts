@@ -3,22 +3,21 @@ import { CategoryTypes } from "./quizContentTypes";
 export const vueContent: CategoryTypes = {
   id: "23",
   technology: "Vue JS",
-  description:
-    "Framework JavaScript progressivo para construção de interfaces de usuário",
+  description: "Progressive JavaScript framework for building user interfaces",
   quizOptions: [
     {
       id: "231",
-      title: "Componentes",
+      title: "Components",
       questions: [
         {
           id: "2311",
-          question: "Qual é a diretiva usada para criar um loop em Vue.js?",
+          question: "What directive is used to create a loop in Vue.js?",
           answers: ["v-for", "v-if", "v-switch", "v-while"],
           correctAnswer: "v-for",
         },
         {
           id: "2312",
-          question: "Qual é o ciclo de vida de um componente em Vue.js?",
+          question: "What is the life cycle of a component in Vue.js?",
           answers: [
             "created, mounted, updated",
             "beforeCreate, created, beforeMount",
@@ -30,26 +29,21 @@ export const vueContent: CategoryTypes = {
         {
           id: "2313",
           question:
-            "Qual é o hook usado para adicionar estado a um componente em Vue.js?",
-          answers: [
-            "useEffect()",
-            "useContext()",
-            "useReducer()",
-            "useState()",
-          ],
+            "What hook is used to add state to a component in Vue.js?",
+          answers: ["useEffect()", "useContext()", "useReducer()", "useState()"],
           correctAnswer: "useState()",
         },
         {
           id: "2314",
           question:
-            "Qual é a diretiva usada para vincular um atributo HTML a um valor no Vue.js?",
+            "What directive is used to bind an HTML attribute to a value in Vue.js?",
           answers: ["v-bind", "v-model", "v-on", "v-text"],
           correctAnswer: "v-bind",
         },
         {
           id: "2315",
           question:
-            "Qual é a biblioteca usada para fazer solicitações HTTP no Vue.js?",
+            "What library is used to make HTTP requests in Vue.js?",
           answers: ["axios", "fetch", "http", "ajax"],
           correctAnswer: "axios",
         },
@@ -62,35 +56,35 @@ export const vueContent: CategoryTypes = {
         {
           id: "2321",
           question:
-            "Qual diretiva é usada para exibir ou ocultar elementos com base em uma condição em Vue.js?",
+            "Which directive is used to show or hide elements based on a condition in Vue.js?",
           answers: ["v-if", "v-for", "v-show", "v-bind"],
           correctAnswer: "v-if",
         },
         {
           id: "2322",
           question:
-            "Qual diretiva é usada para executar uma função quando um evento é acionado em Vue.js?",
+            "Which directive is used to execute a function when an event is triggered in Vue.js?",
           answers: ["v-bind", "v-on", "v-model", "v-text"],
           correctAnswer: "v-on",
         },
         {
           id: "2323",
           question:
-            "Qual diretiva é usada para exibir o valor de uma variável em Vue.js?",
+            "Which directive is used to display the value of a variable in Vue.js?",
           answers: ["v-text", "v-bind", "v-model", "v-on"],
           correctAnswer: "v-text",
         },
         {
           id: "2324",
           question:
-            "Qual diretiva é usada para vincular um campo de entrada a uma variável em Vue.js?",
+            "Which directive is used to bind an input field to a variable in Vue.js?",
           answers: ["v-bind", "v-model", "v-on", "v-text"],
           correctAnswer: "v-model",
         },
         {
           id: "2325",
           question:
-            "Qual diretiva é usada para iterar sobre uma lista em Vue.js?",
+            "Which directive is used to iterate over a list in Vue.js?",
           answers: ["v-for", "v-if", "v-show", "v-bind"],
           correctAnswer: "v-for",
         },
@@ -102,38 +96,38 @@ export const vueContent: CategoryTypes = {
       questions: [
         {
           id: "2331",
-          question: "Qual é o objetivo das propriedades computadas em Vue.js?",
+          question: "What is the purpose of computed properties in Vue.js?",
           answers: [
-            "Calcular valores dinamicamente",
-            "Armazenar dados no estado do componente",
-            "Executar tarefas assíncronas",
-            "Manipular eventos do DOM",
+            "Calculate values dynamically",
+            "Store data in the component state",
+            "Perform asynchronous tasks",
+            "Manipulate DOM events",
           ],
-          correctAnswer: "Calcular valores dinamicamente",
+          correctAnswer: "Calculate values dynamically",
         },
         {
           id: "2332",
           question:
-            "Como as propriedades computadas diferem dos métodos em Vue.js?",
+            "How do computed properties differ from methods in Vue.js?",
           answers: [
-            "As propriedades computadas são armazenadas em cache",
-            "As propriedades computadas não podem acessar o estado do componente",
-            "As propriedades computadas são executadas de forma síncrona",
-            "As propriedades computadas não podem conter lógica condicional",
+            "Computed properties are cached",
+            "Computed properties cannot access the component state",
+            "Computed properties are executed synchronously",
+            "Computed properties cannot contain conditional logic",
           ],
-          correctAnswer: "As propriedades computadas são armazenadas em cache",
+          correctAnswer: "Computed properties are cached",
         },
         {
           id: "2333",
           question:
-            "Qual é a sintaxe correta para definir uma propriedade computada em Vue.js?",
+            "What is the correct syntax to define a computed property in Vue.js?",
           answers: ["computed: {}", "methods: {}", "data: {}", "props: {}"],
           correctAnswer: "computed: {}",
         },
         {
           id: "2334",
           question:
-            "Como acessar uma propriedade computada em um componente Vue.js?",
+            "How do you access a computed property in a Vue.js component?",
           answers: [
             "this.computedProperty",
             "this.methods.computedProperty",
@@ -145,14 +139,14 @@ export const vueContent: CategoryTypes = {
         {
           id: "2335",
           question:
-            "Qual é a principal vantagem das propriedades computadas em Vue.js?",
+            "What is the main advantage of computed properties in Vue.js?",
           answers: [
-            "Melhoram o desempenho da aplicação",
-            "Simplificam a lógica do componente",
-            "Permitem a comunicação entre componentes",
-            "Facilitam a manipulação do DOM",
+            "Improve application performance",
+            "Simplify component logic",
+            "Allow communication between components",
+            "Facilitate DOM manipulation",
           ],
-          correctAnswer: "Melhoram o desempenho da aplicação",
+          correctAnswer: "Improve application performance",
         },
       ],
     },
@@ -163,14 +157,14 @@ export const vueContent: CategoryTypes = {
         {
           id: "2341",
           question:
-            "Qual pacote pode ser usado para implementar o roteamento em uma aplicação Vue.js?",
+            "Which package can be used to implement routing in a Vue.js application?",
           answers: ["Vue DOM", "Vue Router", "Vue Redux", "Vue Bootstrap"],
           correctAnswer: "Vue Router",
         },
         {
           id: "2342",
           question:
-            "Qual é o componente usado para definir uma rota em uma aplicação Vue Router?",
+            "Which component is used to define a route in a Vue Router application?",
           answers: [
             "<router-link/>",
             "<router-view/>",
@@ -182,19 +176,19 @@ export const vueContent: CategoryTypes = {
         {
           id: "2343",
           question:
-            "Qual é a finalidade do componente <router-view/> no Vue Router?",
+            "What is the purpose of the <router-view/> component in Vue Router?",
           answers: [
-            "Redirecionar para uma nova rota",
-            "Alternar entre diferentes rotas",
-            "Exibir o conteúdo de uma rota",
-            "Fazer a renderização condicional de rotas",
+            "Redirect to a new route",
+            "Switch between different routes",
+            "Display the content of a route",
+            "Perform conditional rendering of routes",
           ],
-          correctAnswer: "Exibir o conteúdo de uma rota",
+          correctAnswer: "Display the content of a route",
         },
         {
           id: "2344",
           question:
-            "Qual é o hook do Vue Router usado para acessar os parâmetros da URL?",
+            "Which Vue Router hook is used to access the URL parameters?",
           answers: [
             "useURLParams()",
             "useParams()",
@@ -206,14 +200,14 @@ export const vueContent: CategoryTypes = {
         {
           id: "2345",
           question:
-            "Qual é a finalidade do componente <router-link/> no Vue Router?",
+            "What is the purpose of the <router-link/> component in Vue Router?",
           answers: [
-            "Navegar para uma nova rota",
-            "Exibir o conteúdo de uma rota",
-            "Alternar entre diferentes rotas",
-            "Redirecionar para uma nova rota",
+            "Navigate to a new route",
+            "Display the content of a route",
+            "Switch between different routes",
+            "Redirect to a new route",
           ],
-          correctAnswer: "Navegar para uma nova rota",
+          correctAnswer: "Navigate to a new route",
         },
       ],
     },

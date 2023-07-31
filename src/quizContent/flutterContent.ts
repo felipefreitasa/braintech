@@ -4,44 +4,44 @@ export const flutterContent: CategoryTypes = {
   id: "14",
   technology: "Flutter",
   description:
-    "UI toolkit para criação de aplicativos nativos para iOS, Android e web",
+    "UI toolkit for creating native apps for iOS, Android, and the web",
   quizOptions: [
     {
       id: "141",
-      title: "Fundamentos",
+      title: "Fundamentals",
       questions: [
         {
           id: "1411",
           question:
-            "Qual é a linguagem de programação principal usada no Flutter?",
+            "What is the main programming language used in Flutter?",
           answers: ["JavaScript", "Kotlin", "Swift", "Dart"],
           correctAnswer: "Dart",
         },
         {
           id: "1412",
           question:
-            "Qual é a biblioteca usada para criar interfaces de usuário no Flutter?",
+            "What library is used to create user interfaces in Flutter?",
           answers: ["UIKit", "CoreGraphics", "MaterialUI", "Widgets"],
           correctAnswer: "Widgets",
         },
         {
           id: "1413",
           question:
-            "Qual é o elemento básico para construir interfaces no Flutter?",
+            "What is the basic element for building interfaces in Flutter?",
           answers: ["Views", "Widgets", "Components", "Layouts"],
           correctAnswer: "Widgets",
         },
         {
           id: "1414",
           question:
-            "Qual é a arquitetura recomendada para desenvolver aplicativos no Flutter?",
+            "What is the recommended architecture for developing apps in Flutter?",
           answers: ["MVC", "MVVM", "BLoC", "Redux"],
           correctAnswer: "BLoC",
         },
         {
           id: "1415",
           question:
-            "Qual é o comando usado para executar um aplicativo Flutter?",
+            "What command is used to run a Flutter application?",
           answers: [
             "flutter run",
             "flutter start",
@@ -54,25 +54,25 @@ export const flutterContent: CategoryTypes = {
     },
     {
       id: "142",
-      title: "Widgets Avançados",
+      title: "Advanced Widgets",
       questions: [
         {
           id: "1421",
-          question: "Qual é o widget usado em Flutter para criar um botão?",
+          question: "What widget is used in Flutter to create a button?",
           answers: ["Button", "Touchable", "InkWell", "RaisedButton"],
           correctAnswer: "ElevatedButton",
         },
         {
           id: "1422",
           question:
-            "Qual é o widget usado em Flutter para criar um campo de entrada de texto?",
+            "What widget is used in Flutter to create a text input field?",
           answers: ["TextField", "InputField", "TextEntry", "EditText"],
           correctAnswer: "TextField",
         },
         {
           id: "1423",
           question:
-            "Qual é o widget usado em Flutter para exibir uma lista rolável?",
+            "What widget is used in Flutter to display a scrollable list?",
           answers: ["ScrollList", "List", "ListView", "ScrollView"],
           correctAnswer: "ListView",
         },
@@ -80,50 +80,50 @@ export const flutterContent: CategoryTypes = {
     },
     {
       id: "143",
-      title: "Navegação e Roteamento",
+      title: "Navigation and Routing",
       questions: [
         {
           id: "1431",
           question:
-            "Qual é o widget usado em Flutter para navegar entre telas?",
+            "What widget is used in Flutter to navigate between screens?",
           answers: ["Navigator", "Route", "Screen", "Page"],
           correctAnswer: "Navigator",
         },
         {
           id: "1432",
           question:
-            "Qual é o método usado em Flutter para empilhar uma nova tela na pilha de navegação?",
+            "What method is used in Flutter to push a new screen onto the navigation stack?",
           answers: ["push()", "pop()", "navigate()", "route()"],
           correctAnswer: "push()",
         },
         {
           id: "1433",
           question:
-            "Como podemos passar parâmetros para uma nova tela durante a navegação em Flutter?",
+            "How can we pass parameters to a new screen during navigation in Flutter?",
           answers: [
-            "Através de uma função callback",
-            "Através de um objeto global",
-            "Através de um arquivo de configuração",
-            "Através de argumentos opcionais no método push()",
+            "Through a callback function",
+            "Through a global object",
+            "Through a configuration file",
+            "Through optional arguments in the push() method",
           ],
-          correctAnswer: "Através de argumentos opcionais no método push()",
+          correctAnswer: "Through optional arguments in the push() method",
         },
       ],
     },
     {
       id: "144",
-      title: "Animações e Efeitos Visuais",
+      title: "Animations and Visual Effects",
       questions: [
         {
           id: "1441",
-          question: "Qual é o widget usado em Flutter para criar animações?",
+          question: "What widget is used in Flutter to create animations?",
           answers: ["AnimatedContainer", "Animation", "Motion", "Tween"],
           correctAnswer: "AnimatedContainer",
         },
         {
           id: "1442",
           question:
-            "Qual é o widget usado em Flutter para criar transições entre telas?",
+            "What widget is used in Flutter to create transitions between screens?",
           answers: [
             "FadeTransition",
             "SlideTransition",
@@ -135,7 +135,7 @@ export const flutterContent: CategoryTypes = {
         {
           id: "1443",
           question:
-            "Qual é o widget usado em Flutter para criar efeitos de sombra em um componente?",
+            "What widget is used in Flutter to create shadow effects on a component?",
           answers: ["Shadow", "BoxShadow", "Elevation", "ShadowEffect"],
           correctAnswer: "Container",
         },

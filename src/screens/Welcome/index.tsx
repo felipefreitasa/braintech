@@ -15,6 +15,7 @@ import {
   Subtitle,
   Container,
   Background,
+  ButtonContainer,
   TitleDescription,
   SignInButtonLabel,
   SignInButtonLabelHighlight,
@@ -32,33 +33,33 @@ export function Welcome() {
 
             <Title>
               BrainTech
-              <TitleDescription>: O quiz de tecnologia</TitleDescription>
+              <TitleDescription>: Quiz for developers</TitleDescription>
             </Title>
 
             <Subtitle>
-              Teste seus conhecimentos e domine frameworks e linguagens de
-              programação!
+              Test your knowledge and master frameworks and programming
+              languages!
             </Subtitle>
           </Animated.View>
 
           <Animated.View entering={FadeIn.delay(300).duration(600)}>
-            <View style={{ height: 46, width: "100%" }}>
+            <ButtonContainer>
               <Button
                 disabled={false}
                 isLoading={false}
-                title="Criar conta"
+                title="Sign up"
                 onPress={() => navigate("nameOnboarding")}
               />
-            </View>
-            
+            </ButtonContainer>
+
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => navigate("signIn")}
             >
               <SignInButtonLabel>
-                Já possui conta?{" "}
+                Already have account ?{" "}
                 <SignInButtonLabelHighlight>
-                  Entre agora!
+                  Sign in!
                 </SignInButtonLabelHighlight>
               </SignInButtonLabel>
             </TouchableOpacity>

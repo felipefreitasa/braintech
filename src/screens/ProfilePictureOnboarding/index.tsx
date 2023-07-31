@@ -25,10 +25,9 @@ import { Button } from "@components/Button";
 import { Skeleton } from "@components/Skeleton";
 import { UserPhoto } from "@components/UserPhoto";
 import { ModeProps } from "@components/Toast/styles";
+import { TitleAndSubtitle } from "@components/TitleAndSubtitle";
 
 import {
-  Title,
-  Subtitle,
   Container,
   ProfileIconContainer,
   SignInButtonContainer,
@@ -58,15 +57,15 @@ export function ProfilePictureOnboarding() {
 
   function handleExitOnboarding() {
     Alert.alert(
-      "Tem certeza que deseja sair do cadastro?",
-      "Se você sair, perderá o progresso realizado.",
+      "Are you sure you want to unsubscribe?",
+      "If you leave, you will lose the progress made.",
       [
         {
-          text: "Não",
+          text: "No",
           style: "cancel",
         },
         {
-          text: "Sim",
+          text: "Yes",
           style: "destructive",
           onPress: () => navigate("welcome"),
         },
@@ -106,7 +105,7 @@ export function ProfilePictureOnboarding() {
       }
     } catch (error) {
       setIsToastVisible(true);
-      setToastMessage("Houve um erro para carregar a sua foto");
+      setToastMessage("There was an error uploading your profile picture");
       setToastMode("error");
     } finally {
       setIsPictureLoading(false);
@@ -148,18 +147,16 @@ export function ProfilePictureOnboarding() {
       <Container>
         <View>
           <Header
-            title="Cadastro"
-            titleHighlight="Foto"
+            title="Register"
+            titleHighlight="Picture"
             onGoBack={() => handleExitOnboarding()}
           />
 
           <Animated.View entering={FadeIn.delay(300).duration(600)}>
-            <Title>Foto de perfil</Title>
-
-            <Subtitle>
-              Personalize o seu perfil! Faça o upload de uma foto que represente
-              você.
-            </Subtitle>
+            <TitleAndSubtitle
+              title="Profile picture"
+              subtitle="Customize your profile! Upload a photo that represents you."
+            />
           </Animated.View>
         </View>
 
@@ -203,7 +200,7 @@ export function ProfilePictureOnboarding() {
           >
             <Button
               onPress={handleSignIn}
-              title="Finalizar cadastro"
+              title="Finalize registration"
               disabled={isPictureLoading}
               isLoading={isSignInLoading}
             />

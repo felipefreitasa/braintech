@@ -12,8 +12,12 @@ import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
 import { Input } from "@components/Input";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
+import { TitleAndSubtitle } from "@components/TitleAndSubtitle";
 
-import { Title, Subtitle, Container } from "./styles";
+import { ButtonContainer, Container } from "./styles";
+
+const AnimatedButtonContainer =
+  Animated.createAnimatedComponent(ButtonContainer);
 
 type FormDataProps = {
   name: string;
@@ -21,8 +25,8 @@ type FormDataProps = {
 };
 
 const nameOnboardingSchema = yup.object({
-  name: yup.string().required("Informe o seu nome"),
-  lastName: yup.string().required("Informe o seu sobrenome"),
+  name: yup.string().required("Inform your name"),
+  lastName: yup.string().required("Inform your last name"),
 });
 
 export function NameOnboarding() {
@@ -48,14 +52,13 @@ export function NameOnboarding() {
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Container>
           <View>
-            <Header title="Cadastro" titleHighlight="Nome" onGoBack={goBack} />
+            <Header title="Register" titleHighlight="Name" onGoBack={goBack} />
 
             <Animated.View entering={FadeIn.delay(300).duration(600)}>
-              <Title>Bem-vindo ao BrainTech!</Title>
-
-              <Subtitle>
-                Vamos começar seu cadastro com o seu nome e sobrenome.
-              </Subtitle>
+              <TitleAndSubtitle
+                title="Welcome to BrainTech"
+                subtitle="Let's start your registration with your first and last name."
+              />
             </Animated.View>
 
             <Animated.View entering={FadeIn.delay(600).duration(600)}>
@@ -64,13 +67,13 @@ export function NameOnboarding() {
                 name="name"
                 render={({ field: { onChange, value } }) => (
                   <Input
-                    label="Nome"
+                    label="Name"
                     value={value}
                     autoComplete="off"
                     autoCorrect={false}
                     autoCapitalize="none"
                     onChangeText={onChange}
-                    placeholder="Digite o seu nome"
+                    placeholder="Enter your name"
                     errorMessage={errors.name?.message}
                   />
                 )}
@@ -81,13 +84,13 @@ export function NameOnboarding() {
                 name="lastName"
                 render={({ field: { onChange, value } }) => (
                   <Input
-                    label="Sobrenome"
+                    label="Last name"
                     value={value}
                     autoComplete="off"
                     autoCorrect={false}
                     autoCapitalize="none"
                     onChangeText={onChange}
-                    placeholder="Digite o seu sobrenome"
+                    placeholder="Enter your last name"
                     errorMessage={errors.lastName?.message}
                     onSubmitEditing={handleSubmit(handleGoToEmailScreen)}
                   />
@@ -97,15 +100,12 @@ export function NameOnboarding() {
           </View>
 
           <View>
-            <Animated.View
-              style={{ height: 46, width: "100%" }}
-              entering={FadeIn.delay(900).duration(600)}
-            >
+            <AnimatedButtonContainer entering={FadeIn.delay(900).duration(600)}>
               <Button
-                title="Continuar"
+                title="Continue"
                 onPress={handleSubmit(handleGoToEmailScreen)}
               />
-            </Animated.View>
+            </AnimatedButtonContainer>
           </View>
         </Container>
       </ScrollView>

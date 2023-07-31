@@ -88,7 +88,7 @@ export function Profile() {
     } catch (error) {
       setIsToastVisible(true);
       setToastMessage(
-        "Houve um erro ao carregar algumas informações do seu perfil"
+        "There was an error loading some of your profile information"
       );
       setToastMode("error");
     } finally {
@@ -97,13 +97,13 @@ export function Profile() {
   }
 
   async function handleLogout() {
-    Alert.alert("Sair", "Deseja realmente sair do aplicativo?", [
+    Alert.alert("Logout", "Do you really want to exit the application?", [
       {
-        text: "Sim",
+        text: "Yes",
         onPress: logOut,
       },
       {
-        text: "Nao",
+        text: "No",
       },
     ]);
   }
@@ -153,7 +153,7 @@ export function Profile() {
       }
     } catch (error) {
       setIsToastVisible(true);
-      setToastMessage("Houve um erro ao carregar a sua foto");
+      setToastMessage("There was an error uploading your photo");
       setToastMode("error");
     } finally {
       setIsPictureLoading(false);
@@ -232,32 +232,32 @@ export function Profile() {
         </AnimatedHeaderContainer>
 
         <AnimatedStatisticsContainer entering={FadeIn.duration(600).delay(250)}>
-          <StatisticsTitle>Estatísticas</StatisticsTitle>
+          <StatisticsTitle>Stats</StatisticsTitle>
 
           <StatisticCard
             icon="terminal"
             isLoading={isHistoryLoading}
-            title="Categoria favorita"
+            title="Favorite category"
             subtitle={capitalizeCategoryLabel(mostPresentCategory) || "-"}
           />
 
           <StatisticCard
             icon="code"
             isLoading={isHistoryLoading}
-            title="Tecnologia favorita"
+            title="Favorite technology"
             subtitle={mostPresenstTechnology || "-"}
           />
 
           <StatisticCard
             icon="git-branch"
             isLoading={isHistoryLoading}
-            title="Exercícios respondidos"
+            title="Answered exercises"
             subtitle={historyData?.length}
           />
 
           <StatisticCard
             icon="clock"
-            title="Tempo jogado"
+            title="Time played"
             isLoading={isHistoryLoading}
             subtitle={timeSpent}
           />

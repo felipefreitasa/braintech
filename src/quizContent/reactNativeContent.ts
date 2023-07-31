@@ -3,16 +3,16 @@ import { CategoryTypes } from "./quizContentTypes";
 export const reactNativeContent: CategoryTypes = {
   id: "11",
   technology: "React Native",
-  description: "Desenvolva apps iOS e Android com Javascript",
+  description: "Develop iOS and Android apps with JavaScript",
   quizOptions: [
     {
       id: "111",
-      title: "Componentes",
+      title: "Components",
       questions: [
         {
           id: "1111",
           question:
-            "Qual componente no React Native é usado para criar um campo de entrada de texto?",
+            "Which component in React Native is used to create a text input field?",
           answers: [
             "<TextEntry/>",
             "<TextInput/>",
@@ -24,21 +24,21 @@ export const reactNativeContent: CategoryTypes = {
         {
           id: "1112",
           question:
-            "Qual componente no React Native é usado para exibir texto?",
+            "Which component in React Native is used to display text?",
           answers: ["<p/>", "<Paragraph/>", "<Text/>", "<View/>"],
           correctAnswer: "<Text/>",
         },
         {
           id: "1113",
           question:
-            "Qual componente no React Native é usado para exibir imagens?",
+            "Which component in React Native is used to display images?",
           answers: ["<Image/>", "<Img/>", "<Photo/>", "<Background/>"],
           correctAnswer: "<Image/>",
         },
         {
           id: "1114",
           question:
-            "Qual componente no React Native é usado para indicar um carregamento?",
+            "Which component in React Native is used to indicate a loading state?",
           answers: [
             "<ProgressBar/>",
             "<ProgressIndicator/>",
@@ -50,7 +50,7 @@ export const reactNativeContent: CategoryTypes = {
         {
           id: "1115",
           question:
-            "Qual componente no React Native é usado para criar uma lista de itens otimizada para alto desempenho?",
+            "Which component in React Native is used to create a high-performance, optimized list of items?",
           answers: [
             "<VirtualizedList/>",
             "<FlatList/>",
@@ -63,12 +63,12 @@ export const reactNativeContent: CategoryTypes = {
     },
     {
       id: "112",
-      title: "Navegação",
+      title: "Navigation",
       questions: [
         {
           id: "1121",
           question:
-            "Qual componente no React Native é usado para criar uma pilha de navegação?",
+            "Which component in React Native is used to create a navigation stack?",
           answers: [
             "<NavigationStack/>",
             "<StackNavigator/>",
@@ -80,7 +80,7 @@ export const reactNativeContent: CategoryTypes = {
         {
           id: "1122",
           question:
-            "Qual método é usado para navegar para outra tela no React Native?",
+            "Which method is used to navigate to another screen in React Native?",
           answers: [
             "navigateTo()",
             "navigate()",
@@ -92,25 +92,25 @@ export const reactNativeContent: CategoryTypes = {
         {
           id: "1123",
           question:
-            "Como podemos passar parâmetros para outra tela durante a navegação?",
+            "How can we pass parameters to another screen during navigation?",
           answers: [
-            "Através da função navigate()",
-            "Através de um objeto global",
-            "Através de um callback",
-            "Através do Redux Store",
+            "Through the navigate() function",
+            "Through a global object",
+            "Through a callback",
+            "Through the Redux Store",
           ],
-          correctAnswer: "Através da função navigate()",
+          correctAnswer: "Through the navigate() function",
         },
       ],
     },
     {
       id: "113",
-      title: "Estilização",
+      title: "Styling",
       questions: [
         {
           id: "1131",
           question:
-            "Qual propriedade no React Native é usada para definir a cor de fundo de um componente?",
+            "Which property in React Native is used to define the background color of a component?",
           answers: [
             "background-color",
             "background",
@@ -122,7 +122,7 @@ export const reactNativeContent: CategoryTypes = {
         {
           id: "1132",
           question:
-            "Qual propriedade é usada para definir a margem de um componente no React Native?",
+            "Which property is used to define the margin of a component in React Native?",
           answers: [
             "margin",
             "margin-horizontal",
@@ -134,51 +134,51 @@ export const reactNativeContent: CategoryTypes = {
         {
           id: "1133",
           question:
-            "Como podemos estilizar componentes individualmente no React Native?",
+            "How can we style components individually in React Native?",
           answers: [
-            "Apenas através de classes CSS",
-            "Apenas através de IDs",
-            "Apenas inline no próprio componente",
-            "Através de estilos externos",
+            "Only through CSS classes",
+            "Only through IDs",
+            "Only inline in the component itself",
+            "Through external styles",
           ],
-          correctAnswer: "Apenas inline no próprio componente",
+          correctAnswer: "Only inline in the component itself",
         },
       ],
     },
     {
       id: "114",
-      title: "Gerenciamento de Estado",
+      title: "State Management",
       questions: [
         {
           id: "1141",
           question:
-            "Qual biblioteca é comumente usada para gerenciamento de estado no React Native?",
+            "Which library is commonly used for state management in React Native?",
           answers: ["Redux", "MobX", "Flux", "React Context"],
           correctAnswer: "Redux",
         },
         {
           id: "1142",
-          question: "Qual é o objetivo principal do Redux?",
+          question: "What is the main purpose of Redux?",
           answers: [
-            "Gerenciar a navegação entre telas",
-            "Gerenciar o estado global da aplicação",
-            "Realizar chamadas de API assíncronas",
-            "Criar animações fluidas",
+            "Managing navigation between screens",
+            "Managing the global state of the application",
+            "Performing asynchronous API calls",
+            "Creating smooth animations",
           ],
-          correctAnswer: "Gerenciar o estado global da aplicação",
+          correctAnswer: "Managing the global state of the application",
         },
         {
           id: "1143",
-          question: "Quais são os três princípios fundamentais do Redux?",
+          question: "What are the three fundamental principles of Redux?",
           answers: [
-            "Ação, Redução, Estado",
-            "Ação, Redução, Imutabilidade",
-            "Estado, Imutabilidade, Componentes",
-            "Componentes, Ação, Redução",
+            "Action, Reduction, State",
+            "Action, Reduction, Immutability",
+            "State, Immutability, Components",
+            "Components, Action, Reduction",
           ],
-          correctAnswer: "Ação, Redução, Estado",
+          correctAnswer: "Action, Reduction, State",
         },
       ],
     },
   ],
-}
+};

@@ -4,44 +4,44 @@ export const nodeContent: CategoryTypes = {
   id: "33",
   technology: "Node JS",
   description:
-    "Ambiente de tempo de execução JavaScript assíncrono baseado no V8 do Chrome",
+    "Asynchronous JavaScript runtime environment based on Chrome's V8 engine",
   quizOptions: [
     {
       id: "331",
-      title: "Fundamentos",
+      title: "Fundamentals",
       questions: [
         {
           id: "3311",
           question:
-            "Qual é o módulo usado para criar um servidor HTTP em Node.js?",
+            "Which module is used to create an HTTP server in Node.js?",
           answers: ["http", "fs", "path", "url"],
           correctAnswer: "http",
         },
         {
           id: "3312",
           question:
-            "Qual é o comando usado para iniciar um aplicativo Node.js?",
+            "Which command is used to start a Node.js application?",
           answers: ["node start", "node run", "node app", "node index"],
           correctAnswer: "node app",
         },
         {
           id: "3313",
           question:
-            "Qual é o módulo usado para acessar o sistema de arquivos em Node.js?",
+            "Which module is used to access the file system in Node.js?",
           answers: ["http", "fs", "path", "url"],
           correctAnswer: "fs",
         },
         {
           id: "3314",
           question:
-            "Qual é o módulo usado para fazer solicitações HTTP em Node.js?",
+            "Which module is used to make HTTP requests in Node.js?",
           answers: ["http", "fs", "path", "request"],
           correctAnswer: "http",
         },
         {
           id: "3315",
           question:
-            "Qual é o módulo usado para gerenciar dependências em Node.js?",
+            "Which module is used to manage dependencies in Node.js?",
           answers: ["npm", "yarn", "bower", "gulp"],
           correctAnswer: "npm",
         },
@@ -53,20 +53,20 @@ export const nodeContent: CategoryTypes = {
       questions: [
         {
           id: "3321",
-          question: "Qual é a função usada para exportar um módulo em Node.js?",
+          question: "What function is used to export a module in Node.js?",
           answers: ["export", "module.exports", "exports", "module.export"],
           correctAnswer: "module.exports",
         },
         {
           id: "3322",
-          question: "Qual é a função usada para importar um módulo em Node.js?",
+          question: "What function is used to import a module in Node.js?",
           answers: ["require", "import", "include", "importModule"],
           correctAnswer: "require",
         },
         {
           id: "3323",
           question:
-            "Qual é o objeto usado para acessar argumentos da linha de comando em Node.js?",
+            "What object is used to access command line arguments in Node.js?",
           answers: [
             "process.argv",
             "commandLine.args",
@@ -78,13 +78,13 @@ export const nodeContent: CategoryTypes = {
         {
           id: "3324",
           question:
-            "Qual é o módulo usado para lidar com caminhos de arquivos em Node.js?",
+            "Which module is used to handle file paths in Node.js?",
           answers: ["http", "fs", "path", "url"],
           correctAnswer: "path",
         },
         {
           id: "3325",
-          question: "Qual é o módulo usado para trabalhar com URLs em Node.js?",
+          question: "Which module is used to work with URLs in Node.js?",
           answers: ["http", "fs", "path", "url"],
           correctAnswer: "url",
         },
@@ -97,14 +97,14 @@ export const nodeContent: CategoryTypes = {
         {
           id: "3331",
           question:
-            "Qual é o conceito principal usado para lidar com operações assíncronas em Node.js?",
+            "What is the main concept used to handle asynchronous operations in Node.js?",
           answers: ["Promises", "Callbacks", "Async/Await", "Generators"],
           correctAnswer: "Callbacks",
         },
         {
           id: "3332",
           question:
-            "Qual é a função usada para executar uma função após um determinado tempo em Node.js?",
+            "What function is used to execute a function after a certain time in Node.js?",
           answers: [
             "setInterval()",
             "setTimeout()",
@@ -116,7 +116,7 @@ export const nodeContent: CategoryTypes = {
         {
           id: "3333",
           question:
-            "Qual é a função usada para ler dados de entrada do usuário em Node.js?",
+            "What function is used to read user input data in Node.js?",
           answers: [
             "readline.question()",
             "console.log()",
@@ -128,7 +128,7 @@ export const nodeContent: CategoryTypes = {
         {
           id: "3334",
           question:
-            "Qual é a função usada para escrever dados de saída em Node.js?",
+            "What function is used to write output data in Node.js?",
           answers: [
             "console.log()",
             "readline.question()",
@@ -140,7 +140,7 @@ export const nodeContent: CategoryTypes = {
         {
           id: "3335",
           question:
-            "Qual é o módulo usado para lidar com fluxo de dados em Node.js?",
+            "Which module is used to handle data streams in Node.js?",
           answers: ["http", "fs", "stream", "buffer"],
           correctAnswer: "stream",
         },
@@ -152,28 +152,28 @@ export const nodeContent: CategoryTypes = {
       questions: [
         {
           id: "3341",
-          question: "Qual é o gerenciador de pacotes padrão usado em Node.js?",
+          question: "What is the default package manager used in Node.js?",
           answers: ["npm", "yarn", "bower", "gulp"],
           correctAnswer: "npm",
         },
         {
           id: "3342",
           question:
-            "Qual é o comando usado para instalar um pacote em Node.js?",
+            "What command is used to install a package in Node.js?",
           answers: ["npm install", "npm add", "npm get", "npm require"],
           correctAnswer: "npm install",
         },
         {
           id: "3343",
           question:
-            "Qual é o comando usado para iniciar um aplicativo Node.js com o npm?",
+            "What command is used to start a Node.js application with npm?",
           answers: ["npm run start", "npm start", "npm run", "npm init"],
           correctAnswer: "npm start",
         },
         {
           id: "3344",
           question:
-            "Qual é o arquivo usado para definir as dependências de um projeto Node.js?",
+            "What file is used to define project dependencies in Node.js?",
           answers: [
             "package.json",
             "dependencies.json",
@@ -185,7 +185,7 @@ export const nodeContent: CategoryTypes = {
         {
           id: "3345",
           question:
-            "Qual é o comando usado para atualizar os pacotes instalados em Node.js?",
+            "What command is used to update installed packages in Node.js?",
           answers: ["npm update", "npm upgrade", "npm install", "npm refresh"],
           correctAnswer: "npm update",
         },

@@ -10,27 +10,6 @@ export const Container = styled.View`
   `}
 `;
 
-export const Title = styled.Text`
-  font-size: 24px;
-  margin-top: 24px;
-  margin-bottom: 4px;
-
-  ${({ theme }) => css`
-    color: ${theme.COLORS.WHITE};
-    font-family: ${theme.FONTS.BOLD};
-  `}
-`
-
-export const Subtitle = styled.Text`
-  font-size: 18px;
-  margin-bottom: 32px;
-
-  ${({ theme }) => css`
-    color: ${theme.COLORS.GRAY};
-    font-family: ${theme.FONTS.REGULAR};
-  `}
-`
-
 export const SignInButtonLabel = styled.Text`
   font-size: 16px;
   margin-top: 16px;
@@ -45,3 +24,8 @@ export const SignInButtonLabel = styled.Text`
 export const SignInButtonLabelHighlight = styled(SignInButtonLabel)`
   color: ${({ theme }) => theme.COLORS.PRIMARY};
 `
+
+export const ButtonContainer = styled.View`
+  width: 100%;
+  height: 46px;
+`;

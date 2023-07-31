@@ -45,7 +45,7 @@ export function History() {
       }
     } catch (error) {
       setIsToastVisible(true);
-      setToastMessage("Não foi possível carregar o seu histórico");
+      setToastMessage("Unable to load your history");
       setToastMode("error");
     } finally {
       setIsLoading(false);
@@ -73,15 +73,15 @@ export function History() {
     <>
       <Container>
         <Animated.View entering={FadeIn}>
-          <Title>Histórico de exercícios</Title>
+          <Title>Exercise history</Title>
 
           <Subtitle>
-            Reveja seus exercícios anteriores e acompanhe seu desempenho no app
+            Review your past quizzes and track your performance in the app
           </Subtitle>
         </Animated.View>
 
         {isLoading ? (
-          <HistoryLoading/>
+          <HistoryLoading />
         ) : (
           <Animated.View entering={FadeIn}>
             <SectionList
@@ -105,8 +105,8 @@ export function History() {
               ListEmptyComponent={() => (
                 <ListFeedbackStatus
                   mode="default"
-                  title="Nenhum exercício realizado"
-                  subtitle="Escolha uma tecnologia e começe a se aprofundar agora mesmo!"
+                  title="No quiz answered"
+                  subtitle="Choose a technology and start digging right now!"
                 />
               )}
               showsVerticalScrollIndicator={false}

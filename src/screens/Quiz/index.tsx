@@ -96,15 +96,15 @@ export function Quiz() {
 
   function handleStopQuiz() {
     Alert.alert(
-      "Tem certeza que deseja sair do quiz?",
-      "Se você sair, perderá o progresso do exercício atual.",
+      "Are you shure you want exit quiz?",
+      "If you leave, you will lose the progress made.",
       [
         {
-          text: "Não",
+          text: "No",
           style: "cancel",
         },
         {
-          text: "Sim",
+          text: "Yes",
           style: "destructive",
           onPress: () => navigate("homeTabs"),
         },
@@ -154,7 +154,7 @@ export function Quiz() {
 
           <Animated.View entering={FadeIn.duration(600).delay(250)}>
             <QuestionsCounter>
-              {`${currentQuestion}/${questions.length} questões concluídas`}
+              {`${currentQuestion}/${questions.length} completed questions`}
             </QuestionsCounter>
 
             <ProgressBar>
@@ -184,7 +184,7 @@ export function Quiz() {
           entering={FadeIn.duration(600).delay(1000)}
         >
           <Button
-            title="Verificar"
+            title="Verify"
             disabled={!selectedAnswer}
             onPress={handleCheckAnswer}
           />

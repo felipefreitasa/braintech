@@ -38,7 +38,7 @@ export function Home() {
       <HomeHeader />
 
       <TitleAnimated entering={FadeIn.delay(250)}>
-        Qual tecnologia você deseja aprender hoje ?
+        What technology do you want to learn today?
       </TitleAnimated>
 
       <FlatList
