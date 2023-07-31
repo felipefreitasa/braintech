@@ -18,7 +18,7 @@ import { authCreate } from "@storage/auth/authCreate";
 
 import { handleFirebaseSignInErrors } from "@utils/handleFirebaseSignInErrors";
 
-import { FIREBASE_AUTH } from "../../../firebaseConfig";
+import { FIREBASE_AUTH } from "../../firebaseApp/config";
 
 import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
 
@@ -27,14 +27,17 @@ import { Toast } from "@components/Toast";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
 import { ModeProps } from "@components/Toast/styles";
+import { TitleAndSubtitle } from "@components/TitleAndSubtitle";
 
 import {
-  Title,
-  Subtitle,
   Container,
   SignInButtonLabel,
   SignInButtonLabelHighlight,
+  ButtonContainer,
 } from "./styles";
+
+const AnimatedButtonContainer =
+  Animated.createAnimatedComponent(ButtonContainer);
 
 type FormDataProps = {
   email: string;
@@ -42,11 +45,11 @@ type FormDataProps = {
 };
 
 const signInSchema = yup.object({
-  email: yup.string().required("Informe o e-mail").email("E-mail inválido"),
+  email: yup.string().required("Inform the email").email("Invalid email"),
   password: yup
     .string()
-    .required("Informe a senha")
-    .min(6, "A senha deve ter pelo menos 6 dígitos"),
+    .required("Inform the password")
+    .min(6, "The password must be at least 6 characters"),
 });
 
 export function SignIn() {
@@ -104,16 +107,15 @@ export function SignIn() {
             <View>
               <Header
                 title="BrainTech"
-                titleHighlight="Entrar"
+                titleHighlight="Sing in"
                 onGoBack={() => navigate("welcome")}
               />
 
               <Animated.View entering={FadeIn.delay(300).duration(600)}>
-                <Title>Entrar</Title>
-
-                <Subtitle>
-                  Entre agora e aumente o seu conhecimento tech!
-                </Subtitle>
+                <TitleAndSubtitle
+                  title="Sign in"
+                  subtitle="Join now and increase your tech knowledge!"
+                />
               </Animated.View>
 
               <Animated.View entering={FadeIn.delay(600).duration(600)}>
@@ -123,13 +125,13 @@ export function SignIn() {
                   render={({ field: { onChange, value } }) => (
                     <Input
                       value={value}
-                      label="E-mail"
+                      label="Email"
                       autoComplete="off"
                       autoCorrect={false}
                       autoCapitalize="none"
                       onChangeText={onChange}
                       keyboardType="email-address"
-                      placeholder="Digite o seu e-mail"
+                      placeholder="Enter your email"
                       errorMessage={errors.email?.message}
                     />
                   )}
@@ -141,13 +143,13 @@ export function SignIn() {
                   render={({ field: { onChange, value } }) => (
                     <Input
                       value={value}
-                      label="Senha"
+                      label="Password"
                       secureTextEntry
                       autoComplete="off"
                       autoCorrect={false}
                       autoCapitalize="none"
                       onChangeText={onChange}
-                      placeholder="Digite a sua senha"
+                      placeholder="Enter your password"
                       errorMessage={errors.password?.message}
                       onSubmitEditing={handleSubmit(handleSignIn)}
                     />
@@ -157,22 +159,22 @@ export function SignIn() {
             </View>
 
             <Animated.View entering={FadeIn.delay(900).duration(600)}>
-              <View style={{ height: 46, width: "100%" }}>
+              <AnimatedButtonContainer>
                 <Button
-                  title="Entrar"
+                  title="Sign in"
                   onPress={handleSubmit(handleSignIn)}
                   isLoading={isLoading}
                 />
-              </View>
+              </AnimatedButtonContainer>
 
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => navigate("nameOnboarding")}
               >
                 <SignInButtonLabel>
-                  Ainda não possui conta?{" "}
+                  Don't have an account yet?{" "}
                   <SignInButtonLabelHighlight>
-                    Crie agora!
+                    Create now!
                   </SignInButtonLabelHighlight>
                 </SignInButtonLabel>
               </TouchableOpacity>

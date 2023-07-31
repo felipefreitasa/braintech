@@ -10,6 +10,7 @@
       "@storage/*": ["./src/storage/*"],
       "@screens/*": ["./src/screens/*"],
       "@context/*": ["./src/context/*"],
+      "@firebaseApp/*": ["./src/firebaseApp/*"],
       "@components/*": ["./src/components/*"],
     }
   }

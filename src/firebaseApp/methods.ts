@@ -1,19 +1,13 @@
-import { getAuth } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import { getFirestore, addDoc, collection, getDocs } from "firebase/firestore";
+import { updateProfile } from "firebase/auth";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 
-import {
-  FIREBASE_APP_ID,
-  FIREBASE_API_KEY,
-  FIREBASE_PROJECT_ID,
-  FIREBASE_AUTH_DOMAIN,
-  FIREBASE_STORAGE_BUCKET,
-  FIREBASE_MESSAGING_SENDER_ID,
-} from "@env";
+import { FIREBASE_AUTH, FIREBASE_FIRESTORE } from "./config";
 
 export type HistoryItemProps = {
   id?: string;
+  userId?: string;
   createdAt: Date;
+  timeSpent?: string;
   technology: string;
   subCategory: string;
   correctAnswers: number;
@@ -24,19 +18,6 @@ export type HistoryItemProps = {
 type HistoryProps = HistoryItemProps & {
   userId: string;
 }
-
-const firebaseConfig = {
-  appId: FIREBASE_APP_ID,
-  apiKey: FIREBASE_API_KEY,
-  projectId: FIREBASE_PROJECT_ID,
-  authDomain: FIREBASE_AUTH_DOMAIN,
-  storageBucket: FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
-};
-
-export const FIREBASE_APP = initializeApp(firebaseConfig);
-export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
-export const FIREBASE_FIRESTORE = getFirestore(FIREBASE_APP);
 
 export async function saveQuizStatus(historyItem: HistoryItemProps) {
   try {
@@ -60,13 +41,14 @@ export async function getHistory(loggedUserId: string): Promise<HistoryProps[]> 
       if (data) {
         const historyItem: HistoryProps = {
           id: doc.id,
-          createdAt: data.createdAt.toDate(),
+          userId: data.userId,
+          category: data.category,
+          timeSpent: data.timeSpent,
           technology: data.technology,
           subCategory: data.subCategory,
+          createdAt: data.createdAt.toDate(),
           correctAnswers: data.correctAnswers,
           totalQuestions: data.totalQuestions,
-          category: data.category,
-          userId: data.userId,
         };
 
         if (data.userId === loggedUserId) {
@@ -78,5 +60,13 @@ export async function getHistory(loggedUserId: string): Promise<HistoryProps[]> 
     return historyData;
   } catch (error) {
     throw error;
+  }
+}
+
+export async function updateUserProfilePicture(photoUri: string) {
+  if (FIREBASE_AUTH.currentUser) {
+    await updateProfile(FIREBASE_AUTH.currentUser, {
+      photoURL: photoUri,
+    });
   }
 }

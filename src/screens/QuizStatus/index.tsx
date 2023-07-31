@@ -8,7 +8,7 @@ import Animated, { FadeIn } from "react-native-reanimated";
 import { useAuth } from "@hooks/useAuth";
 import { useQuiz } from "@hooks/useQuiz";
 
-import { saveQuizStatus } from "../../../firebaseConfig";
+import { saveQuizStatus } from "@firebaseApp/methods"
 
 import { AppNavigatorRoutesProps } from "../../routes/app.routes";
 import { calculateTimeInterval } from "@utils/calculateTimeInterval";
@@ -31,11 +31,11 @@ export function QuizStatus() {
   const { COLORS } = useTheme();
 
   const {
-    selectedQuiz,
-    selectedTechnology,
-    correctAnswers,
-    quizStartTime,
     quizEndTime,
+    selectedQuiz,
+    quizStartTime,
+    correctAnswers,
+    selectedTechnology,
   } = useQuiz();
 
   const { loggedUser } = useAuth()
@@ -56,11 +56,12 @@ export function QuizStatus() {
     await saveQuizStatus({
       correctAnswers,
       createdAt: new Date(),
+      userId: loggedUser?.user.uid,
       category: selectedTechnology.category,
       subCategory: selectedQuiz.subcategory,
       technology: selectedTechnology.technology,
       totalQuestions: selectedQuiz.questions.length,
-      userId: loggedUser?.user.uid
+      timeSpent: calculateTimeInterval(quizStartTime, quizEndTime)
     });
 
     setIsLoading(false);
@@ -91,18 +92,18 @@ export function QuizStatus() {
 
         <Animated.View entering={FadeIn.duration(600).delay(250)}>
           <Title>
-            {mode === "success" ? "Parabéns!" : "Não foi dessa vez..."}
+            {mode === "success" ? "Congratulations!" : "It wasn't this time..."}
           </Title>
 
           <Subtitle>
             {mode === "success"
-              ? "Voce possui bastante conhecimento sobre essa tecnologia!"
-              : "Continue se aprofundando nessa tecnologia e faça novamente esse quiz."}
+              ? "You have a lot of knowledge about this technology!"
+              : "Keep delving into this technology and take this quiz again"}
           </Subtitle>
         </Animated.View>
 
         <Animated.View entering={FadeIn.duration(600).delay(500)}>
-          <StatisticsTitle>Estatísticas do quiz</StatisticsTitle>
+          <StatisticsTitle>Quiz stats</StatisticsTitle>
 
           <StatisticCard
             icon="clock"
@@ -112,19 +113,19 @@ export function QuizStatus() {
 
           <StatisticCard
             icon="help-circle"
-            title="Respostas corretas"
+            title="Correct answers"
             subtitle={`${correctAnswers} de ${selectedQuiz.questions.length}`}
           />
 
           <StatisticCard
             icon="book-open"
-            title="Área"
+            title="Category"
             subtitle={capitalizeCategoryLabel(selectedTechnology.category)}
           />
 
           <StatisticCard
             icon="code"
-            title="Tecnologia"
+            title="Technology"
             subtitle={`${selectedTechnology.technology}: ${selectedQuiz.subcategory}`}
           />
         </Animated.View>
@@ -136,7 +137,7 @@ export function QuizStatus() {
       >
         <Button
           isLoading={isLoading}
-          title="Finalizar quiz"
+          title="End quiz"
           onPress={handleGoToHome}
         />
       </Animated.View>

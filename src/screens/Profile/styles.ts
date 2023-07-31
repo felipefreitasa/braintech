@@ -21,6 +21,7 @@ export const HeaderContainer = styled.View`
 export const LeftContainer = styled.View`
   flex: 1;
   flex-direction: row;
+  align-items: center;
 `
 
 export const UserInformationsContainer = styled.View`
@@ -65,10 +66,23 @@ export const ProfileIconContainer = styled.View`
   width: 60px;
   height: 60px;
   align-items: center;
+  border-radius: 60px;
   justify-content: center;
 
   ${({ theme }) => css`
-    border-radius: ${theme.BORDER_RADIUS}px;
     background-color: ${theme.COLORS.PRIMARY_5};
   `}
+`;
+
+export const ChoosePictureButtonContainer = styled.Pressable`
+  right: 0px;
+  width: 24px;
+  bottom: 0px;
+  height: 24px;
+  position: absolute;
+  align-items: center;
+  border-radius: 32px;
+  flex-direction: row;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.COLORS.PRIMARY};
 `;

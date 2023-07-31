@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Animated, {
   FadeIn,
-  useSharedValue,
   withTiming,
+  useSharedValue,
 } from "react-native-reanimated";
 
 import { AppNavigatorRoutesProps } from "../../routes/app.routes";
@@ -83,7 +83,7 @@ export function CategoryQuizMenu() {
             data={selectedTechnology?.options}
             keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => {
+            renderItem={({ item }) => {
               return (
                 <TechnologyButton
                   title={item.title}
@@ -105,19 +105,19 @@ export function CategoryQuizMenu() {
       </Container>
 
       <Modal
-        title="Quiz selecionado"
+        title="Selected quiz"
         sharedValue={modalBottomPosition}
         onClose={handleCloseConfirmationModal}
       >
         <ModalConfirmationDescription>
-          Voce está prestes a iniciar os exercícios sobre{" "}
+          You are about to start the exercises about{" "}
           <ModalConfirmationDescriptionHighligth>
             {selectedQuizName}
           </ModalConfirmationDescriptionHighligth>
           .
         </ModalConfirmationDescription>
 
-        <Button title="Iniciar quiz" onPress={handleGoToQuiz} />
+        <Button title="Start quiz" onPress={handleGoToQuiz} />
       </Modal>
     </>
   );

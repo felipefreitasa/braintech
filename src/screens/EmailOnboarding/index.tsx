@@ -19,15 +19,19 @@ import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
 import { Input } from "@components/Input";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
+import { TitleAndSubtitle } from "@components/TitleAndSubtitle";
 
-import { Title, Subtitle, Container } from "./styles";
+import { ButtonContainer, Container } from "./styles";
+
+const AnimatedButtonContainer =
+  Animated.createAnimatedComponent(ButtonContainer);
 
 type FormDataProps = {
   email: string;
 };
 
 const emailOnboardingSchema = yup.object({
-  email: yup.string().required("Informe o e-mail").email("E-mail inválido"),
+  email: yup.string().required("Inform the email").email("Invalid email"),
 });
 
 export function EmailOnboarding() {
@@ -50,15 +54,15 @@ export function EmailOnboarding() {
 
   function handleExitOnboarding() {
     Alert.alert(
-      "Tem certeza que deseja sair do cadastro?",
-      "Se você sair, perderá o progresso realizado.",
+      "Are you sure you want to unsubscribe?",
+      "If you leave, you will lose the progress made.",
       [
         {
-          text: "Não",
+          text: "No",
           style: "cancel",
         },
         {
-          text: "Sim",
+          text: "Yes",
           style: "destructive",
           onPress: () => navigate("welcome"),
         },
@@ -82,18 +86,16 @@ export function EmailOnboarding() {
         <Container>
           <View>
             <Header
-              title="Cadastro"
-              titleHighlight="E-mail"
+              title="Register"
+              titleHighlight="Email"
               onGoBack={() => handleExitOnboarding()}
             />
 
             <Animated.View entering={FadeIn.delay(300).duration(600)}>
-              <Title>E-mail</Title>
-
-              <Subtitle>
-                Para uma experiência completa, insira seu e-mail no campo
-                abaixo.
-              </Subtitle>
+              <TitleAndSubtitle
+                title="Email"
+                subtitle="For a complete experience, enter your email in the field below."
+              />
             </Animated.View>
 
             <Animated.View entering={FadeIn.delay(600).duration(600)}>
@@ -109,7 +111,7 @@ export function EmailOnboarding() {
                     autoCapitalize="none"
                     onChangeText={onChange}
                     keyboardType="email-address"
-                    placeholder="Digite o seu e-mail"
+                    placeholder="Enter your email"
                     errorMessage={errors.email?.message}
                     onSubmitEditing={handleSubmit(handleGoToPasswordScreen)}
                   />
@@ -119,15 +121,12 @@ export function EmailOnboarding() {
           </View>
 
           <View>
-            <Animated.View
-              style={{ height: 46, width: "100%" }}
-              entering={FadeIn.delay(900).duration(600)}
-            >
+            <AnimatedButtonContainer entering={FadeIn.delay(900).duration(600)}>
               <Button
-                title="Continuar"
+                title="Continue"
                 onPress={handleSubmit(handleGoToPasswordScreen)}
               />
-            </Animated.View>
+            </AnimatedButtonContainer>
           </View>
         </Container>
       </ScrollView>

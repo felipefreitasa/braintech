@@ -15,7 +15,7 @@ import {
 
 import { handleFirebaseSignUpErrors } from "@utils/handleFirebaseSignUpErrors";
 
-import { FIREBASE_AUTH } from "../../../firebaseConfig";
+import { FIREBASE_AUTH } from "../../firebaseApp/config";
 
 import { useAuth } from "@hooks/useAuth";
 
@@ -26,8 +26,12 @@ import { Toast } from "@components/Toast";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
 import { ModeProps } from "@components/Toast/styles";
+import { TitleAndSubtitle } from "@components/TitleAndSubtitle";
 
-import { Title, Subtitle, Container } from "./styles";
+import { ButtonContainer, Container } from "./styles";
+
+const AnimatedButtonContainer =
+  Animated.createAnimatedComponent(ButtonContainer);
 
 type FormDataProps = {
   password: string;
@@ -43,12 +47,12 @@ type SignUpProps = {
 const passwordOnboardingSchema = yup.object({
   password: yup
     .string()
-    .required("Informe a senha")
-    .min(6, "A senha deve ter pelo menos 6 dígitos"),
+    .required("Inform the password")
+    .min(6, "The password must have at least 6 digits"),
   password_confirm: yup
     .string()
-    .required("Confirme a senha")
-    .oneOf([yup.ref("password"), ""], "A confirmação da senha não confere"),
+    .required("Confirm the password")
+    .oneOf([yup.ref("password"), ""], "Password confirmation does not match"),
 });
 
 export function PasswordOnboarding() {
@@ -75,9 +79,9 @@ export function PasswordOnboarding() {
     setOnboardingPassword(password);
 
     await handleSignUp({
+      password,
       name: onboardingName,
       email: onboardingEmail,
-      password,
     });
   }
 
@@ -108,15 +112,15 @@ export function PasswordOnboarding() {
 
   function handleExitOnboarding() {
     Alert.alert(
-      "Tem certeza que deseja sair do cadastro?",
-      "Se você sair, perderá o progresso realizado.",
+      "Are you sure you want to unsubscribe?",
+      "If you leave, you will lose the progress made.",
       [
         {
-          text: "Não",
+          text: "No",
           style: "cancel",
         },
         {
-          text: "Sim",
+          text: "Yes",
           style: "destructive",
           onPress: () => navigate("welcome"),
         },
@@ -150,17 +154,16 @@ export function PasswordOnboarding() {
           <Container>
             <View>
               <Header
-                title="Cadastro"
-                titleHighlight="Senha"
+                title="Register"
+                titleHighlight="Password"
                 onGoBack={() => handleExitOnboarding()}
               />
 
               <Animated.View entering={FadeIn.delay(300).duration(600)}>
-                <Title>Senha</Title>
-
-                <Subtitle>
-                  Escolha uma senha segura para proteger sua conta.
-                </Subtitle>
+                <TitleAndSubtitle
+                  title="Password"
+                  subtitle="Choose a secure password to protect your account."
+                />
               </Animated.View>
 
               <Animated.View entering={FadeIn.delay(600).duration(600)}>
@@ -170,13 +173,13 @@ export function PasswordOnboarding() {
                   render={({ field: { onChange, value } }) => (
                     <Input
                       value={value}
-                      label="Senha"
+                      label="Password"
                       secureTextEntry
                       autoComplete="off"
                       autoCorrect={false}
                       autoCapitalize="none"
                       onChangeText={onChange}
-                      placeholder="Digite a sua senha"
+                      placeholder="Enter your password"
                       errorMessage={errors.password?.message}
                     />
                   )}
@@ -188,15 +191,17 @@ export function PasswordOnboarding() {
                   render={({ field: { onChange, value } }) => (
                     <Input
                       value={value}
-                      label="Confirmação da senha"
+                      label="Password confirmation"
                       secureTextEntry
                       autoComplete="off"
                       autoCorrect={false}
                       autoCapitalize="none"
                       onChangeText={onChange}
-                      placeholder="Digite a confirmação da senha"
+                      placeholder="Enter the password confirmation"
                       errorMessage={errors.password_confirm?.message}
-                      onSubmitEditing={handleSubmit(handleGoToProfilePictureScreen)}
+                      onSubmitEditing={handleSubmit(
+                        handleGoToProfilePictureScreen
+                      )}
                     />
                   )}
                 />
@@ -204,16 +209,15 @@ export function PasswordOnboarding() {
             </View>
 
             <View>
-              <Animated.View
-                style={{ height: 46, width: "100%" }}
+              <AnimatedButtonContainer
                 entering={FadeIn.delay(900).duration(600)}
               >
                 <Button
-                  title="Continuar"
+                  title="Continue"
                   isLoading={isLoading}
                   onPress={handleSubmit(handleGoToProfilePictureScreen)}
                 />
-              </Animated.View>
+              </AnimatedButtonContainer>
             </View>
           </Container>
         </ScrollView>

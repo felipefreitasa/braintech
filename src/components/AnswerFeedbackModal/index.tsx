@@ -35,14 +35,14 @@ export function AnswerFeedbackModal({ sharedValue, isAnswerCorrect, correctAnswe
         />
 
         <AnswerStatus isAnswerCorrect={isAnswerCorrect}>
-          {isAnswerCorrect ? 'Correto!' : 'Incorreto'}
+          {isAnswerCorrect ? 'Correct!' : 'Incorrect!'}
         </AnswerStatus>
       </AnswerStatusContainer>
 
       {!isAnswerCorrect && (
         <>
           <AnswerCorrectionTitle>
-            Resposta correta:
+            Correct answer:
           </AnswerCorrectionTitle>
 
           <CorrectAnswer>
@@ -52,7 +52,7 @@ export function AnswerFeedbackModal({ sharedValue, isAnswerCorrect, correctAnswe
       )}
 
       <Button
-        title={isLastQuestion ? 'Finalizar quiz' : 'Próxima questão'}
+        title={isLastQuestion ? 'End quiz' : 'Next question'}
         onPress={goToNextQuestion}
         style={{ marginTop: 24 }}
       />

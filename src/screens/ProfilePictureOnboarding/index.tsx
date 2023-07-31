@@ -5,13 +5,15 @@ import { useTheme } from "styled-components/native";
 import { Alert, BackHandler, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
-import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-import { FIREBASE_AUTH } from "../../../firebaseConfig";
+import { FIREBASE_AUTH } from "@firebaseApp/config";
 
 import { useAuth } from "@hooks/useAuth";
 
 import { authCreate } from "@storage/auth/authCreate";
+
+import { updateUserProfilePicture } from "@firebaseApp/methods";
 
 import { handleFirebaseSignInErrors } from "@utils/handleFirebaseSignInErrors";
 
@@ -20,19 +22,21 @@ import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
 import { Toast } from "@components/Toast";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
+import { Skeleton } from "@components/Skeleton";
 import { UserPhoto } from "@components/UserPhoto";
 import { ModeProps } from "@components/Toast/styles";
+import { TitleAndSubtitle } from "@components/TitleAndSubtitle";
 
 import {
-  Title,
-  Subtitle,
   Container,
   ProfileIconContainer,
   SignInButtonContainer,
   ChoosePictureButtonContainer,
 } from "./styles";
 
-const AnimatedSignInButtonContainer = Animated.createAnimatedComponent(SignInButtonContainer)
+const AnimatedSignInButtonContainer = Animated.createAnimatedComponent(
+  SignInButtonContainer
+);
 
 export function ProfilePictureOnboarding() {
   const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
@@ -53,15 +57,15 @@ export function ProfilePictureOnboarding() {
 
   function handleExitOnboarding() {
     Alert.alert(
-      "Tem certeza que deseja sair do cadastro?",
-      "Se você sair, perderá o progresso realizado.",
+      "Are you sure you want to unsubscribe?",
+      "If you leave, you will lose the progress made.",
       [
         {
-          text: "Não",
+          text: "No",
           style: "cancel",
         },
         {
-          text: "Sim",
+          text: "Yes",
           style: "destructive",
           onPress: () => navigate("welcome"),
         },
@@ -101,18 +105,10 @@ export function ProfilePictureOnboarding() {
       }
     } catch (error) {
       setIsToastVisible(true);
-      setToastMessage("Houve um erro para carregar a sua foto");
+      setToastMessage("There was an error uploading your profile picture");
       setToastMode("error");
     } finally {
       setIsPictureLoading(false);
-    }
-  }
-
-  async function updateUserProfilePicture(photoUri: string) {
-    if (auth.currentUser) {
-      await updateProfile(auth.currentUser, {
-        photoURL: photoUri,
-      });
     }
   }
 
@@ -151,41 +147,49 @@ export function ProfilePictureOnboarding() {
       <Container>
         <View>
           <Header
-            title="Cadastro"
-            titleHighlight="Foto"
+            title="Register"
+            titleHighlight="Picture"
             onGoBack={() => handleExitOnboarding()}
           />
 
           <Animated.View entering={FadeIn.delay(300).duration(600)}>
-            <Title>Foto de perfil</Title>
-
-            <Subtitle>
-              Personalize o seu perfil! Faça o upload de uma foto que represente
-              você.
-            </Subtitle>
+            <TitleAndSubtitle
+              title="Profile picture"
+              subtitle="Customize your profile! Upload a photo that represents you."
+            />
           </Animated.View>
         </View>
 
         <Animated.View entering={FadeIn.delay(600).duration(600)}>
           <View style={{ alignItems: "center" }}>
-            {userPhoto ? (
-              <View>
-                <UserPhoto source={{ uri: userPhoto }} size={180} />
-
-                <ChoosePictureButtonContainer onPress={handleUserPhotoSelect}>
-                  <Feather name="edit-2" size={20} color={COLORS.WHITE} />
-                </ChoosePictureButtonContainer>
-              </View>
+            {isPictureLoading ? (
+              <Skeleton width={180} height={180} borderRadius={180} />
             ) : (
-              <View>
-                <ProfileIconContainer>
-                  <Feather name="user" size={110} color={COLORS.PRIMARY} />
-                </ProfileIconContainer>
+              <>
+                {userPhoto ? (
+                  <View>
+                    <UserPhoto source={{ uri: userPhoto }} size={180} />
 
-                <ChoosePictureButtonContainer onPress={handleUserPhotoSelect}>
-                  <Feather name="edit-2" size={20} color={COLORS.WHITE} />
-                </ChoosePictureButtonContainer>
-              </View>
+                    <ChoosePictureButtonContainer
+                      onPress={handleUserPhotoSelect}
+                    >
+                      <Feather name="edit-2" size={20} color={COLORS.WHITE} />
+                    </ChoosePictureButtonContainer>
+                  </View>
+                ) : (
+                  <View>
+                    <ProfileIconContainer>
+                      <Feather name="user" size={110} color={COLORS.PRIMARY} />
+                    </ProfileIconContainer>
+
+                    <ChoosePictureButtonContainer
+                      onPress={handleUserPhotoSelect}
+                    >
+                      <Feather name="edit-2" size={20} color={COLORS.WHITE} />
+                    </ChoosePictureButtonContainer>
+                  </View>
+                )}
+              </>
             )}
           </View>
         </Animated.View>
@@ -196,7 +200,7 @@ export function ProfilePictureOnboarding() {
           >
             <Button
               onPress={handleSignIn}
-              title="Finalizar cadastro"
+              title="Finalize registration"
               disabled={isPictureLoading}
               isLoading={isSignInLoading}
             />

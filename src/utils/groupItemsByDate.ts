@@ -1,10 +1,10 @@
 import _ from "lodash"
 import moment from "moment"
 
-import { HistoryItemProps } from "../../firebaseConfig"
+import { HistoryItemProps } from "@firebaseApp/methods"
 
 export function groupItemsByDate(items: HistoryItemProps[] | undefined): { title: string, data: HistoryItemProps[] }[] {
-  const groupedItems = _.groupBy(items, (item: HistoryItemProps) => moment(new Date(item.createdAt)).format('DD.MM.YYYY'))
+  const groupedItems = _.groupBy(items, (item: HistoryItemProps) => moment(new Date(item.createdAt)).format('MM.DD.YYYY'))
 
   const result: { title: string, data: HistoryItemProps[] }[] = []
 
@@ -17,7 +17,7 @@ export function groupItemsByDate(items: HistoryItemProps[] | undefined): { title
     }
   }
 
-  result.sort((a, b) => moment(b.title, 'DD.MM.YYYY').valueOf() - moment(a.title, 'DD.MM.YYYY').valueOf())
+  result.sort((a, b) => moment(b.title, 'MM.DD.YYYY').valueOf() - moment(a.title, 'MM.DD.YYYY').valueOf())
 
   return result
 }

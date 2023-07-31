@@ -3,14 +3,14 @@ import { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
-import { getHistory, HistoryItemProps } from "../../../firebaseConfig";
+import { getHistory, HistoryItemProps } from "@firebaseApp/methods";
 
 import { useAuth } from "@hooks/useAuth";
 
 import { groupItemsByDate } from "@utils/groupItemsByDate";
 
 import { Toast } from "@components/Toast";
-import { Loading } from "@components/Loading";
+import { HistoryLoading } from "./HistoryLoading";
 import { HistoryItem } from "@components/HistoryItem";
 import { ModeProps } from "@components/Toast/styles";
 import { ListFeedbackStatus } from "@components/ListFeedbackStatus";
@@ -33,20 +33,19 @@ export function History() {
   const [isToastVisible, setIsToastVisible] = useState(false);
   const [historyData, setHistoryData] = useState<HistoryItemProps[]>();
 
-  const { loggedUser } = useAuth()
+  const { loggedUser } = useAuth();
 
   async function fetchHistory() {
     try {
       setIsLoading(true);
 
-      if(loggedUser){
+      if (loggedUser) {
         const data = await getHistory(loggedUser?.user.uid);
         setHistoryData(data);
       }
-
     } catch (error) {
       setIsToastVisible(true);
-      setToastMessage("Não foi possível carregar o seu histórico");
+      setToastMessage("Unable to load your history");
       setToastMode("error");
     } finally {
       setIsLoading(false);
@@ -74,17 +73,17 @@ export function History() {
     <>
       <Container>
         <Animated.View entering={FadeIn}>
-          <Title>Histórico de exercícios</Title>
+          <Title>Exercise history</Title>
 
           <Subtitle>
-            Reveja seus exercícios anteriores e acompanhe seu desempenho no app
+            Review your past quizzes and track your performance in the app
           </Subtitle>
         </Animated.View>
 
         {isLoading ? (
-          <Loading />
+          <HistoryLoading />
         ) : (
-          <Animated.View entering={FadeIn.duration(600).delay(250)}>
+          <Animated.View entering={FadeIn}>
             <SectionList
               sections={groupItemsByDate(historyData)}
               keyExtractor={(item) => String(item.id)}
@@ -106,8 +105,8 @@ export function History() {
               ListEmptyComponent={() => (
                 <ListFeedbackStatus
                   mode="default"
-                  title="Nenhum exercício realizado"
-                  subtitle="Escolha uma tecnologia e começe a se aprofundar agora mesmo!"
+                  title="No quiz answered"
+                  subtitle="Choose a technology and start digging right now!"
                 />
               )}
               showsVerticalScrollIndicator={false}

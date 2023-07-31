@@ -2,12 +2,12 @@ export function getSalutation(): string {
   const currentHour = new Date().getHours();
 
   if (currentHour >= 5 && currentHour < 12) {
-    return "Bom dia!"
+    return "Good morning!"
   }
 
   if (currentHour >= 12 && currentHour < 18) {
-    return "Boa tarde!"
+    return "Good afternoon!"
   }
 
-  return "Boa noite!"
+  return "Good evening!"
 }
