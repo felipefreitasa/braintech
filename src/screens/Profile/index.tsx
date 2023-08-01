@@ -101,6 +101,7 @@ export function Profile() {
       {
         text: "Yes",
         onPress: logOut,
+        style: 'destructive'
       },
       {
         text: "No",
