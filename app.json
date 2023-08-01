@@ -4,13 +4,7 @@
     "slug": "braintech",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#111720"
-    },
+    "userInterfaceStyle": "dark",
     "assetBundlePatterns": [
       "**/*"
     ],
