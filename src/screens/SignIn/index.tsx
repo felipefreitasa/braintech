@@ -69,6 +69,7 @@ export function SignIn() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastMode, setToastMode] = useState<ModeProps>();
   const [isToastVisible, setIsToastVisible] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const auth = FIREBASE_AUTH;
 
@@ -142,16 +143,19 @@ export function SignIn() {
                   name="password"
                   render={({ field: { onChange, value } }) => (
                     <Input
+                      isPassword
                       value={value}
                       label="Password"
-                      secureTextEntry
                       autoComplete="off"
                       autoCorrect={false}
                       autoCapitalize="none"
                       onChangeText={onChange}
                       placeholder="Enter your password"
+                      secureTextEntry={!isPasswordVisible}
+                      isPasswordVisible={isPasswordVisible}
                       errorMessage={errors.password?.message}
                       onSubmitEditing={handleSubmit(handleSignIn)}
+                      handlePasswordVisibility={() => setIsPasswordVisible(isPasswordVisible ? false : true)}
                     />
                   )}
                 />
