@@ -4,13 +4,20 @@
     "slug": "braintech",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "dark",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#111720"
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.felipefreitasdeveloper.braintech"
+      "bundleIdentifier": "com.felipefreitasdeveloper.braintech",
+      "buildNumber": "11"
     },
     "android": {
       "adaptiveIcon": {
@@ -32,6 +39,11 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "extra":{
+      "eas": {
+        "projectId": "93e1e07b-2d1b-4c65-9c33-6873b9042655"
+      }
+    }
   }
 }
