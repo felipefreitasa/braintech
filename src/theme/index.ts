@@ -3,6 +3,7 @@ export default {
     PRIMARY: '#0085FF',
     PRIMARY_5:'#0085FF0D',
     PRIMARY_10: '#0085FF1A',
+    PRIMARY_10_SOLID: '#0F2236',
     PRIMARY_30: '#0085FF4D',
     PRIMARY_ACTIVE: '#0055A4',
 
