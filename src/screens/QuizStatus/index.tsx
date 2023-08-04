@@ -107,14 +107,14 @@ export function QuizStatus() {
 
           <StatisticCard
             icon="clock"
-            title="Duração"
+            title="Duration"
             subtitle={calculateTimeInterval(quizStartTime, quizEndTime)}
           />
 
           <StatisticCard
             icon="help-circle"
             title="Correct answers"
-            subtitle={`${correctAnswers} de ${selectedQuiz.questions.length}`}
+            subtitle={`${correctAnswers} out of ${selectedQuiz.questions.length}`}
           />
 
           <StatisticCard
