@@ -28,6 +28,7 @@ import { findMostPresentTechnology } from "@utils/findMostPresentTechnology";
 import { Toast } from "@components/Toast";
 import { Skeleton } from "@components/Skeleton";
 import { UserPhoto } from "@components/UserPhoto";
+import { AppVersion } from "@components/AppVersion";
 import { IconButton } from "@components/IconButton";
 import { ModeProps } from "@components/Toast/styles";
 import { StatisticCard } from "@components/StatisticCard";
@@ -78,7 +79,7 @@ export function Profile() {
         );
         setMostPresenstTechnology(findMostPresentTechnology(data));
 
-        if (data){
+        if (data) {
           const allTimeSpentArray = data.map((item) => item.timeSpent);
           setTimeSpent(sumStringTimes(allTimeSpentArray as string[]));
         }
@@ -101,7 +102,7 @@ export function Profile() {
       {
         text: "Yes",
         onPress: logOut,
-        style: 'destructive'
+        style: "destructive",
       },
       {
         text: "No",
@@ -181,88 +182,98 @@ export function Profile() {
   return (
     <>
       <Container>
-        <AnimatedHeaderContainer entering={FadeIn}>
-          <LeftContainer>
-            {isPictureLoading ? (
-              <Skeleton width={60} height={60} borderRadius={60} />
-            ) : (
-              <>
-                {loggedUser?.user.photoURL ? (
-                  <View>
-                    <UserPhoto
-                      size={60}
-                      source={{ uri: loggedUser?.user.photoURL }}
-                    />
+        <View>
+          <AnimatedHeaderContainer entering={FadeIn}>
+            <LeftContainer>
+              {isPictureLoading ? (
+                <Skeleton width={60} height={60} borderRadius={60} />
+              ) : (
+                <>
+                  {loggedUser?.user.photoURL ? (
+                    <View>
+                      <UserPhoto
+                        size={60}
+                        source={{ uri: loggedUser?.user.photoURL }}
+                      />
 
-                    <ChoosePictureButtonContainer
-                      onPress={handleUserPhotoSelect}
-                    >
-                      <Feather name="edit-2" size={12} color={COLORS.WHITE} />
-                    </ChoosePictureButtonContainer>
-                  </View>
-                ) : (
-                  <View>
-                    <ProfileIconContainer>
-                      <Feather name="user" size={40} color={COLORS.PRIMARY} />
-                    </ProfileIconContainer>
+                      <ChoosePictureButtonContainer
+                        onPress={handleUserPhotoSelect}
+                      >
+                        <Feather name="edit-2" size={12} color={COLORS.WHITE} />
+                      </ChoosePictureButtonContainer>
+                    </View>
+                  ) : (
+                    <View>
+                      <ProfileIconContainer>
+                        <Feather name="user" size={40} color={COLORS.PRIMARY} />
+                      </ProfileIconContainer>
 
-                    <ChoosePictureButtonContainer
-                      onPress={handleUserPhotoSelect}
-                    >
-                      <Feather name="edit-2" size={12} color={COLORS.WHITE} />
-                    </ChoosePictureButtonContainer>
-                  </View>
-                )}
-              </>
-            )}
-            <UserInformationsContainer>
-              <UserName numberOfLines={1}>
-                {loggedUser?.user.displayName}
-              </UserName>
+                      <ChoosePictureButtonContainer
+                        onPress={handleUserPhotoSelect}
+                      >
+                        <Feather name="edit-2" size={12} color={COLORS.WHITE} />
+                      </ChoosePictureButtonContainer>
+                    </View>
+                  )}
+                </>
+              )}
+              <UserInformationsContainer>
+                <UserName numberOfLines={1}>
+                  {loggedUser?.user.displayName}
+                </UserName>
 
-              <UserEmail numberOfLines={1}>{loggedUser?.user.email}</UserEmail>
-            </UserInformationsContainer>
-          </LeftContainer>
+                <UserEmail numberOfLines={1}>
+                  {loggedUser?.user.email}
+                </UserEmail>
+              </UserInformationsContainer>
+            </LeftContainer>
 
-          <IconButton
-            mode="error"
-            iconSize={24}
-            icon="log-out"
-            onPress={handleLogout}
-          />
-        </AnimatedHeaderContainer>
+            <IconButton
+              mode="error"
+              iconSize={24}
+              icon="log-out"
+              onPress={handleLogout}
+            />
+          </AnimatedHeaderContainer>
 
-        <AnimatedStatisticsContainer entering={FadeIn.duration(600).delay(250)}>
-          <StatisticsTitle>Stats</StatisticsTitle>
+          <AnimatedStatisticsContainer
+            entering={FadeIn.duration(600).delay(250)}
+          >
+            <StatisticsTitle>Stats</StatisticsTitle>
 
-          <StatisticCard
-            icon="terminal"
-            isLoading={isHistoryLoading}
-            title="Favorite category"
-            subtitle={capitalizeCategoryLabel(mostPresentCategory) || "-"}
-          />
+            <StatisticCard
+              icon="terminal"
+              isLoading={isHistoryLoading}
+              title="Favorite category"
+              subtitle={capitalizeCategoryLabel(mostPresentCategory) || "-"}
+            />
 
-          <StatisticCard
-            icon="code"
-            isLoading={isHistoryLoading}
-            title="Favorite technology"
-            subtitle={mostPresenstTechnology || "-"}
-          />
+            <StatisticCard
+              icon="code"
+              isLoading={isHistoryLoading}
+              title="Favorite technology"
+              subtitle={mostPresenstTechnology || "-"}
+            />
 
-          <StatisticCard
-            icon="git-branch"
-            isLoading={isHistoryLoading}
-            title="Answered exercises"
-            subtitle={historyData?.length}
-          />
+            <StatisticCard
+              icon="git-branch"
+              isLoading={isHistoryLoading}
+              title="Answered exercises"
+              subtitle={historyData?.length}
+            />
 
-          <StatisticCard
-            icon="clock"
-            title="Time played"
-            isLoading={isHistoryLoading}
-            subtitle={timeSpent}
-          />
-        </AnimatedStatisticsContainer>
+            <StatisticCard
+              icon="clock"
+              title="Time played"
+              isLoading={isHistoryLoading}
+              subtitle={timeSpent}
+            />
+          </AnimatedStatisticsContainer>
+        </View>
+
+        <Animated.View entering={FadeIn.duration(600).delay(500)}>
+          <AppVersion />
+        </Animated.View>
       </Container>
 
       <Toast
