@@ -104,6 +104,7 @@ export function History() {
               )}
               ListEmptyComponent={() => (
                 <ListFeedbackStatus
+                  icon="coffee"
                   mode="default"
                   title="No quiz answered"
                   subtitle="Choose a technology and start digging right now!"

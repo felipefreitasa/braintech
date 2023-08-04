@@ -1,5 +1,7 @@
 import "react-native-gesture-handler";
 import { StatusBar } from "react-native";
+import { useEffect, useState } from "react";
+import NetInfo from "@react-native-community/netinfo";
 import { ThemeProvider } from "styled-components/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
@@ -19,6 +21,8 @@ import theme from "./src/theme";
 
 import { Routes } from "./src/routes";
 
+import { NoInternetConnection } from "@screens/NoInternetConnection";
+
 import { Loading } from "@components/Loading";
 
 export default function App() {
@@ -31,6 +35,18 @@ export default function App() {
 
   const { isFetchingLoggedUser } = useAuth();
 
+  const [isConnected, setIsConnected] = useState<boolean | null>(false);
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(state.isConnected);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthContextProvider>
@@ -42,7 +58,15 @@ export default function App() {
               backgroundColor="transparent"
             />
 
-            {fontsLoaded && !isFetchingLoggedUser ? <Routes /> : <Loading />}
+            {fontsLoaded && !isFetchingLoggedUser ? (
+              isConnected ? (
+                <Routes />
+              ) : (
+                <NoInternetConnection />
+              )
+            ) : (
+              <Loading />
+            )}
           </ThemeProvider>
         </QuizContextProvider>
       </AuthContextProvider>
