@@ -66,6 +66,9 @@ export function PasswordOnboarding() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastMode, setToastMode] = useState<ModeProps>();
   const [isToastVisible, setIsToastVisible] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isPasswordConfirmationVisible, setIsPasswordConfirmationVisible] =
+    useState(false);
 
   const {
     control,
@@ -172,13 +175,18 @@ export function PasswordOnboarding() {
                   name="password"
                   render={({ field: { onChange, value } }) => (
                     <Input
+                      isPassword
                       value={value}
                       label="Password"
-                      secureTextEntry
                       autoComplete="off"
                       autoCorrect={false}
                       autoCapitalize="none"
                       onChangeText={onChange}
+                      handlePasswordVisibility={() =>
+                        setIsPasswordVisible(isPasswordVisible ? false : true)
+                      }
+                      isPasswordVisible={isPasswordVisible}
+                      secureTextEntry={!isPasswordVisible}
                       placeholder="Enter your password"
                       errorMessage={errors.password?.message}
                     />
@@ -190,14 +198,22 @@ export function PasswordOnboarding() {
                   name="password_confirm"
                   render={({ field: { onChange, value } }) => (
                     <Input
+                      isPassword
                       value={value}
-                      label="Password confirmation"
-                      secureTextEntry
                       autoComplete="off"
                       autoCorrect={false}
                       autoCapitalize="none"
                       onChangeText={onChange}
+                      label="Password confirmation"
                       placeholder="Enter the password confirmation"
+                      secureTextEntry={!isPasswordConfirmationVisible}
+
+                      handlePasswordVisibility={() =>
+                        setIsPasswordConfirmationVisible(
+                          isPasswordConfirmationVisible ? false : true
+                        )
+                      }
+                      isPasswordVisible={isPasswordConfirmationVisible}
                       errorMessage={errors.password_confirm?.message}
                       onSubmitEditing={handleSubmit(
                         handleGoToProfilePictureScreen

@@ -7,9 +7,10 @@ type Props = {
   title: string;
   subtitle: string;
   mode: ModeTypeProps;
+  icon: keyof typeof Feather.glyphMap;
 }
 
-export function ListFeedbackStatus({ title, subtitle, mode = 'default' }: Props) {
+export function ListFeedbackStatus({ icon, title, subtitle, mode = 'default' }: Props) {
 
   const { COLORS } = useTheme()
 
@@ -18,7 +19,7 @@ export function ListFeedbackStatus({ title, subtitle, mode = 'default' }: Props)
       <IconContainer mode={mode}>
         <Feather
           size={40}
-          name={mode === 'default' ? 'coffee' : 'frown'}
+          name={icon}
           color={mode === 'default' ? COLORS.PRIMARY : COLORS.ERROR}
         />
       </IconContainer>
