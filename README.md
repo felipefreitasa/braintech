@@ -17,7 +17,7 @@ Let's code!
 
 
 ## 📲 Download the app
-<a href="/">
+<a href="https://play.google.com/store/apps/details?id=com.felipefreitasdeveloper.braintech">
   <img src="https://github.com/felipefreitasa/braintech/assets/77179768/4d41ef69-9d7c-4b7e-b15b-2f02afa1c36d" alt="Get it on Google Play">
 </a>
 
