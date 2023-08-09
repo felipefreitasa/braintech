@@ -74,7 +74,9 @@ export const ProfileIconContainer = styled.View`
   `}
 `;
 
-export const ChoosePictureButtonContainer = styled.Pressable`
+export const ChoosePictureButtonContainer = styled.Pressable.attrs(() => ({
+  hitSlop: { top: 40, left: 40, right: 40, bottom: 40 }
+}))`
   right: 0px;
   width: 24px;
   bottom: 0px;
