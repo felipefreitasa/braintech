@@ -4,8 +4,8 @@ import styled, { css } from "styled-components/native"
 export const Container = styled.View`
   flex: 1;
   padding: 20px;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: flex-start;
+  justify-content: space-between;
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
 `
 
@@ -74,7 +74,9 @@ export const ProfileIconContainer = styled.View`
   `}
 `;
 
-export const ChoosePictureButtonContainer = styled.Pressable`
+export const ChoosePictureButtonContainer = styled.Pressable.attrs(() => ({
+  hitSlop: { top: 40, left: 40, right: 40, bottom: 40 }
+}))`
   right: 0px;
   width: 24px;
   bottom: 0px;
