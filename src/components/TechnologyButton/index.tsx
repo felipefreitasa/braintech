@@ -34,7 +34,7 @@ export function TechnologyButton({ title, questionsQuantity, category, icon, ...
           </Title>
 
           <QuestionsQuantity>
-            {`${questionsQuantity} questões`}
+            {`${questionsQuantity} questions`}
           </QuestionsQuantity>
         </View>
       </ContentContainer>
