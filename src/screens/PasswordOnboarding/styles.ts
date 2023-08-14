@@ -14,3 +14,8 @@ export const ButtonContainer = styled.View`
   width: 100%;
   height: 46px;
 `;
+
+export const InputsContainer = styled.View`
+  flex: 1;
+  justify-content: space-between;
+`

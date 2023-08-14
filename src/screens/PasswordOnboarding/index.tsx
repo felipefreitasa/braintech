@@ -30,10 +30,13 @@ import { Button } from "@components/Button";
 import { ModeProps } from "@components/Toast/styles";
 import { TitleAndSubtitle } from "@components/TitleAndSubtitle";
 
-import { ButtonContainer, Container } from "./styles";
+import { ButtonContainer, Container, InputsContainer } from "./styles";
 
 const AnimatedButtonContainer =
   Animated.createAnimatedComponent(ButtonContainer);
+
+const AnimatedInputsContainer =
+  Animated.createAnimatedComponent(InputsContainer);
 
 type FormDataProps = {
   password: string;
@@ -60,7 +63,12 @@ const passwordOnboardingSchema = yup.object({
 export function PasswordOnboarding() {
   const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
 
-  const { setOnboardingPassword, onboardingName, onboardingEmail, setLoggedUser } = useAuth();
+  const {
+    setOnboardingPassword,
+    onboardingName,
+    onboardingEmail,
+    setLoggedUser,
+  } = useAuth();
 
   const auth = FIREBASE_AUTH;
 
@@ -94,13 +102,16 @@ export function PasswordOnboarding() {
     try {
       setIsLoading(true);
 
-      const authData = await createUserWithEmailAndPassword(auth, email, password);
+      const authData = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       await updateUserName(name);
 
       await authCreate(authData);
 
       setLoggedUser(authData);
-
     } catch (error: any) {
       setIsToastVisible(true);
       setToastMessage(handleFirebaseSignUpErrors(error.code));
@@ -174,7 +185,9 @@ export function PasswordOnboarding() {
                 />
               </Animated.View>
 
-              <Animated.View entering={FadeIn.delay(600).duration(600)}>
+              <AnimatedInputsContainer
+                entering={FadeIn.delay(600).duration(600)}
+              >
                 <Controller
                   control={control}
                   name="password"
@@ -212,7 +225,6 @@ export function PasswordOnboarding() {
                       label="Password confirmation"
                       placeholder="Enter the password confirmation"
                       secureTextEntry={!isPasswordConfirmationVisible}
-
                       handlePasswordVisibility={() =>
                         setIsPasswordConfirmationVisible(
                           isPasswordConfirmationVisible ? false : true
@@ -226,7 +238,7 @@ export function PasswordOnboarding() {
                     />
                   )}
                 />
-              </Animated.View>
+              </AnimatedInputsContainer>
             </View>
 
             <View>
