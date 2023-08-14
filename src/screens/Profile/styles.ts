@@ -26,7 +26,6 @@ export const LeftContainer = styled.View`
 
 export const UserInformationsContainer = styled.View`
   flex: 1;
-  margin-left: 8px;
 `
 
 export const UserName = styled.Text`
@@ -61,30 +60,3 @@ export const StatisticsContainer = styled.View`
   width: 100%;
   margin-bottom: 24px;
 `
-  
-export const ProfileIconContainer = styled.View`
-  width: 60px;
-  height: 60px;
-  align-items: center;
-  border-radius: 60px;
-  justify-content: center;
-
-  ${({ theme }) => css`
-    background-color: ${theme.COLORS.PRIMARY_5};
-  `}
-`;
-
-export const ChoosePictureButtonContainer = styled.Pressable.attrs(() => ({
-  hitSlop: { top: 40, left: 40, right: 40, bottom: 40 }
-}))`
-  right: 0px;
-  width: 24px;
-  bottom: 0px;
-  height: 24px;
-  position: absolute;
-  align-items: center;
-  border-radius: 32px;
-  flex-direction: row;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.COLORS.PRIMARY};
-`;

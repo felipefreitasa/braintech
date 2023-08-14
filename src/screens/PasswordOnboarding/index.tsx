@@ -19,6 +19,8 @@ import { FIREBASE_AUTH } from "../../firebaseApp/config";
 
 import { useAuth } from "@hooks/useAuth";
 
+import { authCreate } from "@storage/auth/authCreate";
+
 import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
 
 import { Input } from "@components/Input";
@@ -58,7 +60,7 @@ const passwordOnboardingSchema = yup.object({
 export function PasswordOnboarding() {
   const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
 
-  const { setOnboardingPassword, onboardingName, onboardingEmail } = useAuth();
+  const { setOnboardingPassword, onboardingName, onboardingEmail, setLoggedUser } = useAuth();
 
   const auth = FIREBASE_AUTH;
 
@@ -92,10 +94,13 @@ export function PasswordOnboarding() {
     try {
       setIsLoading(true);
 
-      await createUserWithEmailAndPassword(auth, email, password);
+      const authData = await createUserWithEmailAndPassword(auth, email, password);
       await updateUserName(name);
 
-      navigate("profilePictureOnboarding");
+      await authCreate(authData);
+
+      setLoggedUser(authData);
+
     } catch (error: any) {
       setIsToastVisible(true);
       setToastMessage(handleFirebaseSignUpErrors(error.code));

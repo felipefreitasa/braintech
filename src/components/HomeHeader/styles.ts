@@ -14,10 +14,6 @@ export const LeftContainer = styled.View`
   justify-content: space-between;
 `;
 
-export const TextContent = styled.View`
-  margin-left: 8px;
-`;
-
 export const Salution = styled.Text`
   font-size: 14px;
 
@@ -33,17 +29,5 @@ export const UserName = styled.Text`
   ${({ theme }) => css`
     color: ${theme.COLORS.WHITE};
     font-family: ${theme.FONTS.BOLD};
-  `}
-`;
-
-export const ProfileIconContainer = styled.View`
-  width: 40px;
-  height: 40px;
-  align-items: center;
-  border-radius: 40px;
-  justify-content: center;
-
-  ${({ theme }) => css`
-    background-color: ${theme.COLORS.PRIMARY_5};
   `}
 `;
