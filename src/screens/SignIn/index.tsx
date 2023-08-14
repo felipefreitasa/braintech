@@ -31,13 +31,17 @@ import { TitleAndSubtitle } from "@components/TitleAndSubtitle";
 
 import {
   Container,
+  ButtonContainer,
+  InputsContainer,
   SignInButtonLabel,
   SignInButtonLabelHighlight,
-  ButtonContainer,
 } from "./styles";
 
 const AnimatedButtonContainer =
   Animated.createAnimatedComponent(ButtonContainer);
+
+const AnimatedInputsContainer =
+  Animated.createAnimatedComponent(InputsContainer);
 
 type FormDataProps = {
   email: string;
@@ -119,7 +123,9 @@ export function SignIn() {
                 />
               </Animated.View>
 
-              <Animated.View entering={FadeIn.delay(600).duration(600)}>
+              <AnimatedInputsContainer
+                entering={FadeIn.delay(600).duration(600)}
+              >
                 <Controller
                   control={control}
                   name="email"
@@ -155,11 +161,13 @@ export function SignIn() {
                       isPasswordVisible={isPasswordVisible}
                       errorMessage={errors.password?.message}
                       onSubmitEditing={handleSubmit(handleSignIn)}
-                      handlePasswordVisibility={() => setIsPasswordVisible(isPasswordVisible ? false : true)}
+                      handlePasswordVisibility={() =>
+                        setIsPasswordVisible(isPasswordVisible ? false : true)
+                      }
                     />
                   )}
                 />
-              </Animated.View>
+              </AnimatedInputsContainer>
             </View>
 
             <Animated.View entering={FadeIn.delay(900).duration(600)}>

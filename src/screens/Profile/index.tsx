@@ -1,19 +1,13 @@
 import { Alert, View } from "react-native";
-import { Feather } from "@expo/vector-icons";
 import { useCallback, useState } from "react";
-import { UserCredential } from "firebase/auth";
-import * as ImagePicker from "expo-image-picker";
-import { useTheme } from "styled-components/native";
 import { useFocusEffect } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
 import { authRemove } from "@storage/auth/authRemove";
-import { authCreate } from "@storage/auth/authCreate";
 
 import {
   getHistory,
   HistoryItemProps,
-  updateUserProfilePicture,
 } from "@firebaseApp/methods";
 
 import { useAuth } from "@hooks/useAuth";
@@ -26,8 +20,6 @@ import { capitalizeCategoryLabel } from "@utils/capitalizeCategoryLabel";
 import { findMostPresentTechnology } from "@utils/findMostPresentTechnology";
 
 import { Toast } from "@components/Toast";
-import { Skeleton } from "@components/Skeleton";
-import { UserPhoto } from "@components/UserPhoto";
 import { AppVersion } from "@components/AppVersion";
 import { IconButton } from "@components/IconButton";
 import { ModeProps } from "@components/Toast/styles";
@@ -41,9 +33,7 @@ import {
   StatisticsTitle,
   HeaderContainer,
   StatisticsContainer,
-  ProfileIconContainer,
   UserInformationsContainer,
-  ChoosePictureButtonContainer,
 } from "./styles";
 
 const AnimatedHeaderContainer =
@@ -52,7 +42,6 @@ const AnimatedStatisticsContainer =
   Animated.createAnimatedComponent(StatisticsContainer);
 
 export function Profile() {
-  const { COLORS } = useTheme();
 
   const { loggedUser, setLoggedUser } = useAuth();
 
@@ -61,7 +50,6 @@ export function Profile() {
   const [toastMode, setToastMode] = useState<ModeProps>();
   const [isToastVisible, setIsToastVisible] = useState(false);
   const [isHistoryLoading, setIsHistoryLoading] = useState(false);
-  const [isPictureLoading, setIsPictureLoading] = useState(false);
   const [historyData, setHistoryData] = useState<HistoryItemProps[]>();
   const [mostPresenstTechnology, setMostPresenstTechnology] = useState("");
   const [mostPresentCategory, setMostPresentCategory] =
@@ -115,53 +103,6 @@ export function Profile() {
     setLoggedUser(undefined);
   }
 
-  async function handleUserPhotoSelect() {
-    try {
-      setIsPictureLoading(true);
-
-      const photoSelected = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        quality: 1,
-        aspect: [4, 4],
-        allowsEditing: true,
-      });
-
-      if (photoSelected.canceled) {
-        return;
-      }
-
-      if (photoSelected.assets[0].uri) {
-        const fileExtension = photoSelected.assets[0].uri.split(".").pop();
-
-        const photoFile = {
-          name: `${loggedUser?.user.displayName}.${fileExtension}`.toLocaleLowerCase(),
-          uri: photoSelected.assets[0].uri,
-          type: `${photoSelected.assets[0].type}/${fileExtension}`,
-        } as any;
-
-        await updateUserProfilePicture(photoFile.uri);
-
-        const updatedUserProfile = {
-          ...loggedUser,
-          user: {
-            ...loggedUser?.user,
-            photoURL: photoFile.uri,
-          },
-        };
-
-        setLoggedUser(updatedUserProfile as UserCredential);
-
-        await authCreate(updatedUserProfile as UserCredential);
-      }
-    } catch (error) {
-      setIsToastVisible(true);
-      setToastMessage("There was an error uploading your photo");
-      setToastMode("error");
-    } finally {
-      setIsPictureLoading(false);
-    }
-  }
-
   useFocusEffect(
     useCallback(() => {
       fetchHistory();
@@ -185,38 +126,6 @@ export function Profile() {
         <View>
           <AnimatedHeaderContainer entering={FadeIn}>
             <LeftContainer>
-              {isPictureLoading ? (
-                <Skeleton width={60} height={60} borderRadius={60} />
-              ) : (
-                <>
-                  {loggedUser?.user.photoURL ? (
-                    <View>
-                      <UserPhoto
-                        size={60}
-                        source={{ uri: loggedUser?.user.photoURL }}
-                      />
-
-                      <ChoosePictureButtonContainer
-                        onPress={handleUserPhotoSelect}
-                      >
-                        <Feather name="edit-2" size={12} color={COLORS.WHITE} />
-                      </ChoosePictureButtonContainer>
-                    </View>
-                  ) : (
-                    <View>
-                      <ProfileIconContainer>
-                        <Feather name="user" size={40} color={COLORS.PRIMARY} />
-                      </ProfileIconContainer>
-
-                      <ChoosePictureButtonContainer
-                        onPress={handleUserPhotoSelect}
-                      >
-                        <Feather name="edit-2" size={12} color={COLORS.WHITE} />
-                      </ChoosePictureButtonContainer>
-                    </View>
-                  )}
-                </>
-              )}
               <UserInformationsContainer>
                 <UserName numberOfLines={1}>
                   {loggedUser?.user.displayName}
