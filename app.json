@@ -28,7 +28,7 @@
         "android.permission.RECORD_AUDIO"
       ],
       "package": "com.felipefreitasdeveloper.braintech",
-      "versionCode": 14
+      "versionCode": 17
     },
     "web": {
       "favicon": "./assets/favicon.png"

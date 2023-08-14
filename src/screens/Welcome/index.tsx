@@ -38,7 +38,7 @@ export function Welcome() {
 
             <Subtitle>
               Test your knowledge and master frameworks and programming
-              languages.
+              languages!
             </Subtitle>
           </Animated.View>
 
