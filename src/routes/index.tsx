@@ -4,7 +4,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { AppRoutes } from "./app.routes";
-import { AuthRoutes } from "./auth.routes";
 
 import { authGetAll } from "@storage/auth/authGetAll";
 
@@ -13,7 +12,7 @@ import { useAuth } from "@hooks/useAuth";
 import { Loading } from "@components/Loading";
 
 export function Routes() {
-  const { loggedUser, setLoggedUser, setIsFetchingLoggedUser, isFetchingLoggedUser } = useAuth();
+  const { setLoggedUser, setIsFetchingLoggedUser, isFetchingLoggedUser } = useAuth();
 
   const { COLORS } = useTheme();
 
@@ -38,7 +37,7 @@ export function Routes() {
   return (
     <NavigationContainer>
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.BACKGROUND }}>
-        {loggedUser?.user ? <AppRoutes /> : <AuthRoutes />}
+        <AppRoutes />
       </SafeAreaView>
     </NavigationContainer>
   );

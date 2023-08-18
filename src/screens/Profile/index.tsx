@@ -1,9 +1,11 @@
 import { Alert, View } from "react-native";
 import { useCallback, useState } from "react";
-import { useFocusEffect } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import { authRemove } from "@storage/auth/authRemove";
+
+import { AppNavigatorRoutesProps } from "../../routes/app.routes";
 
 import {
   getHistory,
@@ -42,6 +44,8 @@ const AnimatedStatisticsContainer =
   Animated.createAnimatedComponent(StatisticsContainer);
 
 export function Profile() {
+
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
   const { loggedUser, setLoggedUser } = useAuth();
 
@@ -101,11 +105,14 @@ export function Profile() {
   async function logOut() {
     await authRemove();
     setLoggedUser(undefined);
+    navigate("welcome")
   }
 
   useFocusEffect(
     useCallback(() => {
-      fetchHistory();
+      if(loggedUser?.user){
+        fetchHistory();
+      }
     }, [])
   );
 
@@ -128,11 +135,11 @@ export function Profile() {
             <LeftContainer>
               <UserInformationsContainer>
                 <UserName numberOfLines={1}>
-                  {loggedUser?.user.displayName}
+                  {loggedUser?.user ? loggedUser?.user.displayName : 'Fake Name'}
                 </UserName>
 
                 <UserEmail numberOfLines={1}>
-                  {loggedUser?.user.email}
+                  {loggedUser?.user ? loggedUser?.user.email : 'fakeemail@gmail.com'}
                 </UserEmail>
               </UserInformationsContainer>
             </LeftContainer>

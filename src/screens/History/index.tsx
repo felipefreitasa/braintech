@@ -54,7 +54,9 @@ export function History() {
 
   useFocusEffect(
     useCallback(() => {
-      fetchHistory();
+      if (loggedUser?.user) {
+        fetchHistory()
+      }
     }, [])
   );
 

@@ -26,9 +26,9 @@ export function HomeHeader() {
         <Animated.View entering={FadeIn}>
           <LeftContainer>
             <View>
-              <Salution>{getSalutation()}</Salution>
+              <Salution>{loggedUser?.user ? getSalutation() : 'Hello,'}</Salution>
 
-              <UserName>{loggedUser?.user.displayName}</UserName>
+              <UserName>{loggedUser?.user ? loggedUser?.user.displayName : getSalutation()}</UserName>
             </View>
           </LeftContainer>
         </Animated.View>

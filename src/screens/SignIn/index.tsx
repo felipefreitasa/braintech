@@ -20,7 +20,7 @@ import { handleFirebaseSignInErrors } from "@utils/handleFirebaseSignInErrors";
 
 import { FIREBASE_AUTH } from "../../firebaseApp/config";
 
-import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
+import { AppNavigatorRoutesProps } from "../../routes/app.routes";
 
 import { Input } from "@components/Input";
 import { Toast } from "@components/Toast";
@@ -59,7 +59,7 @@ const signInSchema = yup.object({
 export function SignIn() {
   const { setLoggedUser } = useAuth();
 
-  const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
   const {
     control,
@@ -86,6 +86,8 @@ export function SignIn() {
       await authCreate(authData);
 
       setLoggedUser(authData);
+
+      navigate("homeTabs")
     } catch (error: any) {
       setIsToastVisible(true);
       setToastMessage(handleFirebaseSignInErrors(error.code));
