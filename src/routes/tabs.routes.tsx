@@ -27,6 +27,7 @@ export function HomeTabsRoutes() {
 
   return (
     <Navigator
+      initialRouteName="home"
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,

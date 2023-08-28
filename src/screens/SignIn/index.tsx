@@ -114,7 +114,7 @@ export function SignIn() {
             <View>
               <Header
                 title="BrainTech"
-                titleHighlight="Sing in"
+                titleHighlight="Sign in"
                 onGoBack={() => navigate("welcome")}
               />
 

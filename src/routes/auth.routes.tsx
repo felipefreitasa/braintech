@@ -6,9 +6,12 @@ import { NameOnboarding } from "@screens/NameOnboarding";
 import { EmailOnboarding } from "@screens/EmailOnboarding";
 import { PasswordOnboarding } from "@screens/PasswordOnboarding";
 
+import { HomeTabsRoutes } from "./tabs.routes";
+
 type AuthRoutesTypeProps = {
   signIn: undefined;
   welcome: undefined;
+  homeTabs: undefined;
   nameOnboarding: undefined;
   emailOnboarding: undefined;
   passwordOnboarding: undefined;
@@ -52,6 +55,11 @@ export function AuthRoutes() {
         name="passwordOnboarding"
         component={PasswordOnboarding}
         options={{ gestureEnabled: false}}
+      />
+
+      <Screen
+        name="homeTabs" 
+        component={HomeTabsRoutes}
       />
     </Navigator>
   )

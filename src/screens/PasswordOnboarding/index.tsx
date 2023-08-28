@@ -112,6 +112,8 @@ export function PasswordOnboarding() {
       await authCreate(authData);
 
       setLoggedUser(authData);
+
+      navigate("homeTabs")
     } catch (error: any) {
       setIsToastVisible(true);
       setToastMessage(handleFirebaseSignUpErrors(error.code));
