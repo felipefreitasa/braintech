@@ -1,4 +1,5 @@
-import { FlatList } from "react-native";
+import { useEffect } from "react";
+import { BackHandler, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
@@ -32,6 +33,14 @@ export function Home() {
 
     navigate("categoryQuizMenu");
   }
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => null
+    );
+    return () => backHandler.remove();
+  }, []);
 
   return (
     <Container>

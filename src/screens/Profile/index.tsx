@@ -1,14 +1,13 @@
 import { Alert, View } from "react-native";
 import { useCallback, useState } from "react";
-import { useFocusEffect } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import { authRemove } from "@storage/auth/authRemove";
 
-import {
-  getHistory,
-  HistoryItemProps,
-} from "@firebaseApp/methods";
+import { AppNavigatorRoutesProps } from "../../routes/app.routes";
+
+import { getHistory, HistoryItemProps } from "@firebaseApp/methods";
 
 import { useAuth } from "@hooks/useAuth";
 
@@ -24,6 +23,7 @@ import { AppVersion } from "@components/AppVersion";
 import { IconButton } from "@components/IconButton";
 import { ModeProps } from "@components/Toast/styles";
 import { StatisticCard } from "@components/StatisticCard";
+import { UnlockFullExperience } from "@components/UnlockFullExperience";
 
 import {
   UserName,
@@ -42,6 +42,7 @@ const AnimatedStatisticsContainer =
   Animated.createAnimatedComponent(StatisticsContainer);
 
 export function Profile() {
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
   const { loggedUser, setLoggedUser } = useAuth();
 
@@ -101,12 +102,15 @@ export function Profile() {
   async function logOut() {
     await authRemove();
     setLoggedUser(undefined);
+    navigate("welcome");
   }
 
   useFocusEffect(
     useCallback(() => {
-      fetchHistory();
-    }, [])
+      if (loggedUser?.user) {
+        fetchHistory();
+      }
+    }, [loggedUser?.user])
   );
 
   useFocusEffect(
@@ -122,74 +126,87 @@ export function Profile() {
 
   return (
     <>
-      <Container>
-        <View>
-          <AnimatedHeaderContainer entering={FadeIn}>
-            <LeftContainer>
-              <UserInformationsContainer>
-                <UserName numberOfLines={1}>
-                  {loggedUser?.user.displayName}
-                </UserName>
+      {loggedUser?.user ? (
+        <>
+          <Container>
+            <View>
+              <AnimatedHeaderContainer entering={FadeIn}>
+                <LeftContainer>
+                  <UserInformationsContainer>
+                    <UserName numberOfLines={1}>
+                      {loggedUser?.user
+                        ? loggedUser?.user.displayName
+                        : "Fake Name"}
+                    </UserName>
 
-                <UserEmail numberOfLines={1}>
-                  {loggedUser?.user.email}
-                </UserEmail>
-              </UserInformationsContainer>
-            </LeftContainer>
+                    <UserEmail numberOfLines={1}>
+                      {loggedUser?.user
+                        ? loggedUser?.user.email
+                        : "fakeemail@gmail.com"}
+                    </UserEmail>
+                  </UserInformationsContainer>
+                </LeftContainer>
 
-            <IconButton
-              mode="error"
-              iconSize={24}
-              icon="log-out"
-              onPress={handleLogout}
-            />
-          </AnimatedHeaderContainer>
+                <IconButton
+                  mode="error"
+                  iconSize={24}
+                  icon="log-out"
+                  onPress={handleLogout}
+                />
+              </AnimatedHeaderContainer>
 
-          <AnimatedStatisticsContainer
-            entering={FadeIn.duration(600).delay(250)}
-          >
-            <StatisticsTitle>Stats</StatisticsTitle>
+              <AnimatedStatisticsContainer
+                entering={FadeIn.duration(600).delay(250)}
+              >
+                <StatisticsTitle>Stats</StatisticsTitle>
 
-            <StatisticCard
-              icon="terminal"
-              isLoading={isHistoryLoading}
-              title="Favorite category"
-              subtitle={capitalizeCategoryLabel(mostPresentCategory) || "-"}
-            />
+                <StatisticCard
+                  icon="terminal"
+                  isLoading={isHistoryLoading}
+                  title="Favorite category"
+                  subtitle={capitalizeCategoryLabel(mostPresentCategory) || "-"}
+                />
 
-            <StatisticCard
-              icon="code"
-              isLoading={isHistoryLoading}
-              title="Favorite technology"
-              subtitle={mostPresenstTechnology || "-"}
-            />
+                <StatisticCard
+                  icon="code"
+                  isLoading={isHistoryLoading}
+                  title="Favorite technology"
+                  subtitle={mostPresenstTechnology || "-"}
+                />
 
-            <StatisticCard
-              icon="git-branch"
-              isLoading={isHistoryLoading}
-              title="Answered exercises"
-              subtitle={historyData?.length}
-            />
+                <StatisticCard
+                  icon="git-branch"
+                  isLoading={isHistoryLoading}
+                  title="Answered exercises"
+                  subtitle={historyData?.length}
+                />
 
-            <StatisticCard
-              icon="clock"
-              title="Time played"
-              isLoading={isHistoryLoading}
-              subtitle={timeSpent}
-            />
-          </AnimatedStatisticsContainer>
-        </View>
+                <StatisticCard
+                  icon="clock"
+                  title="Time played"
+                  isLoading={isHistoryLoading}
+                  subtitle={timeSpent}
+                />
+              </AnimatedStatisticsContainer>
+            </View>
 
-        <Animated.View entering={FadeIn.duration(600).delay(500)}>
-          <AppVersion />
-        </Animated.View>
-      </Container>
+            <Animated.View entering={FadeIn.duration(600).delay(500)}>
+              <AppVersion />
+            </Animated.View>
+          </Container>
 
-      <Toast
-        mode={toastMode}
-        message={toastMessage}
-        isVisible={isToastVisible}
-      />
+          <Toast
+            mode={toastMode}
+            message={toastMessage}
+            isVisible={isToastVisible}
+          />
+        </>
+      ) : (
+        <UnlockFullExperience
+          style={{ padding: 20, paddingBottom: 40 }}
+          subtitle="Login required for accessing the profile"
+        />
+      )}
     </>
   );
 }

@@ -14,6 +14,7 @@ import { HistoryLoading } from "./HistoryLoading";
 import { HistoryItem } from "@components/HistoryItem";
 import { ModeProps } from "@components/Toast/styles";
 import { ListFeedbackStatus } from "@components/ListFeedbackStatus";
+import { UnlockFullExperience } from "@components/UnlockFullExperience";
 
 import {
   Data,
@@ -39,7 +40,7 @@ export function History() {
     try {
       setIsLoading(true);
 
-      if (loggedUser) {
+      if (loggedUser?.user) {
         const data = await getHistory(loggedUser?.user.uid);
         setHistoryData(data);
       }
@@ -55,7 +56,7 @@ export function History() {
   useFocusEffect(
     useCallback(() => {
       fetchHistory();
-    }, [])
+    }, [loggedUser?.user])
   );
 
   useFocusEffect(
@@ -71,65 +72,74 @@ export function History() {
 
   return (
     <>
-      <Container>
-        <Animated.View entering={FadeIn}>
-          <Title>Exercise history</Title>
+      {loggedUser?.user ? (
+        <>
+          <Container>
+            <Animated.View entering={FadeIn}>
+              <Title>Exercise history</Title>
 
-          <Subtitle>
-            Review your past quizzes and track your performance in the app
-          </Subtitle>
-        </Animated.View>
+              <Subtitle>
+                Review your past quizzes and track your performance in the app
+              </Subtitle>
+            </Animated.View>
 
-        {isLoading ? (
-          <HistoryLoading />
-        ) : (
-          <Animated.View entering={FadeIn}>
-            <SectionList
-              sections={groupItemsByDate(historyData)}
-              keyExtractor={(item) => String(item.id)}
-              renderItem={({ item }) => (
-                <HistoryItem
-                  category={item.category}
-                  technology={item.technology}
-                  subCategory={item.subCategory}
-                  correctAnswers={item.correctAnswers}
-                  totalQuestions={item.totalQuestions}
+            {isLoading ? (
+              <HistoryLoading />
+            ) : (
+              <Animated.View entering={FadeIn}>
+                <SectionList
+                  sections={groupItemsByDate(historyData)}
+                  keyExtractor={(item) => String(item.id)}
+                  renderItem={({ item }) => (
+                    <HistoryItem
+                      category={item.category}
+                      technology={item.technology}
+                      subCategory={item.subCategory}
+                      correctAnswers={item.correctAnswers}
+                      totalQuestions={item.totalQuestions}
+                    />
+                  )}
+                  renderSectionHeader={({ section: { title } }) => (
+                    <SectionHeader>
+                      <SectionHeaderSeparator />
+                      <Data>{title}</Data>
+                    </SectionHeader>
+                  )}
+                  ListEmptyComponent={() => (
+                    <ListFeedbackStatus
+                      icon="coffee"
+                      mode="default"
+                      title="No quiz answered"
+                      subtitle="Choose a technology and start digging right now!"
+                    />
+                  )}
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={[
+                    { paddingBottom: 180 },
+                    groupItemsByDate(historyData).length < 1 && {
+                      width: "100%",
+                      height: "100%",
+                    },
+                  ]}
+                  ItemSeparatorComponent={() => <ItemSeparator />}
+                  SectionSeparatorComponent={() => <SectionSeparator />}
                 />
-              )}
-              renderSectionHeader={({ section: { title } }) => (
-                <SectionHeader>
-                  <SectionHeaderSeparator />
-                  <Data>{title}</Data>
-                </SectionHeader>
-              )}
-              ListEmptyComponent={() => (
-                <ListFeedbackStatus
-                  icon="coffee"
-                  mode="default"
-                  title="No quiz answered"
-                  subtitle="Choose a technology and start digging right now!"
-                />
-              )}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={[
-                { paddingBottom: 180 },
-                groupItemsByDate(historyData).length < 1 && {
-                  width: "100%",
-                  height: "100%",
-                },
-              ]}
-              ItemSeparatorComponent={() => <ItemSeparator />}
-              SectionSeparatorComponent={() => <SectionSeparator />}
-            />
-          </Animated.View>
-        )}
-      </Container>
+              </Animated.View>
+            )}
+          </Container>
 
-      <Toast
-        mode={toastMode}
-        message={toastMessage}
-        isVisible={isToastVisible}
-      />
+          <Toast
+            mode={toastMode}
+            message={toastMessage}
+            isVisible={isToastVisible}
+          />
+        </>
+      ) : (
+        <UnlockFullExperience
+          style={{ padding: 20, paddingBottom: 40 }}
+          subtitle="Login required for accessing the history"
+        />
+      )}
     </>
   );
 }
