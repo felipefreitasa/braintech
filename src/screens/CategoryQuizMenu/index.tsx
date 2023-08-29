@@ -10,11 +10,13 @@ import Animated, {
 import { AppNavigatorRoutesProps } from "../../routes/app.routes";
 
 import { useQuiz } from "@hooks/useQuiz";
+import { useAuth } from "@hooks/useAuth";
 
 import { Modal } from "@components/Modal";
 import { Header } from "@components/Header";
 import { Button } from "@components/Button";
 import { TechnologyButton } from "@components/TechnologyButton";
+import { UnlockFullExperience } from "@components/UnlockFullExperience";
 
 import {
   Container,
@@ -32,6 +34,8 @@ export function CategoryQuizMenu() {
     setQuizStartTime,
     setCorrectAnswers,
   } = useQuiz();
+
+  const { loggedUser } = useAuth();
 
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 

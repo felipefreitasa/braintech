@@ -3,7 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
-import { KeyboardAvoidingView, ScrollView, View } from "react-native";
+import { KeyboardAvoidingView, ScrollView, TouchableOpacity, View } from "react-native";
 
 import { useAuth } from "@hooks/useAuth";
 
@@ -14,7 +14,7 @@ import { Header } from "@components/Header";
 import { Button } from "@components/Button";
 import { TitleAndSubtitle } from "@components/TitleAndSubtitle";
 
-import { ButtonContainer, Container } from "./styles";
+import { ButtonContainer, Container, SignInButtonLabel, SignInButtonLabelHighlight } from "./styles";
 
 const AnimatedButtonContainer =
   Animated.createAnimatedComponent(ButtonContainer);
@@ -105,6 +105,18 @@ export function NameOnboarding() {
                 title="Continue"
                 onPress={handleSubmit(handleGoToEmailScreen)}
               />
+
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigate("signIn")}
+              >
+                <SignInButtonLabel>
+                  Already have account ?{" "}
+                  <SignInButtonLabelHighlight>
+                    Sign in!
+                  </SignInButtonLabelHighlight>
+                </SignInButtonLabel>
+              </TouchableOpacity>
             </AnimatedButtonContainer>
           </View>
         </Container>
