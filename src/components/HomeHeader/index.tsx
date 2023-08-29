@@ -8,12 +8,7 @@ import { useAuth } from "@hooks/useAuth";
 
 import { HomeTabsNavigatorRoutesProps } from "../../routes/tabs.routes";
 
-import {
-  Salution,
-  UserName,
-  Container,
-  LeftContainer,
-} from "./styles";
+import { Salution, UserName, Container, LeftContainer } from "./styles";
 
 export function HomeHeader() {
   const { loggedUser } = useAuth();
@@ -26,9 +21,13 @@ export function HomeHeader() {
         <Animated.View entering={FadeIn}>
           <LeftContainer>
             <View>
-              <Salution>{getSalutation()}</Salution>
+              <Salution>
+                Hello,
+              </Salution>
 
-              <UserName>{loggedUser?.user.displayName}</UserName>
+              <UserName>
+                {getSalutation()}
+              </UserName>
             </View>
           </LeftContainer>
         </Animated.View>

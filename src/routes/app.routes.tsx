@@ -1,8 +1,9 @@
 import { NativeStackNavigationProp, createNativeStackNavigator } from "@react-navigation/native-stack"
 
-import { HomeTabsRoutes } from "./tabs.routes"
+// import { HomeTabsRoutes } from "./tabs.routes"
 
 import { Quiz } from "@screens/Quiz"
+import { Home } from "@screens/Home"
 import { QuizStatus } from "@screens/QuizStatus"
 import { CategoryQuizMenu } from "@screens/CategoryQuizMenu"
 
@@ -28,7 +29,7 @@ export function AppRoutes() {
     >   
       <Screen
         name='homeTabs'
-        component={HomeTabsRoutes}
+        component={Home}
       />
 
       <Screen

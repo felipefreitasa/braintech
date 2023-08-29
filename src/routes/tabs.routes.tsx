@@ -4,8 +4,8 @@ import { useTheme } from 'styled-components/native'
 import { createBottomTabNavigator, BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 
 import { Home } from '@screens/Home'
-import { History } from '@screens/History'
-import { Profile } from '@screens/Profile'
+// import { History } from '@screens/History'
+// import { Profile } from '@screens/Profile'
 
 type HomeTabsRoutesTypeProps = {
   home: undefined;
@@ -45,7 +45,7 @@ export function HomeTabsRoutes() {
           }}
         />
 
-        <Screen
+        {/* <Screen
           name='history'
           component={History}
           options={{
@@ -59,7 +59,7 @@ export function HomeTabsRoutes() {
           options={{
             tabBarIcon: ({ color }) => <Feather name='user' size={24} color={color}/>
           }}
-        />
+        /> */}
     </Navigator>
   )
 }
