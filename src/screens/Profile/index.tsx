@@ -102,7 +102,6 @@ export function Profile() {
   async function logOut() {
     await authRemove();
     setLoggedUser(undefined);
-    navigate("welcome");
   }
 
   useFocusEffect(

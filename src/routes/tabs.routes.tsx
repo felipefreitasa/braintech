@@ -6,9 +6,9 @@ import {
   BottomTabNavigationProp,
 } from "@react-navigation/bottom-tabs";
 
-import { Home } from '@screens/Home'
-// import { History } from '@screens/History'
-// import { Profile } from '@screens/Profile'
+import { Home } from "@screens/Home";
+import { History } from '@screens/History'
+import { Profile } from '@screens/Profile'
 
 type HomeTabsRoutesTypeProps = {
   home: undefined;
@@ -52,21 +52,25 @@ export function HomeTabsRoutes() {
         }}
       />
 
-        {/* <Screen
-          name='history'
-          component={History}
-          options={{
-            tabBarIcon: ({ color }) => <Feather name='clock' size={24} color={color}/>
-          }}
-        />
+      <Screen
+        name="history"
+        component={History}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Feather name="clock" size={24} color={color} />
+          ),
+        }}
+      />
 
-        <Screen
-          name='profile'
-          component={Profile}
-          options={{
-            tabBarIcon: ({ color }) => <Feather name='user' size={24} color={color}/>
-          }}
-        /> */}
+      <Screen
+        name="profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Feather name="user" size={24} color={color} />
+          ),
+        }}
+      />
     </Navigator>
   );
 }

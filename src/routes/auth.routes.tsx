@@ -56,11 +56,6 @@ export function AuthRoutes() {
         component={PasswordOnboarding}
         options={{ gestureEnabled: false}}
       />
-
-      <Screen
-        name="homeTabs" 
-        component={HomeTabsRoutes}
-      />
     </Navigator>
   )
 }

@@ -1,8 +1,8 @@
-import { BackHandler, TouchableOpacity } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
-import { AppNavigatorRoutesProps } from "../../routes/app.routes";
+import { AuthNavigatorRoutesProps } from "../../routes/auth.routes";
 
 import LogoSvg from "@assets/logo.svg";
 import SignInBackgroundImg from "@assets/sign-in-background.png";
@@ -20,18 +20,9 @@ import {
   SignInButtonLabel,
   SignInButtonLabelHighlight,
 } from "./styles";
-import { useEffect } from "react";
 
 export function Welcome() {
-  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
-
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      () => null
-    );
-    return () => backHandler.remove();
-  }, []);
+  const { navigate } = useNavigation<AuthNavigatorRoutesProps>();
 
   return (
     <Container>
@@ -56,19 +47,19 @@ export function Welcome() {
               <Button
                 disabled={false}
                 isLoading={false}
-                title="Get started"
-                onPress={() => navigate("homeTabs")}
+                title="Sign up"
+                onPress={() => navigate("nameOnboarding")}
               />
             </ButtonContainer>
 
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigate("nameOnboarding")}
+              onPress={() => navigate("signIn")}
             >
               <SignInButtonLabel>
-                Dont’t have an account yet ?{" "}
+                Already have account ?{" "}
                 <SignInButtonLabelHighlight>
-                  Create now!
+                  Sign in!
                 </SignInButtonLabelHighlight>
               </SignInButtonLabel>
             </TouchableOpacity>

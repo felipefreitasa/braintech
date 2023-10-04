@@ -53,16 +53,16 @@ export function QuizStatus() {
   async function handleGoToHome() {
     setIsLoading(true);
 
-    // await saveQuizStatus({
-    //   correctAnswers,
-    //   createdAt: new Date(),
-    //   userId: loggedUser?.user.uid,
-    //   category: selectedTechnology.category,
-    //   subCategory: selectedQuiz.subcategory,
-    //   technology: selectedTechnology.technology,
-    //   totalQuestions: selectedQuiz.questions.length,
-    //   timeSpent: calculateTimeInterval(quizStartTime, quizEndTime)
-    // });
+    await saveQuizStatus({
+      correctAnswers,
+      createdAt: new Date(),
+      userId: loggedUser?.user.uid,
+      category: selectedTechnology.category,
+      subCategory: selectedQuiz.subcategory,
+      technology: selectedTechnology.technology,
+      totalQuestions: selectedQuiz.questions.length,
+      timeSpent: calculateTimeInterval(quizStartTime, quizEndTime)
+    });
 
     setIsLoading(false);
 
