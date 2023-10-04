@@ -13,16 +13,6 @@ Whether you're a front-end enthusiast, back-end maestro, or a versatile full-sta
 
 Let's code!
 
-## 📲 Download the app
-<a href="https://play.google.com/store/apps/details?id=com.felipefreitasdeveloper.braintech">
-  <img src="https://github.com/felipefreitasa/braintech/assets/77179768/4a09cd9b-e608-4dbf-b6c0-9e9826947f9f" alt="Get it on Google Play">
-</a>
-
-<a href="/">
-  <img src="https://github.com/felipefreitasa/braintech/assets/77179768/6b3d7b8d-9667-4cea-b095-aa359c33c2b6" alt="Download on the App Store">
-</a>
-
-
 ## :hammer_and_wrench: Features 
 - [ ] Sign in and sign out using Firebase Authentication.
 - [ ] Persistent user data: Save logged-in user data on the device, allowing users to stay logged in without needing to log in every time they open the app.
