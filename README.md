@@ -1,10 +1,8 @@
 <h1 align="center">
-  <img alt="GamePlay" height="80" title="Plant Manager" src="https://github.com/felipefreitasa/braintech/assets/77179768/1db7f009-63df-4338-a89a-29e73b446069" />
+  <img alt="GamePlay" height="80" title="Plant Manager" src="https://github.com/felipefreitasa/braintech/assets/77179768/578d790a-2b47-4f6a-8b3b-9123f66c4a02" />
 </h1>
 
-
-![cover](https://github.com/felipefreitasa/braintech/assets/77179768/ffd49350-f897-4c01-bb7d-e44d7c25cc6f)
-
+![preview](https://github.com/felipefreitasa/braintech/assets/77179768/6753e3e5-5127-449f-8583-8b8c2f6bbb3e)
 
 ## 💻 About the project
 BrainTech: Quiz for developers
@@ -15,14 +13,13 @@ Whether you're a front-end enthusiast, back-end maestro, or a versatile full-sta
 
 Let's code!
 
-
 ## 📲 Download the app
 <a href="https://play.google.com/store/apps/details?id=com.felipefreitasdeveloper.braintech">
-  <img src="https://github.com/felipefreitasa/braintech/assets/77179768/4d41ef69-9d7c-4b7e-b15b-2f02afa1c36d" alt="Get it on Google Play">
+  <img src="https://github.com/felipefreitasa/braintech/assets/77179768/4a09cd9b-e608-4dbf-b6c0-9e9826947f9f" alt="Get it on Google Play">
 </a>
 
 <a href="/">
-  <img src="https://github.com/felipefreitasa/braintech/assets/77179768/62ab3a60-45e1-4b1a-aea2-5f3f7c98e7ca" alt="Download on the App Store">
+  <img src="https://github.com/felipefreitasa/braintech/assets/77179768/6b3d7b8d-9667-4cea-b095-aa359c33c2b6" alt="Download on the App Store">
 </a>
 
 
