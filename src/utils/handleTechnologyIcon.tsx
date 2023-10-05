@@ -1,6 +1,7 @@
 import GoSvg from '@assets/go.svg'
 import VueJsSvg from '@assets/vue.svg'
 import NodeJsSvg from '@assets/node.svg'
+import LaravelSvg from '@assets/laravel.svg'
 import SwiftSvg from '@assets/swift.svg'
 import ReactJsSvg from '@assets/react.svg'
 import KotlinSvg from '@assets/kotlin.svg'
@@ -23,6 +24,9 @@ export function handleTechnologyIcon(technology: string){
     case 'React Native':
       return <ReactNativeSvg />
 
+      case 'Laravel':
+      return <LaravelSvg />
+
     case 'Vue JS':
       return <VueJsSvg />
 
@@ -39,6 +43,6 @@ export function handleTechnologyIcon(technology: string){
       return <SpringSvg width={20}/>
 
     case 'React JS':
-      return <ReactJsSvg /> 
+      return <ReactJsSvg />
   }
 }
