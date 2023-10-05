@@ -3,6 +3,7 @@ import { QuizProps } from "./quizContentTypes";
 import { goContent } from "./goContent";
 import { vueContent } from "./vueContent";
 import { nodeContent } from "./nodeContent";
+import { laravelContent } from "./laravelContent";
 import { swiftContent } from "./swiftContent";
 import { reactContent } from "./reactContent";
 import { kotlinContent } from "./kotlinContent";
@@ -38,6 +39,7 @@ export const quizContent: QuizProps[] = [
       nodeContent,
       springContent,
       goContent,
+      laravelContent,
     ],
   },
 ];
